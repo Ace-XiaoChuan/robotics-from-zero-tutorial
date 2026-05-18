@@ -1,5 +1,0 @@
-[0.000000] (-) TimerEvent: {}
-[0.001155] (-) JobUnselected: {'identifier': 'lesson5_composition'}
-[0.001270] (-) JobUnselected: {'identifier': 'robot_interfaces'}
-[0.001352] (-) JobUnselected: {'identifier': 'ros2_comm_demo'}
-[0.001725] (-) EventReactorShutdown: {}

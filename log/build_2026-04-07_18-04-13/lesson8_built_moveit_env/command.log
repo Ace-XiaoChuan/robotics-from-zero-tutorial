@@ -1,1 +1,0 @@
-Invoking command in '/home/ace/robotics-from-zero-tutorial/build/lesson8_built_moveit_env': CMAKE_PREFIX_PATH=/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake /home/ace/robotics-from-zero-tutorial/src/lesson8_built_moveit_env -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_INSTALL_PREFIX=/home/ace/robotics-from-zero-tutorial/install/lesson8_built_moveit_env

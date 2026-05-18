@@ -1,1 +1,0 @@
-Invoking command in '/home/ace/robotics-from-zero-tutorial/build/ros2_comm_demo': CMAKE_PREFIX_PATH=/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake /home/ace/robotics-from-zero-tutorial/src/lesson4/ros2_comm_demo -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_INSTALL_PREFIX=/home/ace/robotics-from-zero-tutorial/install/ros2_comm_demo
