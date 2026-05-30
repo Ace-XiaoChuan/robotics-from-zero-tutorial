@@ -1,5 +1,9 @@
 # 本周任务：MuJoCo / MJCF 基础学习
 
+本周主要围绕 MuJoCo 和 MJCF 展开基础学习，内容包括 MJCF 模型文件结构、仿真状态读取、body / site ID 查询、PID 控制、position actuator、torque actuator，以及一个关节空间轨迹跟踪 demo。
+
+演示视频：[Watch the MuJoCo trajectory tracking demo](../../assets/lesson10/demo.mp4)
+
 ## 1. 任务目标
 
 本周主要完成以下内容：
@@ -15,6 +19,7 @@
    * position actuator
    * torque actuator
 3. 编写一个关节空间轨迹跟踪 demo。
+
 
 ---
 
@@ -417,23 +422,33 @@ Torque actuator 更接近直接力矩控制。
 
 ## 6. 关节空间轨迹跟踪 Demo
 
-本周最终目标是完成一个关节空间轨迹跟踪 demo。
+本周最终目标是完成一个关节空间轨迹跟踪 demo，并录制了一个简短演示视频：
+
+[Watch the MuJoCo trajectory tracking demo](../../assets/lesson10/demo.mp4)
+
+该 demo 主要展示在 MuJoCo 仿真环境中，通过读取关节状态、生成期望关节轨迹并写入 actuator 控制量，实现机械臂关节空间轨迹跟踪的基本流程。
 
 建议 demo 包含以下基本流程：
 
 1. 加载 MJCF 模型。
+
 2. 获取需要控制的关节 ID。
+
 3. 构造期望关节轨迹，例如：
 
    * 简单的插值轨迹
-   
+
 4. 在仿真循环中读取当前关节位置和速度。
+
 5. 根据控制方式计算控制输入：
 
    * position actuator：直接输入目标关节角度
    * torque actuator：使用 PD / PID 计算控制力矩
+
 6. 写入 `data.ctrl`。
+
 7. 调用 `mujoco.mj_step(model, data)` 推进仿真。
+
 
 
 ---
