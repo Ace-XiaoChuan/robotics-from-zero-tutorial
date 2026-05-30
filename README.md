@@ -1,66 +1,75 @@
 # Robotics From Zero Tutorial
 
-本仓库用于记录笔者从零开始学习机器人相关内容的过程与阶段性成果，内容涵盖 C++ 基础复习、现代 C++ 语法、ROS 2 实践、机器人运动学以及 MoveIt 相关实践。
+本仓库用于记录笔者从零开始学习机器人相关内容的过程与阶段性成果，内容涵盖 C++ 基础复习、现代 C++ 语法、ROS 2 实践、机器人运动学、MoveIt 相关实践以及 MuJoCo 仿真入门。
 
 ## 项目简介
 
 笔者此前已经学习过经典 C++，但对于指针、取地址、解引用、常引用，以及现代 C++ 中的一些常用语法仍存在理解不够深入或记忆不够清晰的问题。因此，本仓库会对相关知识进行重新梳理和实践记录，方便后续复习、查阅与持续完善。
 
-在此基础上，本仓库也逐步加入 ROS 2、机器人运动学、MoveIt 等机器人开发相关内容，尽量通过代码实践来加深对概念和工具链的理解。
+在此基础上，本仓库也逐步加入 ROS 2、机器人运动学、MoveIt、MuJoCo 等机器人开发相关内容，尽量通过代码实践来加深对概念、工具链和仿真环境的理解。
 
 ## 仓库结构
 
-- `src/lesson1`：复习引用 `&`
-- `src/lesson2`：复习 Lambda 表达式
-- `src/lesson3`：复习构造函数、析构函数、独占智能指针
-- `src/lesson4`：实践 ROS 2 接口
-- `src/lesson5`：学习 ROS 2 组件 Component
-- `src/lesson6`：机器人正运动学与 DH 参数表实践
-- `src/lesson7`：机器人运动学进阶实践（注：请根据实际情况修改，原版与6重复）
-- `src/lesson8`：MoveIt 基础实践
-- `src/lesson9`：MTC (MoveIt Task Constructor) 实践
+* `src/lesson1`：复习引用 `&`
+* `src/lesson2`：复习 Lambda 表达式
+* `src/lesson3`：复习构造函数、析构函数、独占智能指针
+* `src/lesson4`：实践 ROS 2 接口
+* `src/lesson5`：学习 ROS 2 组件 Component
+* `src/lesson6`：机器人正运动学与 DH 参数表实践
+* `src/lesson7`：机器人运动学进阶实践
+* `src/lesson8`：MoveIt 基础实践
+* `src/lesson9`：MTC (MoveIt Task Constructor) 实践
+* `src/lesson10`：MuJoCo / MJCF 基础学习与关节空间轨迹跟踪实践
+* `assets`：项目相关图片、视频等资源文件
 
 ## 学习内容
 
-| Lesson | 内容 |
-|---|---|
-| Lesson 1 | 复习引用 `&` |
-| Lesson 2 | 复习 Lambda 表达式 |
-| Lesson 3 | 复习构造函数、析构函数、独占智能指针 |
-| Lesson 4 | 实践 ROS 2 接口 |
-| Lesson 5 | 学习 ROS 2 组件 Component |
-| Lesson 6 | 机器人正运动学与 DH 参数表实践 |
-| Lesson 7 | 机器人运动学进阶实践 |
-| Lesson 8 | MoveIt 基础实践 |
-| Lesson 9 | MTC (MoveIt Task Constructor) 实践 |
+| Lesson    | 内容                               |
+| --------- | -------------------------------- |
+| Lesson 1  | 复习引用 `&`                         |
+| Lesson 2  | 复习 Lambda 表达式                    |
+| Lesson 3  | 复习构造函数、析构函数、独占智能指针               |
+| Lesson 4  | 实践 ROS 2 接口                      |
+| Lesson 5  | 学习 ROS 2 组件 Component            |
+| Lesson 6  | 机器人正运动学与 DH 参数表实践                |
+| Lesson 7  | 机器人运动学进阶实践                       |
+| Lesson 8  | MoveIt 基础实践                      |
+| Lesson 9  | MTC (MoveIt Task Constructor) 实践 |
+| Lesson 10 | MuJoCo / MJCF 基础学习与关节空间轨迹跟踪 Demo |
+
+##
 
 ## 学习目标
 
 通过本仓库的持续记录，希望能够完成以下目标：
 
-- 巩固 C++ 基础语法与核心概念
-- 理解现代 C++ 中常用但容易混淆的语法特性
-- 熟悉 ROS 2 的基本开发流程与常用机制
-- 掌握 ROS 2 接口、组件等基础实践内容
-- 理解机器人正运动学与 DH 参数表的基本使用方法
-- 掌握 MoveIt 及其高级工具（如 MTC）的运动规划实践
-- 将机器人理论学习与实际代码实践相结合
+* 巩固 C++ 基础语法与核心概念
+* 理解现代 C++ 中常用但容易混淆的语法特性
+* 熟悉 ROS 2 的基本开发流程与常用机制
+* 掌握 ROS 2 接口、组件等基础实践内容
+* 理解机器人正运动学与 DH 参数表的基本使用方法
+* 掌握 MoveIt 及其高级工具（如 MTC）的运动规划实践
+* 初步理解 MuJoCo / MJCF 的模型组织方式与仿真控制流程
+* 将机器人理论学习与实际代码实践相结合
 
 ## 当前进度
 
 目前已经完成 C++ 基础复习、ROS 2 接口与组件实践、机器人正运动学和 DH 参数表实践，并且完成了 MoveIt 基础以及 MTC (MoveIt Task Constructor) 的相关学习与尝试。
 
-后续会继续围绕 ROS 2 和机器人开发工具链进行扩展，包括通信机制、参数、服务、动作、运动规划以及简单机器人项目实践等内容。
+在最新的 Lesson 10 中，已经开始学习 MuJoCo 和 MJCF 的基础内容，完成了关节状态读取、body / site ID 查询、position actuator 与 torque actuator 的基本理解，并实现了一个关节空间轨迹跟踪 demo。
+
+后续会继续围绕 ROS 2、MoveIt、MuJoCo 和机器人开发工具链进行扩展，包括通信机制、参数、服务、动作、运动规划、仿真控制以及简单机器人项目实践等内容。
 
 ## 适用对象
 
 本仓库主要适合：
 
-- 正在入门机器人开发的学习者
-- 希望复习 C++ 与现代 C++ 语法的学习者
-- 正在学习 ROS 2 基础内容的学习者
-- 希望通过实践理解机器人运动学的学习者
-- 准备接触 MoveIt 及其高级运动规划工具的学习者
+* 正在入门机器人开发的学习者
+* 希望复习 C++ 与现代 C++ 语法的学习者
+* 正在学习 ROS 2 基础内容的学习者
+* 希望通过实践理解机器人运动学的学习者
+* 准备接触 MoveIt 及其高级运动规划工具的学习者
+* 希望初步了解 MuJoCo 仿真和 MJCF 模型文件的学习者
 
 ## 说明
 
@@ -70,6 +79,7 @@
 
 后续计划继续补充以下内容：
 
-- moveit_servo
-- mujoco
-- 简单的机器人项目综合实践
+* MuJoCo 更复杂的控制实践
+* 了解 MuJoCo 相机、传感器与渲染机制
+* IK / FK 与控制接口
+* 简单的机器人项目综合实践
