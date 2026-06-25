@@ -1,99 +1,61 @@
 # Robotics From Zero Tutorial
 
-本仓库用于记录笔者从零开始学习机器人相关内容的过程与阶段性成果，内容涵盖 C++ 基础复习、现代 C++ 语法、ROS 2 实践、机器人运动学、MoveIt 相关实践、MuJoCo 仿真入门，以及相机、传感器和 AprilTag 等机器人视觉感知基础内容。
+这个仓库用于记录我从零开始学习机器人相关内容的过程、代码练习和阶段性总结。内容从 C++ 基础复习开始，逐步扩展到 ROS 2、机器人运动学、MoveIt、MuJoCo 仿真，以及相机、传感器和 AprilTag 等机器人视觉感知基础内容。
 
-## 项目简介
+仓库定位是个人学习记录：代码和笔记优先服务于复习、查阅和后续扩展，不追求一次性写成完整课程。
 
-笔者此前已经学习过经典 C++，但对于指针、取地址、解引用、常引用，以及现代 C++ 中的一些常用语法仍存在理解不够深入或记忆不够清晰的问题。因此，本仓库会对相关知识进行重新梳理和实践记录，方便后续复习、查阅与持续完善。
+## 学习路线
 
-在此基础上，本仓库也逐步加入 ROS 2、机器人运动学、MoveIt、MuJoCo、相机、传感器与 AprilTag 等机器人开发相关内容，尽量通过代码实践来加深对概念、工具链、仿真环境和视觉感知流程的理解。
+| Lesson | 主题 | 入口 |
+| --- | --- | --- |
+| Lesson 1 | C++ 引用 `&` 复习 | [`src/lesson1`](src/lesson1) |
+| Lesson 2 | Lambda 表达式复习 | [`src/lesson2`](src/lesson2) |
+| Lesson 3 | 构造函数、析构函数、独占智能指针 | [`src/lesson3`](src/lesson3) |
+| Lesson 4 | ROS 2 接口与通信 Demo | [`src/lesson4/ros2_comm_demo`](src/lesson4/ros2_comm_demo) |
+| Lesson 5 | ROS 2 Component / composition | [`src/lesson5/lesson5_composition`](src/lesson5/lesson5_composition) |
+| Lesson 6 | 正运动学与 DH 参数表 | [`src/lesson6`](src/lesson6) |
+| Lesson 7 | Modified DH 运动学实践 | [`src/lesson7`](src/lesson7) |
+| Lesson 8 | MoveIt 基础绘制与规划练习 | [`src/lesson8`](src/lesson8) |
+| Lesson 9 | MoveIt Task Constructor 实践 | [`src/lesson9`](src/lesson9) |
+| Lesson 10 | MuJoCo / MJCF 基础与轨迹跟踪 | [`src/lesson10`](src/lesson10) |
+| Lesson 11 | MuJoCo 相机、传感器与 AprilTag | [`src/lesson11`](src/lesson11) |
 
-## 仓库结构
+## 重点内容
 
-* `src/lesson1`：复习引用 `&`
-* `src/lesson2`：复习 Lambda 表达式
-* `src/lesson3`：复习构造函数、析构函数、独占智能指针
-* `src/lesson4`：实践 ROS 2 接口
-* `src/lesson5`：学习 ROS 2 组件 Component
-* `src/lesson6`：机器人正运动学与 DH 参数表实践
-* `src/lesson7`：机器人运动学进阶实践
-* `src/lesson8`：MoveIt 基础实践
-* `src/lesson9`：MTC（MoveIt Task Constructor）实践
-* `src/lesson10`：MuJoCo / MJCF 基础学习与关节空间轨迹跟踪实践
-* `src/lesson11`：相机、传感器与 AprilTag 基础学习和实践
-
-## 学习内容
-
-| Lesson    | 内容                               |
-| --------- | -------------------------------- |
-| Lesson 1  | 复习引用 `&`                         |
-| Lesson 2  | 复习 Lambda 表达式                    |
-| Lesson 3  | 复习构造函数、析构函数、独占智能指针               |
-| Lesson 4  | 实践 ROS 2 接口                      |
-| Lesson 5  | 学习 ROS 2 组件 Component            |
-| Lesson 6  | 机器人正运动学与 DH 参数表实践                |
-| Lesson 7  | 机器人运动学进阶实践                       |
-| Lesson 8  | MoveIt 基础实践                      |
-| Lesson 9  | MTC（MoveIt Task Constructor）实践   |
-| Lesson 10 | MuJoCo / MJCF 基础学习与关节空间轨迹跟踪 Demo |
-| Lesson 11 | 相机、传感器与 AprilTag 基础学习和实践         |
-
-## 学习目标
-
-通过本仓库的持续记录，目前已经完成并实践了以下内容：
-
-* 巩固 C++ 基础语法与核心概念
-* 理解现代 C++ 中常用但容易混淆的语法特性
-* 熟悉 ROS 2 的基本开发流程与常用机制
-* 掌握 ROS 2 接口、组件等基础实践内容
-* 理解机器人正运动学与 DH 参数表的基本使用方法
-* 掌握 MoveIt 及其高级工具（如 MTC）的运动规划实践
-* 初步理解 MuJoCo / MJCF 的模型组织方式与仿真控制流程
-* 了解机器人相机与常用传感器的基本概念和使用方式
-* 学习 AprilTag 的基础原理及其在机器人视觉感知中的应用
-* 将机器人理论学习与实际代码实践相结合
+- C++ 基础与现代 C++ 常用语法复习。
+- ROS 2 节点、接口、launch、component 等基础实践。
+- 机器人正运动学、DH 参数表和简单运动学链路。
+- MoveIt 与 MoveIt Task Constructor 的运动规划实践。
+- MuJoCo / MJCF 模型组织、仿真状态读取和关节控制。
+- 仿真相机、AprilTag、SolvePnP、SensorData 与多模态数据采集。
 
 ## 当前进度
 
-目前已经完成 C++ 基础复习、ROS 2 接口与组件实践、机器人正运动学和 DH 参数表实践，并且完成了 MoveIt 基础以及 MTC（MoveIt Task Constructor）的相关学习与尝试。
+目前已经完成 C++ 基础复习、ROS 2 接口与组件实践、机器人正运动学和 DH 参数表实践，并完成了 MoveIt 基础、MTC、MuJoCo 基础控制以及 Lesson 11 中的相机 / 传感器 / AprilTag 数据采集链路整理。
 
-在最新的 Lesson 11 中，进一步学习了机器人相机、传感器和 AprilTag 相关内容，对相机与传感器的基础使用方式、数据获取流程，以及 AprilTag 在视觉识别与定位场景中的基本应用进行了实践和记录。
-
-后续会继续围绕 ROS 2、MoveIt、MuJoCo、机器人视觉感知和机器人开发工具链进行扩展，包括通信机制、参数、服务、动作、运动规划、仿真控制、视觉定位以及简单机器人项目实践等内容。
-
-## 适用对象
-
-本仓库主要适合：
-
-* 正在入门机器人开发的学习者
-* 希望复习 C++ 与现代 C++ 语法的学习者
-* 正在学习 ROS 2 基础内容的学习者
-* 希望通过实践理解机器人运动学的学习者
-* 准备接触 MoveIt 及其高级运动规划工具的学习者
-* 希望初步了解 MuJoCo 仿真和 MJCF 模型文件的学习者
-* 希望了解机器人相机、传感器与 AprilTag 基础应用的学习者
-
-## 说明
-
-本仓库内容以个人学习记录为主，部分代码和笔记可能会随着理解的深入不断修改和完善。如果内容中存在错误、不严谨或可以改进的地方，欢迎指出与交流。
+后续会继续围绕 ROS 2、MoveIt、MuJoCo、机器人视觉感知和机器人开发工具链扩展，包括通信机制、参数、服务、动作、运动规划、仿真控制、视觉定位以及简单机器人综合项目。
 
 ## 后续计划
 
-后续计划继续补充以下内容：
+- MuJoCo 中更复杂的控制实践。
+- AprilTag 检测结果与机器人控制流程结合。
+- IK / FK 与控制接口学习实践。
+- 路径优化与轨迹优化相关内容。
+- 简单机器人项目综合实践。
 
-* MuJoCo 更复杂的控制实践
-* AprilTag 检测结果与机器人控制流程的结合
-* IK / FK 与控制接口学习与实践
-* 路径优化与轨迹优化相关内容学习
-* 简单的机器人项目综合实践
+## 仓库说明
 
-## 致谢
+- `build/`、`install/`、`log/` 是 ROS 2 / colcon 构建产物，不进入版本记录。
+- `.vscode/`、`__pycache__/`、`.pyc`、调试图片和 episode 数据文件属于本地环境或运行产物，不作为学习源码保存。
+- Lesson 11 中的 MuJoCo 视觉脚本依赖本机 XML 场景、模型路径和自定义 viewer 工具，运行前需要按对应 README 检查路径。
 
-在学习和实践过程中，参考了许多优秀的学习资源和技术文档，在此表示感谢：
+## 参考资料
 
-* ROS 2 官方文档
-* MoveIt 官方文档
-* MuJoCo 官方文档
-* B 站 UP 主：荔枝澄（提供了大量机器人、ROS 2、MoveIt 和 MuJoCo 相关学习内容）
+学习和实践过程中主要参考了：
 
-这些资料为笔者理解相关概念、搭建开发环境以及完成实践项目提供了重要帮助。
+- ROS 2 官方文档
+- MoveIt 官方文档
+- MuJoCo 官方文档
+- B 站 UP 主：荔枝澄
+
+这些资料对理解相关概念、搭建开发环境以及完成实践项目提供了重要帮助。
