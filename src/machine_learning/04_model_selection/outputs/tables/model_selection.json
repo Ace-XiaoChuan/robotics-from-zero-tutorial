@@ -1,0 +1,39 @@
+{
+  "data_used": "data/train_split.csv only; data/test_split.csv was not read or used.",
+  "test_data_used_for_selection": false,
+  "train_samples": 1437,
+  "cross_validation": {
+    "method": "StratifiedKFold",
+    "n_splits": 5,
+    "shuffle": true,
+    "random_state": 42
+  },
+  "selection_rule": "highest mean validation accuracy; ties: macro F1, then smaller train-validation accuracy gap",
+  "candidate_count": 32,
+  "candidate_groups": {
+    "knn_raw_pixels": "n_neighbors in [1, 3, 5, 7, 9]; weights in ['uniform', 'distance']",
+    "knn_standard_scaler": "n_neighbors in [1, 3, 5, 7, 9]; weights in ['uniform', 'distance']",
+    "decision_tree_raw_pixels": "max_depth in [None, 5, 10, 15]; min_samples_leaf in [1, 2, 5]"
+  },
+  "selected_candidate": {
+    "model_family": "knn",
+    "preprocessing": "raw_pixels",
+    "hyperparameters": {
+      "n_neighbors": 5,
+      "weights": "distance"
+    }
+  },
+  "selected_model_name": "knn | raw_pixels | n_neighbors=5, weights=distance",
+  "selected_cross_validation_metrics": {
+    "train_accuracy_mean": 1.0,
+    "train_accuracy_std": 0.0,
+    "validation_accuracy_mean": 0.9860917537746807,
+    "validation_accuracy_std": 0.00950689618040034,
+    "train_f1_macro_mean": 1.0,
+    "train_f1_macro_std": 0.0,
+    "validation_f1_macro_mean": 0.98604316507212,
+    "validation_f1_macro_std": 0.009562165152861977,
+    "accuracy_generalization_gap": 0.013908246225319276
+  },
+  "saved_pipeline": "outputs/models/best_cross_validated_pipeline.joblib"
+}

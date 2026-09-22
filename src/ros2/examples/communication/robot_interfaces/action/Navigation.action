@@ -1,0 +1,12 @@
+# Goal in the configured frame (default map), z=0, units m.
+float64 target_x
+float64 target_y
+---
+bool success
+string message
+# Last measured distance in m, not a prediction.
+float64 final_distance
+---
+float64 current_x
+float64 current_y
+float64 distance_remaining

@@ -1,0 +1,10 @@
+# Query the latest cached state; no new measurement is triggered.
+---
+bool valid
+int32 battery_level
+geometry_msgs/PointStamped pose
+# Steady-clock seconds since receipt; -1 means never received.
+float64 battery_age_s
+float64 pose_age_s
+bool has_task
+string message

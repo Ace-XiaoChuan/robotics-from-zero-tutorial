@@ -1,0 +1,2546 @@
+[
+  {
+    "path": "dataset-resized/metal/metal1.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9550822973251343,
+    "probabilities": {
+      "paper": 0.011953760869801044,
+      "cardboard": 0.03296393156051636,
+      "metal": 0.9550822973251343
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal3.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9887076616287231,
+    "probabilities": {
+      "paper": 0.008300953544676304,
+      "cardboard": 0.0029914311598986387,
+      "metal": 0.9887076616287231
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper132.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.8538331985473633,
+    "probabilities": {
+      "paper": 0.8538331985473633,
+      "cardboard": 0.11404414474964142,
+      "metal": 0.03212270513176918
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper522.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.9380515813827515,
+    "probabilities": {
+      "paper": 0.9380515813827515,
+      "cardboard": 0.012519937939941883,
+      "metal": 0.04942847415804863
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper183.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.8363659977912903,
+    "probabilities": {
+      "paper": 0.8363659977912903,
+      "cardboard": 0.10972540080547333,
+      "metal": 0.05390860140323639
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper574.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.6970619559288025,
+    "probabilities": {
+      "paper": 0.6970619559288025,
+      "cardboard": 0.10547952353954315,
+      "metal": 0.19745850563049316
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard348.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.8569574952125549,
+    "probabilities": {
+      "paper": 0.12333715707063675,
+      "cardboard": 0.8569574952125549,
+      "metal": 0.01970529928803444
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard290.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.5901342034339905,
+    "probabilities": {
+      "paper": 0.049697861075401306,
+      "cardboard": 0.5901342034339905,
+      "metal": 0.3601680099964142
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper519.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.8936325311660767,
+    "probabilities": {
+      "paper": 0.8936325311660767,
+      "cardboard": 0.08364245295524597,
+      "metal": 0.022725071758031845
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper345.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.5247784852981567,
+    "probabilities": {
+      "paper": 0.5247784852981567,
+      "cardboard": 0.11434254795312881,
+      "metal": 0.36087891459465027
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard163.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "paper",
+    "correct": false,
+    "confidence": 0.6955962181091309,
+    "probabilities": {
+      "paper": 0.6955962181091309,
+      "cardboard": 0.2325098216533661,
+      "metal": 0.07189393043518066
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper363.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.6186696887016296,
+    "probabilities": {
+      "paper": 0.6186696887016296,
+      "cardboard": 0.058887775987386703,
+      "metal": 0.32244253158569336
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal97.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.8187620043754578,
+    "probabilities": {
+      "paper": 0.12136023491621017,
+      "cardboard": 0.05987771600484848,
+      "metal": 0.8187620043754578
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper160.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.844356894493103,
+    "probabilities": {
+      "paper": 0.844356894493103,
+      "cardboard": 0.13554206490516663,
+      "metal": 0.020100997760891914
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper129.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.8418945670127869,
+    "probabilities": {
+      "paper": 0.8418945670127869,
+      "cardboard": 0.12773722410202026,
+      "metal": 0.03036823868751526
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal336.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9026094079017639,
+    "probabilities": {
+      "paper": 0.079314224421978,
+      "cardboard": 0.01807636022567749,
+      "metal": 0.9026094079017639
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard270.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.9497359395027161,
+    "probabilities": {
+      "paper": 0.04376151040196419,
+      "cardboard": 0.9497359395027161,
+      "metal": 0.0065025766380131245
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal137.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9206791520118713,
+    "probabilities": {
+      "paper": 0.02544178068637848,
+      "cardboard": 0.05387907847762108,
+      "metal": 0.9206791520118713
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper278.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.9619464874267578,
+    "probabilities": {
+      "paper": 0.9619464874267578,
+      "cardboard": 0.024213146418333054,
+      "metal": 0.013840315863490105
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper500.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.9561446309089661,
+    "probabilities": {
+      "paper": 0.9561446309089661,
+      "cardboard": 0.019227158278226852,
+      "metal": 0.02462819404900074
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper587.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.6914713382720947,
+    "probabilities": {
+      "paper": 0.6914713382720947,
+      "cardboard": 0.09666712582111359,
+      "metal": 0.21186158061027527
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard306.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.9610967636108398,
+    "probabilities": {
+      "paper": 0.027453703805804253,
+      "cardboard": 0.9610967636108398,
+      "metal": 0.011449631303548813
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper330.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.9441754221916199,
+    "probabilities": {
+      "paper": 0.9441754221916199,
+      "cardboard": 0.04677559807896614,
+      "metal": 0.009048955515027046
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper346.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.8777949810028076,
+    "probabilities": {
+      "paper": 0.8777949810028076,
+      "cardboard": 0.03957998380064964,
+      "metal": 0.0826251357793808
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal86.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9955553412437439,
+    "probabilities": {
+      "paper": 0.0032011717557907104,
+      "cardboard": 0.0012435253011062741,
+      "metal": 0.9955553412437439
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard280.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.8507471680641174,
+    "probabilities": {
+      "paper": 0.12700191140174866,
+      "cardboard": 0.8507471680641174,
+      "metal": 0.02225084789097309
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper428.jpg",
+    "true_label": "paper",
+    "predicted_label": "metal",
+    "correct": false,
+    "confidence": 0.8426065444946289,
+    "probabilities": {
+      "paper": 0.13159598410129547,
+      "cardboard": 0.025797544047236443,
+      "metal": 0.8426065444946289
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard375.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.9362515807151794,
+    "probabilities": {
+      "paper": 0.060966119170188904,
+      "cardboard": 0.9362515807151794,
+      "metal": 0.002782366005703807
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal379.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.979925274848938,
+    "probabilities": {
+      "paper": 0.009150288999080658,
+      "cardboard": 0.010924414731562138,
+      "metal": 0.979925274848938
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper104.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.8893031477928162,
+    "probabilities": {
+      "paper": 0.8893031477928162,
+      "cardboard": 0.06935960054397583,
+      "metal": 0.041337352246046066
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard151.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "metal",
+    "correct": false,
+    "confidence": 0.7605218291282654,
+    "probabilities": {
+      "paper": 0.10537571460008621,
+      "cardboard": 0.134102463722229,
+      "metal": 0.7605218291282654
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard60.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.9899659156799316,
+    "probabilities": {
+      "paper": 0.007996627129614353,
+      "cardboard": 0.9899659156799316,
+      "metal": 0.002037531929090619
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper39.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.7391199469566345,
+    "probabilities": {
+      "paper": 0.7391199469566345,
+      "cardboard": 0.08596304804086685,
+      "metal": 0.17491690814495087
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper197.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.8828271627426147,
+    "probabilities": {
+      "paper": 0.8828271627426147,
+      "cardboard": 0.07419099658727646,
+      "metal": 0.04298173636198044
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper54.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.694659411907196,
+    "probabilities": {
+      "paper": 0.694659411907196,
+      "cardboard": 0.24174432456493378,
+      "metal": 0.06359624862670898
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal346.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9689586162567139,
+    "probabilities": {
+      "paper": 0.007361026480793953,
+      "cardboard": 0.02368030697107315,
+      "metal": 0.9689586162567139
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal66.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.568122923374176,
+    "probabilities": {
+      "paper": 0.38725000619888306,
+      "cardboard": 0.04462706670165062,
+      "metal": 0.568122923374176
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard171.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "metal",
+    "correct": false,
+    "confidence": 0.7229928970336914,
+    "probabilities": {
+      "paper": 0.14413581788539886,
+      "cardboard": 0.13287131488323212,
+      "metal": 0.7229928970336914
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard41.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "paper",
+    "correct": false,
+    "confidence": 0.586115300655365,
+    "probabilities": {
+      "paper": 0.586115300655365,
+      "cardboard": 0.39475002884864807,
+      "metal": 0.019134700298309326
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper174.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.6690844297409058,
+    "probabilities": {
+      "paper": 0.6690844297409058,
+      "cardboard": 0.2921639680862427,
+      "metal": 0.03875162824988365
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper90.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.8985634446144104,
+    "probabilities": {
+      "paper": 0.8985634446144104,
+      "cardboard": 0.036847930401563644,
+      "metal": 0.06458859145641327
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal260.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9469483494758606,
+    "probabilities": {
+      "paper": 0.03152797743678093,
+      "cardboard": 0.021523650735616684,
+      "metal": 0.9469483494758606
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper314.jpg",
+    "true_label": "paper",
+    "predicted_label": "cardboard",
+    "correct": false,
+    "confidence": 0.7817047238349915,
+    "probabilities": {
+      "paper": 0.1893126517534256,
+      "cardboard": 0.7817047238349915,
+      "metal": 0.02898254618048668
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard155.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.8636154532432556,
+    "probabilities": {
+      "paper": 0.0661580041050911,
+      "cardboard": 0.8636154532432556,
+      "metal": 0.07022654265165329
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper272.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.7331808805465698,
+    "probabilities": {
+      "paper": 0.7331808805465698,
+      "cardboard": 0.26002565026283264,
+      "metal": 0.006793394219130278
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal312.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.86563640832901,
+    "probabilities": {
+      "paper": 0.09829940646886826,
+      "cardboard": 0.03606416657567024,
+      "metal": 0.86563640832901
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal265.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.7974324226379395,
+    "probabilities": {
+      "paper": 0.13134624063968658,
+      "cardboard": 0.07122130692005157,
+      "metal": 0.7974324226379395
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper503.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.6542425751686096,
+    "probabilities": {
+      "paper": 0.6542425751686096,
+      "cardboard": 0.08576247841119766,
+      "metal": 0.2599949538707733
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard67.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.8592601418495178,
+    "probabilities": {
+      "paper": 0.10685598850250244,
+      "cardboard": 0.8592601418495178,
+      "metal": 0.03388378396630287
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal39.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9640089273452759,
+    "probabilities": {
+      "paper": 0.015449169091880322,
+      "cardboard": 0.0205419659614563,
+      "metal": 0.9640089273452759
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard318.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.9320957064628601,
+    "probabilities": {
+      "paper": 0.05242258310317993,
+      "cardboard": 0.9320957064628601,
+      "metal": 0.015481720678508282
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard117.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.45608940720558167,
+    "probabilities": {
+      "paper": 0.22277745604515076,
+      "cardboard": 0.45608940720558167,
+      "metal": 0.32113319635391235
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard142.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.4470295011997223,
+    "probabilities": {
+      "paper": 0.3471487760543823,
+      "cardboard": 0.4470295011997223,
+      "metal": 0.2058216780424118
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper205.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.8595886826515198,
+    "probabilities": {
+      "paper": 0.8595886826515198,
+      "cardboard": 0.07085343450307846,
+      "metal": 0.06955787539482117
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper133.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.7357807755470276,
+    "probabilities": {
+      "paper": 0.7357807755470276,
+      "cardboard": 0.08672907203435898,
+      "metal": 0.17749011516571045
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper176.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.5152804851531982,
+    "probabilities": {
+      "paper": 0.5152804851531982,
+      "cardboard": 0.22098936140537262,
+      "metal": 0.26373007893562317
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal330.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.8906572461128235,
+    "probabilities": {
+      "paper": 0.06908272951841354,
+      "cardboard": 0.040259990841150284,
+      "metal": 0.8906572461128235
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard342.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.8713708519935608,
+    "probabilities": {
+      "paper": 0.07603336125612259,
+      "cardboard": 0.8713708519935608,
+      "metal": 0.052595820277929306
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper459.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.7843656539916992,
+    "probabilities": {
+      "paper": 0.7843656539916992,
+      "cardboard": 0.09555806964635849,
+      "metal": 0.12007632106542587
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal193.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9921383261680603,
+    "probabilities": {
+      "paper": 0.0030747470445930958,
+      "cardboard": 0.0047868904657661915,
+      "metal": 0.9921383261680603
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal69.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9764497876167297,
+    "probabilities": {
+      "paper": 0.015854330733418465,
+      "cardboard": 0.007695846259593964,
+      "metal": 0.9764497876167297
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper464.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.7494500875473022,
+    "probabilities": {
+      "paper": 0.7494500875473022,
+      "cardboard": 0.12040220201015472,
+      "metal": 0.13014774024486542
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper400.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.7374938726425171,
+    "probabilities": {
+      "paper": 0.7374938726425171,
+      "cardboard": 0.24701282382011414,
+      "metal": 0.0154933026060462
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper497.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.6623997092247009,
+    "probabilities": {
+      "paper": 0.6623997092247009,
+      "cardboard": 0.3113985061645508,
+      "metal": 0.026201818138360977
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper7.jpg",
+    "true_label": "paper",
+    "predicted_label": "cardboard",
+    "correct": false,
+    "confidence": 0.5327940583229065,
+    "probabilities": {
+      "paper": 0.4506855607032776,
+      "cardboard": 0.5327940583229065,
+      "metal": 0.01652037724852562
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard253.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.8962441682815552,
+    "probabilities": {
+      "paper": 0.0798260048031807,
+      "cardboard": 0.8962441682815552,
+      "metal": 0.023929884657263756
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal63.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.872736394405365,
+    "probabilities": {
+      "paper": 0.07033810764551163,
+      "cardboard": 0.05692550539970398,
+      "metal": 0.872736394405365
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal214.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9337571263313293,
+    "probabilities": {
+      "paper": 0.019113410264253616,
+      "cardboard": 0.047129422426223755,
+      "metal": 0.9337571263313293
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper386.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.7499100565910339,
+    "probabilities": {
+      "paper": 0.7499100565910339,
+      "cardboard": 0.24469207227230072,
+      "metal": 0.00539785111322999
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal350.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.8398379683494568,
+    "probabilities": {
+      "paper": 0.046678781509399414,
+      "cardboard": 0.1134832426905632,
+      "metal": 0.8398379683494568
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard397.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.929636538028717,
+    "probabilities": {
+      "paper": 0.06349905580282211,
+      "cardboard": 0.929636538028717,
+      "metal": 0.0068644373677670956
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper557.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.9032853841781616,
+    "probabilities": {
+      "paper": 0.9032853841781616,
+      "cardboard": 0.07648774236440659,
+      "metal": 0.02022690512239933
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal34.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.8172216415405273,
+    "probabilities": {
+      "paper": 0.059623513370752335,
+      "cardboard": 0.12315482646226883,
+      "metal": 0.8172216415405273
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper103.jpg",
+    "true_label": "paper",
+    "predicted_label": "cardboard",
+    "correct": false,
+    "confidence": 0.5634827017784119,
+    "probabilities": {
+      "paper": 0.3970007598400116,
+      "cardboard": 0.5634827017784119,
+      "metal": 0.039516549557447433
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal386.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.8415117263793945,
+    "probabilities": {
+      "paper": 0.08853361010551453,
+      "cardboard": 0.06995469331741333,
+      "metal": 0.8415117263793945
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal376.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.7913519144058228,
+    "probabilities": {
+      "paper": 0.16636662185192108,
+      "cardboard": 0.04228147119283676,
+      "metal": 0.7913519144058228
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal74.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.8890664577484131,
+    "probabilities": {
+      "paper": 0.07192834466695786,
+      "cardboard": 0.039005134254693985,
+      "metal": 0.8890664577484131
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard383.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.9037421941757202,
+    "probabilities": {
+      "paper": 0.0740746259689331,
+      "cardboard": 0.9037421941757202,
+      "metal": 0.022183120250701904
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal258.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.8530880212783813,
+    "probabilities": {
+      "paper": 0.10526330024003983,
+      "cardboard": 0.04164871945977211,
+      "metal": 0.8530880212783813
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal212.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9900895357131958,
+    "probabilities": {
+      "paper": 0.0026241440791636705,
+      "cardboard": 0.007286251988261938,
+      "metal": 0.9900895357131958
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal294.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9297008514404297,
+    "probabilities": {
+      "paper": 0.040580958127975464,
+      "cardboard": 0.029718145728111267,
+      "metal": 0.9297008514404297
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper100.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.8276311755180359,
+    "probabilities": {
+      "paper": 0.8276311755180359,
+      "cardboard": 0.053261250257492065,
+      "metal": 0.11910761147737503
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal359.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9841230511665344,
+    "probabilities": {
+      "paper": 0.00395734841004014,
+      "cardboard": 0.011919614858925343,
+      "metal": 0.9841230511665344
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal48.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.8106396198272705,
+    "probabilities": {
+      "paper": 0.06749781966209412,
+      "cardboard": 0.12186256796121597,
+      "metal": 0.8106396198272705
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper222.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.6151898503303528,
+    "probabilities": {
+      "paper": 0.6151898503303528,
+      "cardboard": 0.3438539505004883,
+      "metal": 0.040956176817417145
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper199.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.7608514428138733,
+    "probabilities": {
+      "paper": 0.7608514428138733,
+      "cardboard": 0.1417657732963562,
+      "metal": 0.09738270938396454
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard128.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "paper",
+    "correct": false,
+    "confidence": 0.6211178302764893,
+    "probabilities": {
+      "paper": 0.6211178302764893,
+      "cardboard": 0.08836925029754639,
+      "metal": 0.29051297903060913
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper36.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.9766405820846558,
+    "probabilities": {
+      "paper": 0.9766405820846558,
+      "cardboard": 0.018400924280285835,
+      "metal": 0.004958548117429018
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal65.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9526005387306213,
+    "probabilities": {
+      "paper": 0.01498435065150261,
+      "cardboard": 0.032415129244327545,
+      "metal": 0.9526005387306213
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal101.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.49563005566596985,
+    "probabilities": {
+      "paper": 0.43589019775390625,
+      "cardboard": 0.06847970187664032,
+      "metal": 0.49563005566596985
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper134.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.9387324452400208,
+    "probabilities": {
+      "paper": 0.9387324452400208,
+      "cardboard": 0.049351781606674194,
+      "metal": 0.01191577035933733
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard382.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.9419201612472534,
+    "probabilities": {
+      "paper": 0.053475625813007355,
+      "cardboard": 0.9419201612472534,
+      "metal": 0.0046042222529649734
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper102.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.8938761949539185,
+    "probabilities": {
+      "paper": 0.8938761949539185,
+      "cardboard": 0.02642711251974106,
+      "metal": 0.07969670742750168
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper307.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.9705524444580078,
+    "probabilities": {
+      "paper": 0.9705524444580078,
+      "cardboard": 0.023615596815943718,
+      "metal": 0.005831900984048843
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper298.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.5114264488220215,
+    "probabilities": {
+      "paper": 0.5114264488220215,
+      "cardboard": 0.3731618821620941,
+      "metal": 0.11541163921356201
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper482.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.7537497282028198,
+    "probabilities": {
+      "paper": 0.7537497282028198,
+      "cardboard": 0.08990517258644104,
+      "metal": 0.15634511411190033
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard372.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.9742689728736877,
+    "probabilities": {
+      "paper": 0.01373885665088892,
+      "cardboard": 0.9742689728736877,
+      "metal": 0.011992137879133224
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal160.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9904859662055969,
+    "probabilities": {
+      "paper": 0.0023049889132380486,
+      "cardboard": 0.007209000177681446,
+      "metal": 0.9904859662055969
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper554.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.6219716668128967,
+    "probabilities": {
+      "paper": 0.6219716668128967,
+      "cardboard": 0.2793360948562622,
+      "metal": 0.09869228303432465
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper383.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.968024730682373,
+    "probabilities": {
+      "paper": 0.968024730682373,
+      "cardboard": 0.021632378920912743,
+      "metal": 0.010342818684875965
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard13.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.8620672821998596,
+    "probabilities": {
+      "paper": 0.10144419968128204,
+      "cardboard": 0.8620672821998596,
+      "metal": 0.036488477140665054
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard311.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.9499109983444214,
+    "probabilities": {
+      "paper": 0.03183688968420029,
+      "cardboard": 0.9499109983444214,
+      "metal": 0.018252069130539894
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper121.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.9246821999549866,
+    "probabilities": {
+      "paper": 0.9246821999549866,
+      "cardboard": 0.04637466371059418,
+      "metal": 0.028943080455064774
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal297.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.7764007449150085,
+    "probabilities": {
+      "paper": 0.16344554722309113,
+      "cardboard": 0.06015374884009361,
+      "metal": 0.7764007449150085
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard123.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.4573519229888916,
+    "probabilities": {
+      "paper": 0.2310182750225067,
+      "cardboard": 0.4573519229888916,
+      "metal": 0.3116298019886017
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal35.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9618114829063416,
+    "probabilities": {
+      "paper": 0.009543557651340961,
+      "cardboard": 0.028644990175962448,
+      "metal": 0.9618114829063416
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard284.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.9224916100502014,
+    "probabilities": {
+      "paper": 0.07084430754184723,
+      "cardboard": 0.9224916100502014,
+      "metal": 0.006664110813289881
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard71.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.9717914462089539,
+    "probabilities": {
+      "paper": 0.025449512526392937,
+      "cardboard": 0.9717914462089539,
+      "metal": 0.002759035211056471
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper536.jpg",
+    "true_label": "paper",
+    "predicted_label": "metal",
+    "correct": false,
+    "confidence": 0.641133189201355,
+    "probabilities": {
+      "paper": 0.168417826294899,
+      "cardboard": 0.19044896960258484,
+      "metal": 0.641133189201355
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal75.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.6903903484344482,
+    "probabilities": {
+      "paper": 0.22202089428901672,
+      "cardboard": 0.08758873492479324,
+      "metal": 0.6903903484344482
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal182.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.8819739818572998,
+    "probabilities": {
+      "paper": 0.09573403745889664,
+      "cardboard": 0.022292032837867737,
+      "metal": 0.8819739818572998
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper568.jpg",
+    "true_label": "paper",
+    "predicted_label": "cardboard",
+    "correct": false,
+    "confidence": 0.9081601500511169,
+    "probabilities": {
+      "paper": 0.08836619555950165,
+      "cardboard": 0.9081601500511169,
+      "metal": 0.0034736606758087873
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard302.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.5902061462402344,
+    "probabilities": {
+      "paper": 0.2530297636985779,
+      "cardboard": 0.5902061462402344,
+      "metal": 0.15676401555538177
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal237.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9429470896720886,
+    "probabilities": {
+      "paper": 0.025051770731806755,
+      "cardboard": 0.03200121223926544,
+      "metal": 0.9429470896720886
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal292.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9728979468345642,
+    "probabilities": {
+      "paper": 0.016729675233364105,
+      "cardboard": 0.01037239283323288,
+      "metal": 0.9728979468345642
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper466.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.8413770198822021,
+    "probabilities": {
+      "paper": 0.8413770198822021,
+      "cardboard": 0.06822837144136429,
+      "metal": 0.09039465337991714
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard365.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.9643834233283997,
+    "probabilities": {
+      "paper": 0.01564299501478672,
+      "cardboard": 0.9643834233283997,
+      "metal": 0.01997365616261959
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal355.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.8398728370666504,
+    "probabilities": {
+      "paper": 0.04014615714550018,
+      "cardboard": 0.11998096108436584,
+      "metal": 0.8398728370666504
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper236.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.8888950943946838,
+    "probabilities": {
+      "paper": 0.8888950943946838,
+      "cardboard": 0.0569954439997673,
+      "metal": 0.05410940945148468
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard286.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "paper",
+    "correct": false,
+    "confidence": 0.6599283814430237,
+    "probabilities": {
+      "paper": 0.6599283814430237,
+      "cardboard": 0.310127317905426,
+      "metal": 0.02994430810213089
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard387.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "paper",
+    "correct": false,
+    "confidence": 0.7231529355049133,
+    "probabilities": {
+      "paper": 0.7231529355049133,
+      "cardboard": 0.24121758341789246,
+      "metal": 0.035629551857709885
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper323.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.7940897941589355,
+    "probabilities": {
+      "paper": 0.7940897941589355,
+      "cardboard": 0.07787975668907166,
+      "metal": 0.12803052365779877
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper571.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.6221033334732056,
+    "probabilities": {
+      "paper": 0.6221033334732056,
+      "cardboard": 0.045394644141197205,
+      "metal": 0.33250194787979126
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper580.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.9275764226913452,
+    "probabilities": {
+      "paper": 0.9275764226913452,
+      "cardboard": 0.014563552103936672,
+      "metal": 0.057859908789396286
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal204.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9118847846984863,
+    "probabilities": {
+      "paper": 0.030503908172249794,
+      "cardboard": 0.05761127546429634,
+      "metal": 0.9118847846984863
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal275.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.8977193236351013,
+    "probabilities": {
+      "paper": 0.03160916641354561,
+      "cardboard": 0.07067148387432098,
+      "metal": 0.8977193236351013
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal176.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.5100061297416687,
+    "probabilities": {
+      "paper": 0.15756914019584656,
+      "cardboard": 0.3324248194694519,
+      "metal": 0.5100061297416687
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper374.jpg",
+    "true_label": "paper",
+    "predicted_label": "metal",
+    "correct": false,
+    "confidence": 0.7926297783851624,
+    "probabilities": {
+      "paper": 0.1737125962972641,
+      "cardboard": 0.03365760296583176,
+      "metal": 0.7926297783851624
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard337.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.8503105044364929,
+    "probabilities": {
+      "paper": 0.06739374250173569,
+      "cardboard": 0.8503105044364929,
+      "metal": 0.0822957307100296
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard43.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.8735666275024414,
+    "probabilities": {
+      "paper": 0.10253873467445374,
+      "cardboard": 0.8735666275024414,
+      "metal": 0.023894602432847023
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper304.jpg",
+    "true_label": "paper",
+    "predicted_label": "cardboard",
+    "correct": false,
+    "confidence": 0.4789612591266632,
+    "probabilities": {
+      "paper": 0.25457629561424255,
+      "cardboard": 0.4789612591266632,
+      "metal": 0.26646238565444946
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal245.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9534479975700378,
+    "probabilities": {
+      "paper": 0.035130761563777924,
+      "cardboard": 0.01142121758311987,
+      "metal": 0.9534479975700378
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal112.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.6980295777320862,
+    "probabilities": {
+      "paper": 0.16018378734588623,
+      "cardboard": 0.1417866051197052,
+      "metal": 0.6980295777320862
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal30.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.892280638217926,
+    "probabilities": {
+      "paper": 0.06900815665721893,
+      "cardboard": 0.03871115669608116,
+      "metal": 0.892280638217926
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard189.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "paper",
+    "correct": false,
+    "confidence": 0.49796944856643677,
+    "probabilities": {
+      "paper": 0.49796944856643677,
+      "cardboard": 0.4245981276035309,
+      "metal": 0.07743243873119354
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard157.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.971256673336029,
+    "probabilities": {
+      "paper": 0.01909453608095646,
+      "cardboard": 0.971256673336029,
+      "metal": 0.009648703038692474
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal246.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.958740770816803,
+    "probabilities": {
+      "paper": 0.02512507513165474,
+      "cardboard": 0.016134142875671387,
+      "metal": 0.958740770816803
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal157.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9460708498954773,
+    "probabilities": {
+      "paper": 0.031583450734615326,
+      "cardboard": 0.022345660254359245,
+      "metal": 0.9460708498954773
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard223.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.9540067315101624,
+    "probabilities": {
+      "paper": 0.045201193541288376,
+      "cardboard": 0.9540067315101624,
+      "metal": 0.0007920934585854411
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal43.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.492144912481308,
+    "probabilities": {
+      "paper": 0.41656920313835144,
+      "cardboard": 0.0912858098745346,
+      "metal": 0.492144912481308
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard147.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.9648305177688599,
+    "probabilities": {
+      "paper": 0.033726394176483154,
+      "cardboard": 0.9648305177688599,
+      "metal": 0.0014431467279791832
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal340.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9761324524879456,
+    "probabilities": {
+      "paper": 0.011259564198553562,
+      "cardboard": 0.012608014978468418,
+      "metal": 0.9761324524879456
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper454.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.8669790029525757,
+    "probabilities": {
+      "paper": 0.8669790029525757,
+      "cardboard": 0.11012937128543854,
+      "metal": 0.022891655564308167
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard363.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.795134961605072,
+    "probabilities": {
+      "paper": 0.17809142172336578,
+      "cardboard": 0.795134961605072,
+      "metal": 0.026773598045110703
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal378.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9309493899345398,
+    "probabilities": {
+      "paper": 0.03250660002231598,
+      "cardboard": 0.03654397651553154,
+      "metal": 0.9309493899345398
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard148.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.8784043788909912,
+    "probabilities": {
+      "paper": 0.10015217959880829,
+      "cardboard": 0.8784043788909912,
+      "metal": 0.021443409845232964
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal130.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.5664439797401428,
+    "probabilities": {
+      "paper": 0.31463539600372314,
+      "cardboard": 0.11892066150903702,
+      "metal": 0.5664439797401428
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard291.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.8700584173202515,
+    "probabilities": {
+      "paper": 0.09258000552654266,
+      "cardboard": 0.8700584173202515,
+      "metal": 0.03736153244972229
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper443.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.7754421234130859,
+    "probabilities": {
+      "paper": 0.7754421234130859,
+      "cardboard": 0.20371805131435394,
+      "metal": 0.020839828997850418
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard249.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.9828093647956848,
+    "probabilities": {
+      "paper": 0.014785385690629482,
+      "cardboard": 0.9828093647956848,
+      "metal": 0.002405243692919612
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper566.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.7685089111328125,
+    "probabilities": {
+      "paper": 0.7685089111328125,
+      "cardboard": 0.19571146368980408,
+      "metal": 0.035779647529125214
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal27.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9852222800254822,
+    "probabilities": {
+      "paper": 0.004481906071305275,
+      "cardboard": 0.010295778512954712,
+      "metal": 0.9852222800254822
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal370.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.4611537456512451,
+    "probabilities": {
+      "paper": 0.42163732647895813,
+      "cardboard": 0.11720895767211914,
+      "metal": 0.4611537456512451
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper282.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.6384065747261047,
+    "probabilities": {
+      "paper": 0.6384065747261047,
+      "cardboard": 0.3218526840209961,
+      "metal": 0.03974074125289917
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard37.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.9775746464729309,
+    "probabilities": {
+      "paper": 0.01936517283320427,
+      "cardboard": 0.9775746464729309,
+      "metal": 0.003060274524614215
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard295.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.7953463792800903,
+    "probabilities": {
+      "paper": 0.1659928411245346,
+      "cardboard": 0.7953463792800903,
+      "metal": 0.03866078332066536
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper520.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.9610635042190552,
+    "probabilities": {
+      "paper": 0.9610635042190552,
+      "cardboard": 0.012758866883814335,
+      "metal": 0.02617768384516239
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper388.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.9237297773361206,
+    "probabilities": {
+      "paper": 0.9237297773361206,
+      "cardboard": 0.03624700382351875,
+      "metal": 0.04002322629094124
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper161.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.9815681576728821,
+    "probabilities": {
+      "paper": 0.9815681576728821,
+      "cardboard": 0.01332236360758543,
+      "metal": 0.005109431222081184
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper182.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.9510457515716553,
+    "probabilities": {
+      "paper": 0.9510457515716553,
+      "cardboard": 0.02598155289888382,
+      "metal": 0.022972699254751205
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard271.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.9287776947021484,
+    "probabilities": {
+      "paper": 0.029245277866721153,
+      "cardboard": 0.9287776947021484,
+      "metal": 0.04197702556848526
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal32.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9940828680992126,
+    "probabilities": {
+      "paper": 0.0031348515767604113,
+      "cardboard": 0.002782238181680441,
+      "metal": 0.9940828680992126
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard378.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "paper",
+    "correct": false,
+    "confidence": 0.49514448642730713,
+    "probabilities": {
+      "paper": 0.49514448642730713,
+      "cardboard": 0.3675414025783539,
+      "metal": 0.13731412589550018
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard146.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.8681187629699707,
+    "probabilities": {
+      "paper": 0.12600663304328918,
+      "cardboard": 0.8681187629699707,
+      "metal": 0.00587464077398181
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper555.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.914011538028717,
+    "probabilities": {
+      "paper": 0.914011538028717,
+      "cardboard": 0.050250157713890076,
+      "metal": 0.03573817014694214
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal91.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9413824081420898,
+    "probabilities": {
+      "paper": 0.018975527957081795,
+      "cardboard": 0.0396420955657959,
+      "metal": 0.9413824081420898
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper448.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.6448746919631958,
+    "probabilities": {
+      "paper": 0.6448746919631958,
+      "cardboard": 0.15201029181480408,
+      "metal": 0.2031150460243225
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal36.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9816619753837585,
+    "probabilities": {
+      "paper": 0.006731804925948381,
+      "cardboard": 0.011606191284954548,
+      "metal": 0.9816619753837585
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal181.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9342832565307617,
+    "probabilities": {
+      "paper": 0.026845917105674744,
+      "cardboard": 0.03887087479233742,
+      "metal": 0.9342832565307617
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard138.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.9709204435348511,
+    "probabilities": {
+      "paper": 0.024047337472438812,
+      "cardboard": 0.9709204435348511,
+      "metal": 0.0050322143360972404
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper410.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.886748194694519,
+    "probabilities": {
+      "paper": 0.886748194694519,
+      "cardboard": 0.09061438590288162,
+      "metal": 0.022637343034148216
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper153.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.852584958076477,
+    "probabilities": {
+      "paper": 0.852584958076477,
+      "cardboard": 0.12278486043214798,
+      "metal": 0.024630127474665642
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper573.jpg",
+    "true_label": "paper",
+    "predicted_label": "cardboard",
+    "correct": false,
+    "confidence": 0.5992669463157654,
+    "probabilities": {
+      "paper": 0.2389085441827774,
+      "cardboard": 0.5992669463157654,
+      "metal": 0.1618245244026184
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal391.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9702425003051758,
+    "probabilities": {
+      "paper": 0.00252434890717268,
+      "cardboard": 0.027233118191361427,
+      "metal": 0.9702425003051758
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard5.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.9767623543739319,
+    "probabilities": {
+      "paper": 0.017894573509693146,
+      "cardboard": 0.9767623543739319,
+      "metal": 0.005343071185052395
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal133.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9928982257843018,
+    "probabilities": {
+      "paper": 0.0030840998515486717,
+      "cardboard": 0.004017622675746679,
+      "metal": 0.9928982257843018
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard341.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.8757184147834778,
+    "probabilities": {
+      "paper": 0.11786838620901108,
+      "cardboard": 0.8757184147834778,
+      "metal": 0.006413246970623732
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper526.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.9384943842887878,
+    "probabilities": {
+      "paper": 0.9384943842887878,
+      "cardboard": 0.02295185811817646,
+      "metal": 0.03855377435684204
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard220.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.7470343112945557,
+    "probabilities": {
+      "paper": 0.1590203195810318,
+      "cardboard": 0.7470343112945557,
+      "metal": 0.09394536912441254
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper414.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.853753924369812,
+    "probabilities": {
+      "paper": 0.853753924369812,
+      "cardboard": 0.07590302079916,
+      "metal": 0.07034297287464142
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard392.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "paper",
+    "correct": false,
+    "confidence": 0.6725067496299744,
+    "probabilities": {
+      "paper": 0.6725067496299744,
+      "cardboard": 0.22903816401958466,
+      "metal": 0.098455049097538
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper195.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.513619601726532,
+    "probabilities": {
+      "paper": 0.513619601726532,
+      "cardboard": 0.24128872156143188,
+      "metal": 0.24509170651435852
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard49.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.6603888273239136,
+    "probabilities": {
+      "paper": 0.3216862082481384,
+      "cardboard": 0.6603888273239136,
+      "metal": 0.017924977466464043
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper592.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.34799328446388245,
+    "probabilities": {
+      "paper": 0.34799328446388245,
+      "cardboard": 0.34513500332832336,
+      "metal": 0.3068716526031494
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper30.jpg",
+    "true_label": "paper",
+    "predicted_label": "cardboard",
+    "correct": false,
+    "confidence": 0.6744658946990967,
+    "probabilities": {
+      "paper": 0.3175380825996399,
+      "cardboard": 0.6744658946990967,
+      "metal": 0.007996032014489174
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard99.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "paper",
+    "correct": false,
+    "confidence": 0.6781684756278992,
+    "probabilities": {
+      "paper": 0.6781684756278992,
+      "cardboard": 0.22014954686164856,
+      "metal": 0.10168194025754929
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard27.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.9420506954193115,
+    "probabilities": {
+      "paper": 0.052666064351797104,
+      "cardboard": 0.9420506954193115,
+      "metal": 0.0052831703796982765
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper212.jpg",
+    "true_label": "paper",
+    "predicted_label": "cardboard",
+    "correct": false,
+    "confidence": 0.5752654075622559,
+    "probabilities": {
+      "paper": 0.3917427659034729,
+      "cardboard": 0.5752654075622559,
+      "metal": 0.03299183025956154
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper107.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.634416401386261,
+    "probabilities": {
+      "paper": 0.634416401386261,
+      "cardboard": 0.1654912382364273,
+      "metal": 0.20009225606918335
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper123.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.8401296734809875,
+    "probabilities": {
+      "paper": 0.8401296734809875,
+      "cardboard": 0.10530850291252136,
+      "metal": 0.05456186830997467
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard191.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "paper",
+    "correct": false,
+    "confidence": 0.42718788981437683,
+    "probabilities": {
+      "paper": 0.42718788981437683,
+      "cardboard": 0.3646019995212555,
+      "metal": 0.20821015536785126
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper4.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.9038044810295105,
+    "probabilities": {
+      "paper": 0.9038044810295105,
+      "cardboard": 0.07939383387565613,
+      "metal": 0.016801727935671806
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper462.jpg",
+    "true_label": "paper",
+    "predicted_label": "cardboard",
+    "correct": false,
+    "confidence": 0.9559033513069153,
+    "probabilities": {
+      "paper": 0.0373779721558094,
+      "cardboard": 0.9559033513069153,
+      "metal": 0.006718715187162161
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal109.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9811117053031921,
+    "probabilities": {
+      "paper": 0.006154453847557306,
+      "cardboard": 0.012733833864331245,
+      "metal": 0.9811117053031921
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal128.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.844927191734314,
+    "probabilities": {
+      "paper": 0.11936695128679276,
+      "cardboard": 0.03570582717657089,
+      "metal": 0.844927191734314
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper141.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.8642230033874512,
+    "probabilities": {
+      "paper": 0.8642230033874512,
+      "cardboard": 0.10872749239206314,
+      "metal": 0.02704956941306591
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard359.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.6837741732597351,
+    "probabilities": {
+      "paper": 0.27460089325904846,
+      "cardboard": 0.6837741732597351,
+      "metal": 0.04162495955824852
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard292.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.9031473994255066,
+    "probabilities": {
+      "paper": 0.07459846884012222,
+      "cardboard": 0.9031473994255066,
+      "metal": 0.022254198789596558
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper530.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.9466789364814758,
+    "probabilities": {
+      "paper": 0.9466789364814758,
+      "cardboard": 0.045178115367889404,
+      "metal": 0.008143044076859951
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper37.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.8481734991073608,
+    "probabilities": {
+      "paper": 0.8481734991073608,
+      "cardboard": 0.10225018858909607,
+      "metal": 0.0495762974023819
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper75.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.8031918406486511,
+    "probabilities": {
+      "paper": 0.8031918406486511,
+      "cardboard": 0.14517006278038025,
+      "metal": 0.051638055592775345
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard6.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.9164316058158875,
+    "probabilities": {
+      "paper": 0.06133923679590225,
+      "cardboard": 0.9164316058158875,
+      "metal": 0.022229205816984177
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard80.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.9818795323371887,
+    "probabilities": {
+      "paper": 0.012598831206560135,
+      "cardboard": 0.9818795323371887,
+      "metal": 0.005521724000573158
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper591.jpg",
+    "true_label": "paper",
+    "predicted_label": "metal",
+    "correct": false,
+    "confidence": 0.7401134967803955,
+    "probabilities": {
+      "paper": 0.24066950380802155,
+      "cardboard": 0.019216928631067276,
+      "metal": 0.7401134967803955
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal230.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9580046534538269,
+    "probabilities": {
+      "paper": 0.036037594079971313,
+      "cardboard": 0.005957690998911858,
+      "metal": 0.9580046534538269
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper396.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.6897663474082947,
+    "probabilities": {
+      "paper": 0.6897663474082947,
+      "cardboard": 0.2464928925037384,
+      "metal": 0.0637408122420311
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper334.jpg",
+    "true_label": "paper",
+    "predicted_label": "metal",
+    "correct": false,
+    "confidence": 0.86484295129776,
+    "probabilities": {
+      "paper": 0.09127393364906311,
+      "cardboard": 0.043883197009563446,
+      "metal": 0.86484295129776
+    }
+  },
+  {
+    "path": "dataset-resized/cardboard/cardboard251.jpg",
+    "true_label": "cardboard",
+    "predicted_label": "cardboard",
+    "correct": true,
+    "confidence": 0.9428762793540955,
+    "probabilities": {
+      "paper": 0.053119998425245285,
+      "cardboard": 0.9428762793540955,
+      "metal": 0.004003800917416811
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper290.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.9483802318572998,
+    "probabilities": {
+      "paper": 0.9483802318572998,
+      "cardboard": 0.0410134457051754,
+      "metal": 0.010606291703879833
+    }
+  },
+  {
+    "path": "dataset-resized/metal/metal200.jpg",
+    "true_label": "metal",
+    "predicted_label": "metal",
+    "correct": true,
+    "confidence": 0.9819477796554565,
+    "probabilities": {
+      "paper": 0.009776056744158268,
+      "cardboard": 0.008276225067675114,
+      "metal": 0.9819477796554565
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper244.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.979647159576416,
+    "probabilities": {
+      "paper": 0.979647159576416,
+      "cardboard": 0.01797635667026043,
+      "metal": 0.0023763757199048996
+    }
+  },
+  {
+    "path": "dataset-resized/paper/paper347.jpg",
+    "true_label": "paper",
+    "predicted_label": "paper",
+    "correct": true,
+    "confidence": 0.8100853562355042,
+    "probabilities": {
+      "paper": 0.8100853562355042,
+      "cardboard": 0.15239131450653076,
+      "metal": 0.03752332180738449
+    }
+  }
+]

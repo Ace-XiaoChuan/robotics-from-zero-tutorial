@@ -1,0 +1,63 @@
+{
+  "model_path": "outputs/models/best_cross_validated_pipeline.joblib",
+  "test_data_path": "data/test_split.csv",
+  "test_samples": 179,
+  "target_column": "Survived",
+  "feature_columns": [
+    "Pclass",
+    "Sex",
+    "Age",
+    "SibSp",
+    "Parch",
+    "Fare",
+    "Embarked"
+  ],
+  "metrics": {
+    "accuracy": 0.8044692737430168,
+    "precision": 0.7931034482758621,
+    "recall": 0.6666666666666666,
+    "f1": 0.7244094488188977
+  },
+  "confusion_matrix_labels": [
+    0,
+    1
+  ],
+  "confusion_matrix": [
+    [
+      98,
+      12
+    ],
+    [
+      23,
+      46
+    ]
+  ],
+  "classification_report": {
+    "0": {
+      "precision": 0.8099173553719008,
+      "recall": 0.8909090909090909,
+      "f1-score": 0.8484848484848485,
+      "support": 110.0
+    },
+    "1": {
+      "precision": 0.7931034482758621,
+      "recall": 0.6666666666666666,
+      "f1-score": 0.7244094488188977,
+      "support": 69.0
+    },
+    "accuracy": 0.8044692737430168,
+    "macro avg": {
+      "precision": 0.8015104018238814,
+      "recall": 0.7787878787878788,
+      "f1-score": 0.7864471486518732,
+      "support": 179.0
+    },
+    "weighted avg": {
+      "precision": 0.8034360168823663,
+      "recall": 0.8044692737430168,
+      "f1-score": 0.8006569011275826,
+      "support": 179.0
+    }
+  },
+  "test_set_used_for_fitting": false
+}

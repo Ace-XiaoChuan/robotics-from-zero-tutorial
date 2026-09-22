@@ -1,22 +1,25 @@
-# MuJoCo
+# MuJoCo：模型、状态与可编程仿真
 
-本文行数：22行，预期阅读时长：1分钟
+本文行数：25行，预期阅读时长：2分钟
 
-- [本地工作区与已有材料](materials.md)
-- [已有模型、状态与控制笔记](../../lesson7/README.md)
-- [已有相机与传感器笔记](../../lesson8/cv_trainning/README.md)
-- [已有 FK 对齐代码](../../lesson9/check_fk_with_mujoco.py)
+**先理解状态与输入的含义，再用步进推进物理；看到机器人移动不等于完成了控制验证。**
 
-## 后续章节安排
+先读[控制流导读：从代码到仿真与真机](../00_control_flow/README.md)，理解带时间的关节轨迹和执行接口，再读[通用模型概念](../01_robot_models/README.md)，随后按下表复习。
 
-以下仅是目录规划，具体教程稍后编写，不创建空章节。
+| 章节 | 核心例子 |
+| --- | --- |
+| [01 模型加载](01_model_loading/README.md) | 自带模型与外部 Panda 资源的边界 |
+| [02 状态与步进](02_state_step/README.md) | hinge + free joint，nq=8 而 nv=7 |
+| [03 控制输入](03_control_inputs/README.md) | ctrl=3 时，限幅后的 motor 力矩为 2 N·m |
+| [04 显示与频率](04_viewer_rendering/README.md) | 500 Hz 物理、100 Hz 控制、25 Hz 画面 |
+| [05 重置与记录](05_reset_recording/README.md) | 两次相同初态与输入的 100 步记录比较 |
 
-| 计划目录 | 内容 | 材料情况 |
-| --- | --- | --- |
-| `01_model_loading/` | Menagerie、MJCF、模型路径与加载 | 本地脚本与 Panda 模型已有 |
-| `02_state_step/` | 模型与数据、状态索引、步长与步进 | 本地脚本已有基础用法；Lesson 7 有补充 |
-| `03_control_inputs/` | actuator、`ctrl` 与外加关节力的区别 | 本地脚本使用 `qfrc_applied`；输入语义需进一步整理 |
-| `04_viewer_rendering/` | 交互 Viewer、相机与渲染 | 本地脚本有 Viewer；相机材料在 Lesson 8 |
-| `05_reset_recording/` | 初始化、重置、状态记录与可重复运行 | 待补；本地脚本尚未形成完整接口 |
+## 实现参考
+
+- [自带模型](models/pendulum.xml)、[检查脚本](check_basics.py)、[固定依赖](requirements.txt)与[实际验证记录](verification.md)。
+- 小模型为本仓库教学编写，无外部 mesh、私有模块或私人模型路径；本次使用已安装解释器运行，独立环境安装尚未验证。
+- [本地工作区与旧材料](materials.md)、[Lesson 7 原笔记](examples/state_and_control/README.md)、[相机资料](../../perception/examples/camera_and_tags/cv_trainning/README.md)与 [FK 代码](../../kinematics/examples/model_alignment/check_fk_with_mujoco.py)保留原位置。
 
 [返回仿真目录](../README.md) · [总体目录](../../README.md)
+
+[历史状态与控制案例](examples/state_and_control/README.md)。

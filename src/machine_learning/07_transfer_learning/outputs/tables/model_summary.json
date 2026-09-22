@@ -1,0 +1,50 @@
+{
+  "architecture": "resnet18",
+  "weights": "IMAGENET1K_V1",
+  "weights_url": "https://download.pytorch.org/models/resnet18-f37072fd.pth",
+  "seed": 42,
+  "device": "cpu",
+  "class_to_idx": {
+    "paper": 0,
+    "cardboard": 1,
+    "metal": 2
+  },
+  "input_shape": [
+    32,
+    3,
+    224,
+    224
+  ],
+  "label_shape": [
+    32
+  ],
+  "output_shape": [
+    32,
+    3
+  ],
+  "trainable_parameters": [
+    "fc.weight",
+    "fc.bias"
+  ],
+  "trainable_parameter_count": 1539,
+  "total_parameter_count": 11178051,
+  "first_three_logits": [
+    [
+      -0.013740360736846924,
+      0.6993045806884766,
+      -0.9134951829910278
+    ],
+    [
+      -0.1619727462530136,
+      0.5446115732192993,
+      -0.3570950925350189
+    ],
+    [
+      -0.1572771668434143,
+      0.47471147775650024,
+      -0.16472606360912323
+    ]
+  ],
+  "checks_passed": true,
+  "training_performed": false
+}

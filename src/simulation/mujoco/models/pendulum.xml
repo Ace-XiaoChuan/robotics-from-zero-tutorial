@@ -1,0 +1,18 @@
+<mujoco model="s3_pendulum">
+  <compiler angle="radian"/>
+  <option timestep="0.002" gravity="0 0 -9.81" integrator="Euler"/>
+  <worldbody>
+    <body name="rod" pos="0 0 1">
+      <joint name="hinge" type="hinge" axis="0 1 0" limited="true" range="-1.5 1.5" damping="0.1"/>
+      <geom name="rod_geom" type="capsule" fromto="0 0 0 0 0 -0.5" size="0.025" mass="1" rgba="0.2 0.6 0.7 1"/>
+      <site name="tip" pos="0 0 -0.5" size="0.035" rgba="0.9 0.2 0.2 1"/>
+    </body>
+    <body name="marker" pos="1 0 1">
+      <freejoint name="floating"/>
+      <geom name="marker_geom" type="sphere" size="0.05" mass="0.1" contype="0" conaffinity="0"/>
+    </body>
+  </worldbody>
+  <actuator>
+    <motor name="hinge_motor" joint="hinge" gear="1" ctrllimited="true" ctrlrange="-2 2"/>
+  </actuator>
+</mujoco>

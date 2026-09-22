@@ -1,0 +1,40 @@
+{
+  "seed": 42,
+  "train_samples": 50000,
+  "validation_samples": 10000,
+  "official_test": "10000 samples retained separately; not loaded by this script",
+  "class_counts_0_to_9": {
+    "train": [
+      4923,
+      5613,
+      4958,
+      5093,
+      4863,
+      4546,
+      4933,
+      5204,
+      4882,
+      4985
+    ],
+    "validation": [
+      1000,
+      1129,
+      1000,
+      1038,
+      979,
+      875,
+      985,
+      1061,
+      969,
+      964
+    ]
+  },
+  "quality_checks": {
+    "image_shape_and_dtype_valid": true,
+    "image_label_counts_match": true,
+    "all_labels_in_0_to_9": true,
+    "raw_pixels": "uint8: values 0 to 255, no NaN representation; zero is valid background",
+    "decision": "No additional cleaning needed based on integrity and basic format checks; no manual audit of every label."
+  },
+  "split_checks": "Disjoint subsets, 50000/10000 sizes, all 60000 source indices covered exactly once"
+}

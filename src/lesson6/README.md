@@ -1,18 +1,7 @@
+# Lesson 6 已按主题归档
 
+本文行数：7行，预期阅读时长：1分钟
 
+教程与源码的维护位置：[主题目录](../manipulation/06_pick_place/README.md)。
 
-本文行数：18行，预期阅读时长：1分钟
-
-## 运行方法：
-
-> 命令行输入：
-
-```
-source install/setup.bash
-ros2 launch mtc_week3_demo desktop_pick_place.launch.py 
-```
-
-## 效果：
-
-
-https://github.com/user-attachments/assets/9785c306-41e5-4b07-914a-69691fb47451
+本目录仅保留历史编号导航，不保存重复源码。[全部主题](../README.md) · [迁移对照](../../doc/directory-reorganization.md)。

@@ -1,0 +1,39 @@
+{
+  "experiment": "E01",
+  "seed": 42,
+  "device": "cpu",
+  "cpu_threads": 1,
+  "model": {
+    "input_features": 784,
+    "hidden_size": 128,
+    "classes": 10,
+    "activation": "ReLU"
+  },
+  "class_mapping": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "preprocessing": "ToTensor: uint8 / 255; [1,28,28]",
+  "batch_size": 64,
+  "epochs": 5,
+  "optimizer": "Adam",
+  "learning_rate": 0.001,
+  "loss": "CrossEntropyLoss",
+  "selection": "highest validation accuracy; earliest epoch on tie",
+  "train_samples": 50000,
+  "validation_samples": 10000,
+  "split_file": "outputs/tables/mnist_split_indices.json",
+  "python": "3.10.12",
+  "torch": "2.6.0+cpu",
+  "torchvision": "0.21.0+cpu",
+  "parameter_count": 101770,
+  "official_test_loaded": false
+}

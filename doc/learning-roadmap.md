@@ -1,12 +1,12 @@
 # 机器人工程学习路线：从可解释的基础到可复现的机械臂任务
 
-本文行数：494行，预期阅读时长：23分钟
+本文行数：505行，预期阅读时长：25分钟
 
-更新日期：2026-09-16。
+更新日期：2026-09-21。
 
 本路线替代原来的固定 16 周计划。主线是**机械臂的建模、感知、规划、控制与仿真**，以当前 ROS 2、MuJoCo、MoveIt 和运动学案例为实践材料。它不试图在一个阶段覆盖整个机器人领域，也不把现有 lesson 编号当成先修顺序。
 
-推进依据是能否解释、实现和验证一个能力，而不是某周是否过去。已有经验可通过阶段验收直接跳过相应练习；遇到缺口，只回补依赖知识。
+本路线主要用于检索和复习已学内容，先修关系帮助定位知识联系，不要求按阶段重新学习或验收。教程与源码集中在本仓库；完整运行环境不是收录条件。
 
 **复习方式：** 默认直接阅读要点、例子、结果与解释，无需执行代码。下文的实践产物与验收项用于实际开发时的规划和验证，不是每次阅读的作业；只有例子难以说明的动态现象才安排可选实验。
 
@@ -15,11 +15,11 @@
 - [路线为何这样调整](#design)
 - [阶段与先修关系](#overview)
 - [S0 工程与实验基础](#s0)
-- [S1 空间数学与机器人表示](#s1)
+- [S1 空间数学与数值方法](#s1)
 - [S2 ROS 2 通信与系统组织](#s2)
 - [S3 模型与可编程仿真](#s3)
 - [S4 正逆运动学与数值求解](#s4)
-- [S5 动力学、轨迹与反馈控制](#s5)
+- [S5 动力学、轨迹与控制](#s5)
 - [S6 感知、坐标对齐与状态估计](#s6)
 - [S7 规划、接触与操作任务](#s7)
 - [S8 数据采集、示教与回放](#s8)
@@ -65,23 +65,24 @@
 | 阶段 | 核心问题 | 进入条件 | 最小产物 |
 | --- | --- | --- | --- |
 | S0 工程基础 | 怎样稳定运行、修改和定位错误？ | 无 | 可重复的环境检查与最小程序 |
-| S1 空间数学 | 位置、朝向、坐标变换如何表示？ | 基本 Python / NumPy | 点变换与简单机械臂几何验算 |
+| S1 空间数学与数值方法 | 位置、朝向、变换与误差如何表示和求解？ | 基本 Python / NumPy | 点变换与简单机械臂几何验算；数值方法按应用复习 |
 | S2 ROS 2 | 多个程序怎样协作并交换正确的数据？ | S0；TF 部分需要 S1 | 可验证的通信与坐标链 |
 | S3 模型与仿真 | 机器人结构和仿真状态如何对应？ | S0、S1 | 模型加载、重置、步进、状态记录 |
 | S4 运动学 | 关节与末端位姿怎样互相转换？ | S1、S3 | FK 对齐、Jacobian 检查与 IK 结果 |
-| S5 动力学与控制 | 怎样让实际状态跟上目标？ | S3；末端控制需要 S4 | 执行器驱动的 reaching 与误差曲线 |
+| S5 动力学、轨迹与控制 | 怎样让实际状态跟上目标？ | S3；末端控制需要 S4 | 执行器驱动的 reaching 与误差曲线 |
 | S6 感知与估计 | 怎样从测量得到可用的任务状态？ | S1、S3；ROS 集成需要 S2 | 目标定位、坐标对齐和误差评估 |
 | S7 规划与操作 | 怎样避障并完成可靠的抓放？ | S4、S5；MoveIt 集成需要 S2、S3 | 可重复抓放与失败记录 |
 | S8 采集与回放 | 怎样保存可解释、可复用的动作数据？ | S5；抓放数据需要 S7 | 有明确时间和动作语义的 episode |
 | S9 模仿学习 | 怎样从示教训练并评估策略？ | S8 + 学习算法基础 | BC 基线与独立 rollout 评估 |
 
 ```mermaid
+
 flowchart TD
-    S0["S0 工程基础"] --> S1["S1 空间数学"]
+    S0["S0 工程基础"] --> S1["S1 空间数学与数值方法"]
     S0 --> S2["S2 ROS 2"]
     S1 --> S3["S3 模型与仿真"]
     S3 --> S4["S4 运动学"]
-    S3 --> S5["S5 动力学与控制"]
+    S3 --> S5["S5 动力学、轨迹与控制"]
     S4 --> S5
     S1 --> S6["S6 感知与估计"]
     S3 --> S6
@@ -91,6 +92,7 @@ flowchart TD
     S5 --> S8["S8 采集与回放"]
     S7 -.->|抓放示教| S8
     S8 --> S9["S9 模仿学习"]
+
 ```
 
 S1 和 S2 可交替学习；纯 MuJoCo 实验不必等所有 ROS 2 高级内容学完。S7 先使用已知物体位姿完成操作，再接入 S6 的估计结果。图示主要依赖，具体要求以上表与阶段正文为准。
@@ -138,13 +140,15 @@ Shell 机制、语言语法、构建配置等不要求系统深入；对象生�
 | [05 调试与错误定位](../src/foundations/engineering/05_debugging/README.md) | 日志、最小复现、回溯与错误分类；已补充速记、例子和排错 |
 | [06 配置与实验复现](../src/foundations/engineering/06_reproducibility/README.md) | 参数边界、环境记录、随机性与结果摘要；已补充速记、例子和排错 |
 
-**已有材料：** 从 [S0 工程单元索引](../src/foundations/engineering/README.md)进入。单元 01～03 均采用直接阅读的例子；配套实现的验证与个人复习分开。需要时可将知识用于 [Lesson 1](../src/lesson1/README.md) 的整理与复现。
+**已有材料：** 从 [S0 工程单元索引](../src/foundations/engineering/README.md)进入。单元 01～03 均采用直接阅读的例子；配套实现的验证与个人复习分开。需要时可将知识用于 [Lesson 1](../src/ros2/examples/communication/README.md) 的整理与复现。
 
 <a id="s1"></a>
 
-## S1. 空间数学与机器人表示
+## S1. 空间数学与数值方法
 
-**目标：** 看到位置、旋转和变换矩阵时，知道它们描述什么、相对于谁、怎样参与计算。
+**目标：** 看到位置、旋转和变换矩阵时，知道它们描述什么、相对于谁、怎样参与计算；遇到误差求解时，能区分最小二乘、伪逆、阻尼与约束的作用。
+
+**复习入口：** [十章目录](../src/foundations/spatial_math/README.md)保留原四章，并补齐旋转表示、坐标变换、位姿误差、最小二乘、伪逆与阻尼、约束优化六章正文。新增六章的 16 项教学数值检查通过，范围见[核对记录](../src/foundations/spatial_math/verification.md)，不代表机器人执行或完整 IK 已验证。
 
 ### 建议顺序
 
@@ -153,7 +157,7 @@ Shell 机制、语言语法、构建配置等不要求系统深入；对象生�
 3. 旋转矩阵、齐次变换、复合变换与逆变换。
 4. 欧拉角、轴角、四元数的用途与约定；识别四元数排列差异。
 5. 构型、自由度、关节空间与任务空间。
-6. 导数、偏导与局部线性近似；最小二乘和 SVD 在 S4 实际使用时深入。
+6. [位姿误差与局部线性近似](../src/foundations/spatial_math/07_pose_errors/README.md)；[最小二乘](../src/foundations/spatial_math/08_least_squares/README.md)、[SVD、伪逆与阻尼](../src/foundations/spatial_math/09_pseudoinverse_damping/README.md)、[约束优化](../src/foundations/spatial_math/10_constrained_optimization/README.md)在 S4 / S5 及后续应用中按需深入，不作为推进全部机器人主题的前置门槛。
 
 约定示例：`T_A_B` 将 B 系坐标转换为 A 系坐标，即 `p_A = T_A_B p_B`。笔记、图和代码采用一致的方向，不只写含糊的“相机外参”。
 
@@ -166,7 +170,7 @@ Shell 机制、语言语法、构建配置等不要求系统深入；对象生�
 
 **输出：** 一份符号与坐标约定、一组带预期数值的小例子。能解释矩阵各部分及单位，才继续依赖这些量的算法。
 
-**已有材料：** [Lesson 3 的变换程序](../src/lesson3/lesson3.py)、[Lesson 4 的几何验算](../src/lesson4/lesson4_Modified_D-H.py)。先读几何部分，DH 的完整建系放在 S4。
+**已有材料：** [Lesson 3 的变换程序](../src/foundations/spatial_math/examples/rigid_transforms/lesson3.py)、[Lesson 4 的几何验算](../src/kinematics/02_dh_conventions/lesson4_Modified_D-H.py)。先读几何部分，DH 的完整建系放在 S4。
 
 <a id="s2"></a>
 
@@ -192,7 +196,7 @@ Shell 机制、语言语法、构建配置等不要求系统深入；对象生�
 
 **输出：** 通信图、接口说明、启动配置、日志和排错记录。不能用“节点都启动了”代替业务链路验证。
 
-**已有材料：** [Lesson 1](../src/lesson1/README.md)。[Lesson 2](../src/lesson2/lesson2_composition/) 作为执行器和进程内通信的扩展，先完成基础通信，再研究组合与优化。
+**已有材料：** [ROS 2 五章教程](../src/ros2/README.md)，已提供接口、启动配置、QoS 与执行、TF 与时间、记录与排错的速记、例子和结果解释；案例细节见 [Lesson 1](../src/ros2/examples/communication/README.md)。[Lesson 2](../src/ros2/examples/composition/lesson2_composition) 作为执行器和进程内通信的扩展，先完成基础通信，再研究组合与优化。
 
 参考 [ROS 2 Humble 官方教程目录](https://raw.githubusercontent.com/ros2/ros2_documentation/humble/source/Tutorials.rst) 的基础到中级顺序。当前仓库已核对环境为 Humble，具体 API 按实际版本查证；不为学习路线自动要求升级整套环境。
 
@@ -220,7 +224,7 @@ Shell 机制、语言语法、构建配置等不要求系统深入；对象生�
 
 **输出：** 模型来源与版本、字段表、重置和步进示例。外部模型未包含在仓库时提供获取方式和配置路径。
 
-**已有材料：** [MuJoCo 目录与材料清点](../src/simulation/mujoco/README.md)、[Lesson 7](../src/lesson7/README.md)。本地 `~/mujoco_workspace` 已有 Panda 加载、步进、Viewer 与外加关节力控制脚本；目前仅核对源码，具体教程及控制效果验证待补。本阶段先阅读模型、状态与基础执行器部分，PID 与轨迹跟踪留到 S5。
+**已有材料：** [S3 七章教程](../src/simulation/README.md)从[仿真与真机控制流、带时间的关节轨迹](../src/simulation/00_control_flow/README.md)开始，再讲机器人模型、加载、状态索引与步进、控制输入、显示频率、重置与记录，采用速记、例子和结果解释。仓库自带单摆与自由关节模型通过 `~/mujoco-env`（MuJoCo 3.8.1）的无窗口数值检查；[验证记录](../src/simulation/mujoco/verification.md)包含配置、误差与边界。新增导读依据源码与配置静态分析，不增加运行验证结论。独立环境安装、外部 Panda 和 Viewer 尚未验证，不据此标记整阶段实践验收完成。旧材料见 [MuJoCo 清点](../src/simulation/mujoco/materials.md)与 [Lesson 7](../src/simulation/mujoco/examples/state_and_control/README.md)；PID 与轨迹跟踪的深入分析留到 S5。
 
 MuJoCo 官方概览介绍了模型与动态数据的分离、模型编译和仿真步进，可作为结构性参考；实际 API 应切换到安装版本对应文档。参见 [MuJoCo Overview](https://mujoco.readthedocs.io/en/stable/overview.html)。
 
@@ -229,6 +233,8 @@ MuJoCo 官方概览介绍了模型与动态数据的分离、模型编译和仿�
 ## S4. 正逆运动学与数值求解
 
 **目标：** 把 `q → 末端位姿` 和 `目标位姿 → q` 解释清楚，先验证模型再求逆解。
+
+**复习入口：** [运动学八章](../src/kinematics/README.md)已补齐正运动学、DH、模型对齐、Jacobian、逆运动学、奇异性、冗余与工作空间的正文。自包含 2R / 3R 教学例子及原 Lesson 4 数值部分通过 26 项检查，包含数值 IK 的收敛与失败行为；[验证记录](../src/kinematics/verification.md)区分这些结果与尚未运行的 Panda 模型对齐及控制案例。
 
 ### 建议顺序
 
@@ -239,6 +245,7 @@ MuJoCo 官方概览介绍了模型与动态数据的分离、模型编译和仿�
 5. Jacobian 的输入输出、参考坐标系与有限差分验证。
 6. 位置与姿态误差、SO(3) / SE(3) 和 log 的实际用途。
 7. 伪逆、最小二乘、阻尼、迭代步长、关节限位与失败退出。
+8. 奇异性与任务秩、冗余与零空间、工作空间与位置及姿态可达性的边界。
 
 李群和李代数先解释代码中的旋转与位姿误差，再按需求深入推导。不要把熟记 API 当成理解误差的参考坐标系。
 
@@ -251,13 +258,15 @@ MuJoCo 官方概览介绍了模型与动态数据的分离、模型编译和仿�
 
 **输出：** 模型对齐说明、求解器输入输出、误差与失败表。容差先按模型尺度和数值精度制定，再执行实验，不事后放宽到“看起来通过”。
 
-**已有材料：** [Lesson 4](../src/lesson4/lesson4_Modified_D-H.py)、[Lesson 9 FK 检查](../src/lesson9/check_fk_with_mujoco.py)、[Jacobian 笔记](../src/lesson9/qpos_jacobian_notes.md)、[位姿误差笔记](../src/lesson9/lie_group_lie_algebra_notes.md)。
+**已有材料：** [Lesson 4](../src/kinematics/02_dh_conventions/lesson4_Modified_D-H.py)、[Lesson 9 FK 检查](../src/kinematics/examples/model_alignment/check_fk_with_mujoco.py)、[Jacobian 笔记](../src/kinematics/examples/model_alignment/qpos_jacobian_notes.md)、[位姿误差笔记](../src/kinematics/examples/model_alignment/lie_group_lie_algebra_notes.md)。
 
 <a id="s5"></a>
 
-## S5. 动力学、轨迹与反馈控制
+## S5. 动力学、轨迹与控制
 
 **目标：** 从“求出了关节目标”推进到“执行器驱动下实际状态能跟踪目标”。
+
+**目录规划：** [动力学、轨迹与控制](../src/control/README.md)列出下一层八个章节，正文待编写，暂不继续拆分或创建空章节目录。
 
 ### 必修内容
 
@@ -279,7 +288,7 @@ MuJoCo 官方概览介绍了模型与动态数据的分离、模型编译和仿�
 
 **输出：** 控制配置、目标 / 实际 / 误差曲线、失败说明。位置误差和姿态误差使用独立单位与阈值；需要合并时明确权重和物理含义。
 
-**已有材料：** [Lesson 7 PID](../src/lesson7/PID.py)、[关节轨迹](../src/lesson7/joint_space_trajectory_tracking_demo.py)、[Lesson 9 末端控制](../src/lesson9/control_ee_with_pinocchio.py)与 [里程碑脚本](../src/lesson9/kinematics_milestone.py)。先核对每种执行模式，再判断能覆盖哪些验收项。
+**已有材料：** [Lesson 7 PID](../src/simulation/mujoco/examples/state_and_control/PID.py)、[关节轨迹](../src/simulation/mujoco/examples/state_and_control/joint_space_trajectory_tracking_demo.py)、[Lesson 9 末端控制](../src/kinematics/examples/model_alignment/control_ee_with_pinocchio.py)与 [里程碑脚本](../src/kinematics/examples/model_alignment/kinematics_milestone.py)。先核对每种执行模式，再判断能覆盖哪些验收项。
 
 <a id="s6"></a>
 
@@ -305,7 +314,7 @@ MuJoCo 官方概览介绍了模型与动态数据的分离、模型编译和仿�
 
 **输出：** 坐标链图、相机配置、测量字段与时间定义、误差结果。S7 接入感知时只能使用声明有效的测量。
 
-**已有材料：** [Lesson 8 视觉笔记与脚本](../src/lesson8/cv_trainning/README.md)。滤波与状态估计属于待补单元。
+**已有材料：** [Lesson 8 视觉笔记与脚本](../src/perception/examples/camera_and_tags/cv_trainning/README.md)。滤波与状态估计属于待补单元。
 
 标定与 PnP 的 API、参数含义查 [OpenCV 相机标定与三维重建文档](https://docs.opencv.org/4.13.0/d9/d0c/group__calib3d.html)。此链接是资料核对时解析到的版本，不代表仓库已安装或必须升级到该版本。
 
@@ -341,7 +350,7 @@ MuJoCo 官方概览介绍了模型与动态数据的分离、模型编译和仿�
 - 报告成功次数 / 总次数、完成时间和失败类型；失败试验不能从分母删除。
 - 展示完整链路：测量 → 坐标转换 → 目标 → 规划 → 控制 → 接触结果 → 评价。
 
-**已有材料：** [Lesson 5](../src/lesson5/draw_line_and_circle.cpp)、[Lesson 6](../src/lesson6/README.md)，以及独立工作区 `~/moveit-from-zero-tutorial`。MoveIt 教程参考 [Humble 入门文档](https://moveit.picknik.ai/humble/doc/tutorials/getting_started/getting_started.html)。独立工作区中的代码、模型和构建结果不复制到本仓库；这里维护主题入口、接口边界和验收标准。
+**已有材料：** [Lesson 5](../src/manipulation/packages/hello_moveit/src/draw_line_and_circle.cpp)、[Lesson 6](../src/manipulation/06_pick_place/history.md)，以及已迁入的 [MoveIt 教程与源码](../src/manipulation/README.md)。MoveIt 教程参考 [Humble 入门文档](https://moveit.picknik.ai/humble/doc/tutorials/getting_started/getting_started.html)。教程源码、launch 和小型配置已迁入；第三方模型库与构建结果不打包。
 
 **集成策略：** MoveIt / MTC 案例可以先在其已有执行环境中验证；MuJoCo 接触实验也可独立推进。两者连通需要关节顺序、时钟、轨迹执行接口和状态反馈的明确适配，不默认启动两个工具后就自动组成一个系统。最终任务先选择一条可验证的执行链，另一条作为后续集成。
 
@@ -369,17 +378,17 @@ MuJoCo 官方概览介绍了模型与动态数据的分离、模型编译和仿�
 
 **输出：** 数据字典、采集与回放入口、小型示例和检查结果。可以先沿用 `.npz` 验证语义，数据规模或训练接口需要时再选 HDF5、Zarr 或 LeRobot 格式。
 
-**已有材料：** [Lesson 8 综合采集 Demo](../src/lesson8/cv_trainning/demo/sim_camera_tag_pose_demo.py)。已有保存代码不等于已完成数据对齐和可回放验收。
+**已有材料：** [Lesson 8 综合采集 Demo](../src/perception/examples/camera_and_tags/cv_trainning/demo/sim_camera_tag_pose_demo.py)。已有保存代码不等于已完成数据对齐和可回放验收。
 
 <a id="s9"></a>
 
 ## S9. 模仿学习与策略评估
 
-**进入条件：** S8 的数据可读、可解释、可回放；已有传统控制或规划基线。补齐监督学习、训练 / 验证划分、归一化、损失函数、梯度优化、过拟合与基本 PyTorch 使用。通用机器学习资料保存在独立仓库 `~/machine_learning_project`，机器人任务接入仍需按 S8 的数据契约重新核对。
+**进入条件：** S8 的数据可读、可解释、可回放；已有传统控制或规划基线。补齐监督学习、训练 / 验证划分、归一化、损失函数、梯度优化、过拟合与基本 PyTorch 使用。通用机器学习教程与源码保存在 [本仓库机器学习目录](../src/machine_learning/README.md)，机器人任务接入仍需按 S8 的数据契约重新核对。
 
 ### 现有机器学习探索
 
-`~/machine_learning_project` 已保存一组由浅入深的练习：
+[机器学习目录](../src/machine_learning/README.md) 已收录一组由浅入深的练习：
 
 - KNN：以 Iris 等小数据集理解特征、距离和分类基线。
 - 回归、决策树与模型选择：比较指标、数据划分和过拟合风险。
@@ -405,7 +414,7 @@ MuJoCo 官方概览介绍了模型与动态数据的分离、模型编译和仿�
 - 至少分析一类闭环失败，能提出并验证一个具体改进假设。
 - 使用独立测试场景；先报告固定条件结果，再做扰动与泛化实验。
 
-**已有材料：** 通用机器学习练习见 `~/machine_learning_project`；当前仓库已有 S8 采集示例，但还没有把这些分类、回归或神经网络练习接成完整机器人 BC 训练与闭环评估案例。先完成低维 BC，再考虑图像和更复杂策略。
+**已有材料：** 通用机器学习资料见 [机器学习目录](../src/machine_learning/README.md)；当前仓库已有 S8 采集示例，但还没有把这些分类、回归或神经网络练习接成完整机器人 BC 训练与闭环评估案例。先完成低维 BC，再考虑图像和更复杂策略。
 
 后续若使用 LeRobot，可参考其 [采集、训练与评估工作流](https://huggingface.co/docs/lerobot/il_robots)。该教程面向真实机器人，不能把其中硬件步骤直接当成本仓库 MuJoCo 适配方案；选用时要核对数据与环境接口版本。
 
@@ -431,6 +440,8 @@ MuJoCo 官方概览介绍了模型与动态数据的分离、模型编译和仿�
 <a id="next"></a>
 
 ## 4. 当前材料与近期建议
+
+2026-09-22 的目录评估与后续建设安排见[机器人学习目录补全计划](robotics-content-plan.md)：先展开已有主题，再补齐真实任务的连接环节，最后按项目需要展开扩展方向。目录默认只规划到主题的下一层；空间数学与数值方法、运动学已按用户后续要求补齐复习正文，其他待办仍保持目录规划范围。建设状态按该计划更新，学习先修仍以本路线为准。
 
 ### 进度如何理解
 

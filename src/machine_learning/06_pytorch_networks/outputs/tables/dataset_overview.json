@@ -1,0 +1,96 @@
+{
+  "dataset": "MNIST",
+  "task": "10-class handwritten digit classification",
+  "classes": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "software": {
+    "python_torch": "2.6.0+cpu",
+    "torchvision": "0.21.0+cpu"
+  },
+  "official_portions": {
+    "train_samples": 60000,
+    "test_samples": 10000,
+    "train_class_counts": {
+      "0": 5923,
+      "1": 6742,
+      "2": 5958,
+      "3": 6131,
+      "4": 5842,
+      "5": 5421,
+      "6": 5918,
+      "7": 6265,
+      "8": 5851,
+      "9": 5949
+    },
+    "test_class_counts": "not inspected before final evaluation"
+  },
+  "raw_storage": {
+    "train_images_shape": [
+      60000,
+      28,
+      28
+    ],
+    "train_labels_shape": [
+      60000
+    ],
+    "single_image_shape": [
+      28,
+      28
+    ],
+    "image_dtype": "torch.uint8",
+    "pixel_min": 0,
+    "pixel_max": 255
+  },
+  "after_to_tensor": {
+    "single_image_shape": [
+      1,
+      28,
+      28
+    ],
+    "single_label": 5,
+    "image_dtype": "torch.float32",
+    "pixel_min": 0.0,
+    "pixel_max": 1.0
+  },
+  "inspection_dataloader": {
+    "batch_size": 64,
+    "shuffle": false,
+    "num_workers": 0,
+    "image_batch_shape": [
+      64,
+      1,
+      28,
+      28
+    ],
+    "label_batch_shape": [
+      64
+    ],
+    "image_dtype": "torch.float32",
+    "label_dtype": "torch.int64",
+    "label_min": 0,
+    "label_max": 9
+  },
+  "representative_train_indices": {
+    "0": 1,
+    "1": 3,
+    "2": 5,
+    "3": 7,
+    "4": 2,
+    "5": 0,
+    "6": 13,
+    "7": 15,
+    "8": 17,
+    "9": 4
+  },
+  "important_boundary": "Before final evaluation, the official test portion is checked only for availability and total length. Its images and label distribution are not explored."
+}

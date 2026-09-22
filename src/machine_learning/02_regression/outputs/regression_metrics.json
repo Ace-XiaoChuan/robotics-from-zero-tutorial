@@ -1,0 +1,49 @@
+{
+  "train_samples": 2344,
+  "test_samples": 586,
+  "data_split": {
+    "source_file": "data/AmesHousing.txt",
+    "random_state": 42,
+    "test_size": 0.2,
+    "train_size": 0.8,
+    "total_samples": 2930,
+    "train_samples": 2344,
+    "test_samples": 586,
+    "target_column": "SalePrice"
+  },
+  "target_column": "SalePrice",
+  "excluded_identifier_columns": [
+    "Order",
+    "PID"
+  ],
+  "numeric_feature_count": 34,
+  "categorical_feature_count": 45,
+  "mean_saleprice_from_training_set": 178582.20776450512,
+  "metrics": {
+    "mean_reference": {
+      "train": {
+        "mse": 5945739180.175692,
+        "mae": 56094.93965203439,
+        "r2": 0.0
+      },
+      "test": {
+        "mse": 8140076481.478712,
+        "mae": 64611.411613705466,
+        "r2": -0.015282546687198861
+      }
+    },
+    "linear_regression": {
+      "train": {
+        "mse": 348268862.7289506,
+        "mae": 12969.698357240422,
+        "r2": 0.9414254725652699
+      },
+      "test": {
+        "mse": 845665351.4823062,
+        "mae": 15647.909877514776,
+        "r2": 0.8945231935287528
+      }
+    }
+  },
+  "largest_absolute_test_error": 426096.6147264689
+}

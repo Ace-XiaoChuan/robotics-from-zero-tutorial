@@ -1,0 +1,6 @@
+# 当前基础数据分析与机器学习环境（Python 3.10）
+numpy==2.2.6
+pandas==2.3.3
+matplotlib==3.10.9
+seaborn==0.13.2
+scikit-learn==1.7.2

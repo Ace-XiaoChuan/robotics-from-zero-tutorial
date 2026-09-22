@@ -4,7 +4,7 @@
 
 **默认采用“速记要点 → 具体例子 → 结果与解释 → 按需查阅”。** 读者不用执行代码，也能找回知识印象。只有静态例子难以说明的动态现象才增加可选实验。
 
-简短样例见 [S0 单元 01](../src/foundations/engineering/01_shell_paths/README.md)、[单元 02](../src/foundations/engineering/02_git/README.md)；机器人专题可参考 [Lesson 1](../src/lesson1/ros2_interfaces_notes.md)。目录归属见 [案例索引](../src/README.md)，先修关系见 [学习路线](learning-roadmap.md)。
+简短样例见 [S0 单元 01](../src/foundations/engineering/01_shell_paths/README.md)、[单元 02](../src/foundations/engineering/02_git/README.md)；机器人专题可参考 [Lesson 1](../src/ros2/examples/communication/ros2_interfaces_notes.md)。目录归属见 [案例索引](../src/README.md)，先修关系见 [学习路线](learning-roadmap.md)。
 
 ## 1. 内容深度
 

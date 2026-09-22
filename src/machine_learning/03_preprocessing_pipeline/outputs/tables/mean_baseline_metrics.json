@@ -1,0 +1,47 @@
+{
+  "model": "DummyClassifier(strategy='prior')",
+  "meaning": "对每名乘客预测训练集中的平均生存概率；类别输出为训练集中占多数的类别。",
+  "target_column": "Survived",
+  "feature_columns": [
+    "Pclass",
+    "Sex",
+    "Age",
+    "SibSp",
+    "Parch",
+    "Fare",
+    "Embarked"
+  ],
+  "numeric_preprocessing": "median imputation -> standard scaling",
+  "categorical_preprocessing": "constant 'Missing' imputation -> one-hot encoding",
+  "train_samples": 712,
+  "test_samples": 179,
+  "training_survival_rate": 0.38342696629213485,
+  "metrics": {
+    "train": {
+      "accuracy": 0.6165730337078652,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    },
+    "test": {
+      "accuracy": 0.6145251396648045,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+    }
+  },
+  "test_confusion_matrix_labels": [
+    0,
+    1
+  ],
+  "test_confusion_matrix": [
+    [
+      110,
+      0
+    ],
+    [
+      69,
+      0
+    ]
+  ]
+}

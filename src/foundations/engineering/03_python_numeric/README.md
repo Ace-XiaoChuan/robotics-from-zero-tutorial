@@ -53,7 +53,7 @@ scaled = R * 2                # (3, 3)，每个元素乘 2
 ## 需要深入时
 
 - [NumPy 数组基础](https://numpy.org/doc/stable/user/absolute_beginners.html)：查 `shape`、索引和广播。
-- 本仓库的 [Lesson 9 关节状态与 Jacobian 笔记](../../../lesson9/qpos_jacobian_notes.md)：把关节数组、坐标变换和 Jacobian 放回机器人语境。
+- 本仓库的 [Lesson 9 关节状态与 Jacobian 笔记](../../../kinematics/examples/model_alignment/qpos_jacobian_notes.md)：把关节数组、坐标变换和 Jacobian 放回机器人语境。
 - 复习时优先问四件事：数据代表什么、单位是什么、坐标系/顺序是什么、结果经过了哪种运算。
 
 返回 [S0 索引](../README.md) · [学习路线](../../../../doc/learning-roadmap.md#s0)。

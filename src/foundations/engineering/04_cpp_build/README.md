@@ -98,6 +98,6 @@ ros2 run <package_name> <executable_name>
 
 - [CMake Tutorial](https://cmake.org/cmake/help/latest/guide/tutorial/index.html)：从 target、依赖和安装规则开始。
 - [ROS 2 Humble 创建 ament_cmake 包](https://docs.ros.org/en/humble/How-To-Guides/Ament-CMake-Documentation.html)：核对 `ament_target_dependencies`、安装和导出约定。
-- 本仓库的 [Lesson 2 组件构建案例](../../../lesson2/lesson2_composition/CMakeLists.txt)：查看真实 ROS 2 C++ 包的 `CMakeLists.txt`、头文件和可执行目标。
+- 本仓库的 [Lesson 2 组件构建案例](../../../ros2/examples/composition/lesson2_composition/CMakeLists.txt)：查看真实 ROS 2 C++ 包的 `CMakeLists.txt`、头文件和可执行目标。
 
 返回 [S0 索引](../README.md) · [学习路线](../../../../doc/learning-roadmap.md#s0)。

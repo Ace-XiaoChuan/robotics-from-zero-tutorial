@@ -1,0 +1,59 @@
+{
+  "saved_on": "2026-08-31",
+  "data_path": "data/wholesale_customers.csv",
+  "sample_count": 440,
+  "feature_columns": [
+    "Fresh",
+    "Milk",
+    "Grocery",
+    "Frozen",
+    "Detergents_Paper",
+    "Delicassen"
+  ],
+  "excluded_reference_columns": [
+    "Channel",
+    "Region"
+  ],
+  "missing_value_count": 0,
+  "outlier_clipping": false,
+  "preprocessing": [
+    "numpy.log1p",
+    "round log1p values to 6 decimals (reproduces saved intermediate CSV)",
+    "sklearn.preprocessing.RobustScaler"
+  ],
+  "n_clusters": 2,
+  "kmeans_parameters": {
+    "init": "k-means++",
+    "n_init": 20,
+    "random_state": 42
+  },
+  "label_order": "cluster median total annual spending, low to high",
+  "label_map_original_to_ranked": {
+    "0": 0,
+    "1": 1
+  },
+  "cluster_names": {
+    "C0": "Fresh/Frozen偏高型（以Horeca为主）",
+    "C1": "Milk/Grocery/Detergents_Paper偏高型（以Retail为主）"
+  },
+  "cluster_sizes": {
+    "C0": 252,
+    "C1": 188
+  },
+  "inertia": 1173.6410513598346,
+  "silhouette_score": 0.25291547165200323,
+  "n_iter": 6,
+  "preprocessing_verification_max_abs_difference": 4.999239294756208e-07,
+  "software_versions": {
+    "numpy": "2.2.6",
+    "pandas": "2.3.3",
+    "scikit_learn": "1.7.2",
+    "joblib": "1.5.3"
+  },
+  "artifacts": {
+    "assignments": "outputs/tables/final_k2_customer_assignments.csv",
+    "profiles": "outputs/tables/final_k2_cluster_profiles.csv",
+    "model": "outputs/models/final_k2_model.joblib"
+  },
+  "interpretation_warning": "Cluster names are exploratory descriptions. Channel was used only for post-hoc interpretation, not as a training label or accuracy target."
+}

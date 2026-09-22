@@ -1,0 +1,94 @@
+{
+  "metadata": {
+    "architecture": "resnet18",
+    "pretrained_weights": "IMAGENET1K_V1",
+    "class_to_idx": {
+      "paper": 0,
+      "cardboard": 1,
+      "metal": 2
+    },
+    "seed": 42,
+    "epochs": 3,
+    "batch_size": 32,
+    "optimizer": "SGD",
+    "learning_rate": 0.01,
+    "preprocessing": {
+      "color_mode": "RGB",
+      "resize_size": [
+        256
+      ],
+      "crop_size": [
+        224
+      ],
+      "mean": [
+        0.485,
+        0.456,
+        0.406
+      ],
+      "std": [
+        0.229,
+        0.224,
+        0.225
+      ],
+      "interpolation": "bilinear",
+      "antialias": true,
+      "random_augmentation": false
+    },
+    "train_augmentation": {
+      "horizontal_flip_probability": 0.5,
+      "brightness": 0.1,
+      "contrast": 0.1
+    },
+    "split_sha256": {
+      "train": "a1b96111ce1b545e95fca2a97d3ec2053043a175a7df38aaf32f5220bf57da0a",
+      "val": "75e093357d90db35b2a3d72756e38e15644b9fe6ee9ccded9ea9836a559b226d"
+    },
+    "selection_rule": "lowest validation loss; first epoch wins ties",
+    "test_evaluated": false
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train": {
+        "loss": 0.664875051112679,
+        "accuracy": 0.758130081300813,
+        "samples": 984
+      },
+      "val": {
+        "loss": 0.4148287486408559,
+        "accuracy": 0.9004739336492891,
+        "samples": 211
+      }
+    },
+    {
+      "epoch": 2,
+      "train": {
+        "loss": 0.36525920227291137,
+        "accuracy": 0.9004065040650406,
+        "samples": 984
+      },
+      "val": {
+        "loss": 0.3163795077122783,
+        "accuracy": 0.9146919431279621,
+        "samples": 211
+      }
+    },
+    {
+      "epoch": 3,
+      "train": {
+        "loss": 0.30016016524012495,
+        "accuracy": 0.9146341463414634,
+        "samples": 984
+      },
+      "val": {
+        "loss": 0.28223669380655786,
+        "accuracy": 0.9289099526066351,
+        "samples": 211
+      }
+    }
+  ],
+  "best_epoch": 3,
+  "best_val_loss": 0.28223669380655786,
+  "frozen_state_unchanged": true,
+  "checkpoint_reload_verified": true
+}

@@ -1,0 +1,71 @@
+{
+  "split_file": "outputs/tables/mnist_split_indices.json",
+  "shuffle_seed": 42,
+  "batch_size": 64,
+  "num_workers": 0,
+  "train_shuffle": true,
+  "validation_shuffle": false,
+  "drop_last": false,
+  "sample_scaling_and_label_alignment_checks_passed": true,
+  "train": {
+    "samples": 50000,
+    "batches_per_epoch": 782,
+    "image_shape": [
+      64,
+      1,
+      28,
+      28
+    ],
+    "label_shape": [
+      64
+    ],
+    "image_dtype": "torch.float32",
+    "label_dtype": "torch.int64",
+    "pixel_min": 0.0,
+    "pixel_max": 1.0,
+    "first_10_labels": [
+      0,
+      1,
+      0,
+      3,
+      4,
+      8,
+      9,
+      8,
+      9,
+      0
+    ],
+    "checks_passed": true
+  },
+  "validation": {
+    "samples": 10000,
+    "batches_per_epoch": 157,
+    "image_shape": [
+      64,
+      1,
+      28,
+      28
+    ],
+    "label_shape": [
+      64
+    ],
+    "image_dtype": "torch.float32",
+    "label_dtype": "torch.int64",
+    "pixel_min": 0.0,
+    "pixel_max": 1.0,
+    "first_10_labels": [
+      4,
+      5,
+      2,
+      8,
+      4,
+      5,
+      3,
+      2,
+      4,
+      2
+    ],
+    "checks_passed": true
+  },
+  "official_test_loaded": false
+}

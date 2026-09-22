@@ -1,0 +1,8 @@
+{
+  "best_epoch": 1,
+  "best_validation_accuracy": 0.4921875,
+  "training_seconds": 0.12511601599999267,
+  "elapsed_seconds_through_reload": 0.1323994809999931,
+  "reload_outputs_identical": true,
+  "official_test_loaded": false
+}

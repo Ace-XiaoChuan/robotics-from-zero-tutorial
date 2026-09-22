@@ -1,0 +1,89 @@
+{
+  "metadata": {
+    "architecture": "resnet18",
+    "pretrained_weights": "IMAGENET1K_V1",
+    "class_to_idx": {
+      "paper": 0,
+      "cardboard": 1,
+      "metal": 2
+    },
+    "seed": 42,
+    "epochs": 3,
+    "batch_size": 32,
+    "optimizer": "SGD",
+    "learning_rate": 0.01,
+    "preprocessing": {
+      "color_mode": "RGB",
+      "resize_size": [
+        256
+      ],
+      "crop_size": [
+        224
+      ],
+      "mean": [
+        0.485,
+        0.456,
+        0.406
+      ],
+      "std": [
+        0.229,
+        0.224,
+        0.225
+      ],
+      "interpolation": "bilinear",
+      "antialias": true,
+      "random_augmentation": false
+    },
+    "split_sha256": {
+      "train": "a1b96111ce1b545e95fca2a97d3ec2053043a175a7df38aaf32f5220bf57da0a",
+      "val": "75e093357d90db35b2a3d72756e38e15644b9fe6ee9ccded9ea9836a559b226d"
+    },
+    "selection_rule": "lowest validation loss; first epoch wins ties",
+    "test_evaluated": false
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train": {
+        "loss": 0.6631896912567015,
+        "accuracy": 0.7713414634146342,
+        "samples": 984
+      },
+      "val": {
+        "loss": 0.41667846523189994,
+        "accuracy": 0.8957345971563981,
+        "samples": 211
+      }
+    },
+    {
+      "epoch": 2,
+      "train": {
+        "loss": 0.3638214975353179,
+        "accuracy": 0.899390243902439,
+        "samples": 984
+      },
+      "val": {
+        "loss": 0.3168744740045466,
+        "accuracy": 0.9146919431279621,
+        "samples": 211
+      }
+    },
+    {
+      "epoch": 3,
+      "train": {
+        "loss": 0.2911194359383932,
+        "accuracy": 0.9247967479674797,
+        "samples": 984
+      },
+      "val": {
+        "loss": 0.28320423446560355,
+        "accuracy": 0.943127962085308,
+        "samples": 211
+      }
+    }
+  ],
+  "best_epoch": 3,
+  "best_val_loss": 0.28320423446560355,
+  "frozen_state_unchanged": true,
+  "checkpoint_reload_verified": true
+}

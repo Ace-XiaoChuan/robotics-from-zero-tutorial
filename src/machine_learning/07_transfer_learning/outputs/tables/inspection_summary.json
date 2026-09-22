@@ -1,0 +1,99 @@
+{
+  "seed": 42,
+  "total": 1407,
+  "class_counts": {
+    "cardboard": 403,
+    "metal": 411,
+    "paper": 593
+  },
+  "class_to_idx": {
+    "paper": 0,
+    "cardboard": 1,
+    "metal": 2
+  },
+  "image_formats": [
+    {
+      "width": 512,
+      "height": 384,
+      "mode": "RGB",
+      "count": 1407
+    }
+  ],
+  "grid_samples": [
+    {
+      "path": "dataset-resized/paper/paper202.jpg",
+      "label": "paper"
+    },
+    {
+      "path": "dataset-resized/paper/paper121.jpg",
+      "label": "paper"
+    },
+    {
+      "path": "dataset-resized/paper/paper353.jpg",
+      "label": "paper"
+    },
+    {
+      "path": "dataset-resized/cardboard/cardboard211.jpg",
+      "label": "cardboard"
+    },
+    {
+      "path": "dataset-resized/cardboard/cardboard201.jpg",
+      "label": "cardboard"
+    },
+    {
+      "path": "dataset-resized/cardboard/cardboard163.jpg",
+      "label": "cardboard"
+    },
+    {
+      "path": "dataset-resized/metal/metal7.jpg",
+      "label": "metal"
+    },
+    {
+      "path": "dataset-resized/metal/metal146.jpg",
+      "label": "metal"
+    },
+    {
+      "path": "dataset-resized/metal/metal410.jpg",
+      "label": "metal"
+    }
+  ],
+  "batch_samples": [
+    {
+      "path": "dataset-resized/paper/paper202.jpg",
+      "label": "paper"
+    },
+    {
+      "path": "dataset-resized/cardboard/cardboard211.jpg",
+      "label": "cardboard"
+    },
+    {
+      "path": "dataset-resized/metal/metal7.jpg",
+      "label": "metal"
+    }
+  ],
+  "single_tensor_shape": [
+    3,
+    384,
+    512
+  ],
+  "batch_shape": [
+    3,
+    3,
+    384,
+    512
+  ],
+  "batch_dtype": "torch.float32",
+  "batch_range": [
+    0.0,
+    1.0
+  ],
+  "labels": [
+    0,
+    1,
+    2
+  ],
+  "labels_shape": [
+    3
+  ],
+  "labels_dtype": "torch.int64"
+}
