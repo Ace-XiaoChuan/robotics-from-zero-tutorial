@@ -1,0 +1,19 @@
+<mujoco model="s5_single_rod_forward_inverse">
+  <compiler angle="radian" inertiafromgeom="false"/>
+  <option timestep="0.002" gravity="0 -9.81 0"/>
+  <worldbody>
+    <body name="rod">
+      <joint name="hinge" type="hinge" axis="0 0 1"
+             damping="0.2" armature="0" frictionloss="0" limited="false"/>
+      <!-- Izz=0.06 around COM plus m*0.3^2 gives hinge inertia 0.24.
+           Iyy is positive for a valid 3D body, but does not enter this fixed-axis motion. -->
+      <inertial pos="0 -0.3 0" mass="2" diaginertia="0.06 0.001 0.06"/>
+      <geom name="rod_visual" type="capsule" fromto="0 0 0 0 -0.6 0"
+            size="0.015" contype="0" conaffinity="0" rgba="0.2 0.6 0.7 1"/>
+    </body>
+  </worldbody>
+  <actuator>
+    <motor name="motor" joint="hinge" gear="1"
+           ctrllimited="true" ctrlrange="-4 4"/>
+  </actuator>
+</mujoco>

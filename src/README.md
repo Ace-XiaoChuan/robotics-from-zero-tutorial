@@ -1,6 +1,6 @@
 # 教程与源码总目录
 
-本文行数：81行，预期阅读时长：3分钟
+本文行数：86行，预期阅读时长：3分钟
 
 教程和源码按主题集中保存；目录树只列实际存在的内容。每个主题从 README 进入，先看速记、例子与结果解释，需要时查源码。未配齐环境不影响阅读。
 
@@ -13,11 +13,11 @@
 | ROS 2 S2 | [通信与系统](ros2/README.md) | 五章笔记；examples/communication 与 composition |
 | 模型仿真 S3 | [模型与 MuJoCo](simulation/README.md) | 七章笔记，先看控制流与轨迹时间；含自带模型、数值检查及历史案例 |
 | 运动学 S4 | [八章复习目录](kinematics/README.md) | FK、DH、模型对齐、Jacobian、IK、奇异性、冗余与工作空间；含数值检查及历史案例 |
-| 动力学、轨迹与控制 S5 | [章节目录与已有材料](control/README.md) | 八章目录已规划，正文待编写；复用仿真和运动学完整案例 |
-| 感知 S6 | [相机与视觉](perception/README.md) | examples/camera_and_tags |
-| 规划操作 S7 | [MoveIt / MTC](manipulation/README.md) | 六章复习；packages 内保存六个 ROS 包 |
+| 动力学、轨迹与控制 S5 | [章节目录与已有材料](control/README.md) | 面向动力学初学者的七部分目录，01～06 基础概念至控制与约束已补齐，07 待编写；保留仿真和运动学参考案例 |
+| 感知与估计 S6 | [六章复习目录](perception/README.md) | 成像标定、目标位姿、噪声、误差传播、Kalman 与时间对齐；含数值检查及旧视觉案例 |
+| 规划操作 S7 | [MoveIt / MTC](manipulation/README.md) | 六章 MoveIt / MTC 与五个规划原理专题；packages 内保存六个 ROS 包 |
 | 数据采集 S8 | [数据采集](data_collection/README.md) | 复用视觉采集代码 |
-| 机器学习 | [七章复习](machine_learning/README.md) | 01～07 主题目录内分别保存源码与历史结果 |
+| 机器学习 | [概念总览与七章复习](machine_learning/README.md) | 可直接阅读的例子与结果解释；各章保留源码和历史详细笔记 |
 
 机器人策略学习仍是 [路线 S9](../doc/learning-roadmap.md#s9) 中的扩展方向，尚无完整案例，不创建空目录。
 
@@ -46,7 +46,7 @@ src/
 │   ├── 07_redundancy/
 │   ├── 08_workspace_limits/
 │   └── examples/model_alignment/
-├── control/                            # 动力学、轨迹与控制：八章目录规划及已有材料
+├── control/                            # 动力学、轨迹与控制：零基础 01～06 入门正文、07 规划与参考材料
 ├── perception/examples/camera_and_tags/
 ├── manipulation/
 │   ├── 01_motion_planning/
@@ -55,6 +55,11 @@ src/
 │   ├── 04_planning_scene/
 │   ├── 05_mtc_stages/
 │   ├── 06_pick_place/
+│   ├── 07_configuration_space/
+│   ├── 08_collision_checking/
+│   ├── 09_sampling_planning/
+│   ├── 10_constrained_planning/
+│   ├── 11_trajectory_optimization/
 │   └── packages/                       # 完整 ROS 包，不按章节拆散
 ├── data_collection/                    # 已有采集代码索引
 ├── machine_learning/

@@ -1,4 +1,4 @@
-# 03：ctrl 到底输入什么
+# 5：ctrl 到底输入什么
 
 本文行数：45行，预期阅读时长：2分钟
 
@@ -26,7 +26,7 @@
 
 **条件与推导：** 这是直接驱动 hinge 的 motor，gear 为 1，无额外激活动力学；`ctrl=0.2` 对应施加 `0.2 N·m` 的关节力矩。正方向与 joint 的 `+y` 转轴一致。
 
-**结果：** `ctrl=3` 超出范围时，正常启用控制限幅的计算使用 2，得到 `2 N·m`；但 `data.ctrl[0]` 本身仍可显示 3，不能只看输入数组判断实际输出。[检查脚本](../check_basics.py)验证了这一点。
+**结果：** `ctrl=3` 超出范围时，正常启用控制限幅的计算使用 2，得到 `2 N·m`；但 `data.ctrl[0]` 本身仍可显示 3，不能只看输入数组判断实际输出。[检查脚本](../mujoco/check_basics.py)验证了这一点。
 
 **解释：** 简单 hinge 的 gear 若改为 2，同一 motor 输入产生的关节力矩也变为两倍。对于 position actuator，简单 hinge 传动下目标对应的是 `gear × q`；只有 gear=1 等条件满足时，才能直接把输入读作关节目标角度。
 
@@ -42,4 +42,4 @@
 
 资料：[Actuation model](https://mujoco.readthedocs.io/en/3.8.1/computation/index.html#actuation-model) · [actuator XML](https://mujoco.readthedocs.io/en/3.8.1/XMLreference.html#actuator)
 
-[上一章](../02_state_step/README.md) · [返回目录](../README.md) · [下一章：显示与频率](../04_viewer_rendering/README.md)
+[上一章](../03_state_step/README.md) · [返回目录](../README.md) · [下一章：显示与频率](../05_viewer_rendering/README.md)

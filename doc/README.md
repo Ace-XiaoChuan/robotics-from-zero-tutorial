@@ -22,11 +22,11 @@
 | ROS 2 | [S2](learning-roadmap.md#s2) | [五章复习目录](../src/ros2/README.md)、 [接口笔记](../src/ros2/examples/communication/ros2_interfaces_notes.md)、[组合案例](../src/ros2/examples/composition/lesson2_composition) |
 | 模型与仿真 | [S3](learning-roadmap.md#s3) | [七章复习目录](../src/simulation/README.md)、[控制流与轨迹时间](../src/simulation/00_control_flow/README.md)、[数值验证](../src/simulation/mujoco/verification.md)、[已有 MJCF 笔记](../src/simulation/mujoco/examples/state_and_control/README.md) |
 | 运动学 | [S4](learning-roadmap.md#s4) | [八章复习目录](../src/kinematics/README.md)、[数值核对](../src/kinematics/verification.md)、[历史模型对齐案例](../src/kinematics/examples/model_alignment/README.md) |
-| 动力学、轨迹与控制 | [S5](learning-roadmap.md#s5) | [八章目录规划与已有材料](../src/control/README.md)（正文待编写）、[轨迹跟踪](../src/simulation/mujoco/examples/state_and_control/joint_space_trajectory_tracking_demo.py)、[末端控制](../src/kinematics/examples/model_alignment/control_ee_with_pinocchio.py) |
+| 动力学、轨迹与控制 | [S5](learning-roadmap.md#s5) | [零基础七部分目录与参考材料](../src/control/README.md)（01～06 基础概念至控制与约束已补齐，07 待编写）、[轨迹跟踪](../src/simulation/mujoco/examples/state_and_control/joint_space_trajectory_tracking_demo.py)、[末端控制](../src/kinematics/examples/model_alignment/control_ee_with_pinocchio.py) |
 | 感知与估计 | [S6](learning-roadmap.md#s6) | [视觉与传感器笔记](../src/perception/examples/camera_and_tags/cv_trainning/README.md)；状态估计待补 |
-| 规划与操作 | [S7](learning-roadmap.md#s7) | [MoveIt 例子](../src/manipulation/packages/hello_moveit/src/draw_line_and_circle.cpp)、[MTC](../src/manipulation/06_pick_place/history.md)；[集中教程与源码](../src/manipulation/README.md) |
+| 规划与操作 | [S7](learning-roadmap.md#s7) | [MoveIt 例子](../src/manipulation/packages/hello_moveit/src/draw_line_and_circle.cpp)、[MTC](../src/manipulation/06_pick_place/history.md)；[六章 MoveIt / MTC 与五个规划原理专题](../src/manipulation/README.md) |
 | 数据与回放 | [S8](learning-roadmap.md#s8) | [episode 采集](../src/perception/examples/camera_and_tags/cv_trainning/demo/sim_camera_tag_pose_demo.py)；回放验收待补 |
-| 机器学习与模仿学习 | [S9](learning-roadmap.md#s9) | [集中教程与源码](../src/machine_learning/README.md)：KNN、决策树、聚类、PyTorch 与迁移学习；机器人策略闭环评估待建设 |
+| 机器学习与模仿学习 | [S9](learning-roadmap.md#s9) | [概念总览与七章复习](../src/machine_learning/README.md)：监督、无监督、神经网络和迁移学习，附强化学习概念入口；机器人策略闭环评估待建设 |
 
 ## 整理样板
 

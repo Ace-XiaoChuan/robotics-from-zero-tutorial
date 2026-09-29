@@ -1,4 +1,4 @@
-# 04：仿真在走，画面怎样更新
+# 6：仿真在走，画面怎样更新
 
 本文行数：40行，预期阅读时长：2分钟
 
@@ -31,10 +31,10 @@
 
 若与 Viewer 线程共同修改 model/data，按官方用法使用 `viewer.lock()` 保护共享访问；窗口交互也可能改变运行状态，因此固定条件的重复性检查应先无窗口完成。
 
-渲染图像的典型流程是 `renderer.update_scene(data)` 后 `renderer.render()`，返回 RGB 图像数组。它不是相机位姿估计算法；相机坐标与视觉测量留到 [S6](../../../../doc/learning-roadmap.md#s6)。
+渲染图像的典型流程是 `renderer.update_scene(data)` 后 `renderer.render()`，返回 RGB 图像数组。它不是相机位姿估计算法；相机坐标与视觉测量留到 [S6](../../../doc/learning-roadmap.md#s6)。
 
 **验证边界：** 本次执行无窗口数值检查，未验证本机 Viewer、OpenGL 或相机图像。这里的频率为教学计算，不是渲染性能测量。
 
 资料：[Python Viewer 与渲染](https://mujoco.readthedocs.io/en/3.8.1/python.html)
 
-[上一章](../03_control_inputs/README.md) · [返回目录](../README.md) · [下一章：重置与记录](../05_reset_recording/README.md)
+[上一章](../04_control_inputs/README.md) · [返回目录](../README.md) · [下一章：重置与记录](../06_reset_recording/README.md)

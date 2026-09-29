@@ -1,4 +1,4 @@
-# 01：机器人模型描述了什么
+# 2：机器人模型描述了什么
 
 本文行数：50行，预期阅读时长：3分钟
 
@@ -47,4 +47,4 @@ q = 0.5 rad → tip ≈ (-0.239713, 0, 0.561209) m
 
 资料：[URDF](https://docs.ros.org/en/humble/Tutorials/Intermediate/URDF/URDF-Main.html) · [MJCF body 与 joint](https://mujoco.readthedocs.io/en/3.8.1/XMLreference.html#body)
 
-[上一章：控制流导读](../00_control_flow/README.md) · [返回 S3 目录](../README.md) · [下一章：模型加载](../mujoco/01_model_loading/README.md)
+[上一章：控制流导读](../00_control_flow/README.md) · [返回 S3 目录](../README.md) · [下一章：模型加载](../02_model_loading/README.md)

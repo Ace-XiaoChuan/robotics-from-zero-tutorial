@@ -1,0 +1,153 @@
+{
+  "data_source": "analytic synthetic data; no physics simulation or hardware",
+  "environment": {
+    "python": "3.10.12",
+    "numpy": "2.2.6"
+  },
+  "parameter_order": [
+    "I_kg_m2",
+    "b_nm_s_per_rad",
+    "k_nm"
+  ],
+  "truth": [
+    0.42,
+    0.2,
+    8.829
+  ],
+  "unloaded_base": [
+    0.24,
+    0.2,
+    5.886
+  ],
+  "settings": {
+    "train_samples": 1001,
+    "validation_samples": 601,
+    "sample_period_s": 0.01,
+    "torque_noise_sigma_nm": 0.03,
+    "seed": 7,
+    "max_scaled_condition": 10000.0,
+    "missing_friction": ".12*tanh(v/.02) N*m"
+  },
+  "cases": {
+    "noiseless": {
+      "rank": 3,
+      "column_rms": [
+        0.6783494043587283,
+        0.3456702652272491,
+        0.2519735118225388
+      ],
+      "scaled_singular_values": [
+        41.02126204014976,
+        31.480223194139633,
+        18.145291628423184
+      ],
+      "theta": [
+        0.42000000000000176,
+        0.20000000000000007,
+        8.828999999999999
+      ],
+      "scaled_condition": 2.260711091349623,
+      "status": "fitted",
+      "train_torque_rmse_nm": 1.5510755304134422e-15,
+      "validation_torque_rmse_nm": 1.097288045674186e-15,
+      "base_validation_torque_rmse_nm": 0.7641571261495628,
+      "validation_max_abs_error_nm": 2.220446049250313e-15
+    },
+    "torque_noise": {
+      "rank": 3,
+      "column_rms": [
+        0.6783494043587283,
+        0.3456702652272491,
+        0.2519735118225388
+      ],
+      "scaled_singular_values": [
+        41.02126204014976,
+        31.480223194139633,
+        18.145291628423184
+      ],
+      "theta": [
+        0.4215673104116023,
+        0.19794654496980973,
+        8.829540971949163
+      ],
+      "scaled_condition": 2.260711091349623,
+      "status": "fitted",
+      "train_torque_rmse_nm": 0.028282381555637472,
+      "validation_torque_rmse_nm": 0.0007571637735414818,
+      "base_validation_torque_rmse_nm": 0.7641571261495628,
+      "validation_max_abs_error_nm": 0.001267288565536484
+    },
+    "missing_friction": {
+      "rank": 3,
+      "column_rms": [
+        0.6783494043587283,
+        0.3456702652272491,
+        0.2519735118225388
+      ],
+      "scaled_singular_values": [
+        41.02126204014976,
+        31.480223194139633,
+        18.145291628423184
+      ],
+      "theta": [
+        0.41630709056995424,
+        0.47708354285604704,
+        8.807235428897622
+      ],
+      "scaled_condition": 2.260711091349623,
+      "status": "fitted",
+      "train_torque_rmse_nm": 0.07095213851767594,
+      "validation_torque_rmse_nm": 0.062373604676045136,
+      "base_validation_torque_rmse_nm": 0.7447601627976085,
+      "validation_max_abs_error_nm": 0.1121642434447665
+    },
+    "static_only": {
+      "rank": 1,
+      "column_rms": [
+        1.0,
+        1.0,
+        0.2945660590623283
+      ],
+      "scaled_singular_values": [
+        4.58257569495584,
+        6.75490399950632e-16,
+        0.0
+      ],
+      "theta": null,
+      "status": "rejected_rank",
+      "scaled_condition": null
+    },
+    "weak_excitation": {
+      "rank": 3,
+      "column_rms": [
+        0.008557711182856451,
+        0.007776611433062456,
+        0.007072400122095071
+      ],
+      "scaled_singular_values": [
+        44.924884571864276,
+        31.380802191723117,
+        9.282663425623294e-05
+      ],
+      "theta": null,
+      "scaled_condition": 483965.45810178126,
+      "status": "rejected_condition"
+    },
+    "negative_inertia": {
+      "rank": 3,
+      "column_rms": [
+        0.6783494043587283,
+        0.3456702652272491,
+        0.2519735118225388
+      ],
+      "scaled_singular_values": [
+        41.02126204014976,
+        31.480223194139633,
+        18.145291628423184
+      ],
+      "theta": null,
+      "scaled_condition": 2.260711091349623,
+      "status": "rejected_physical_sign"
+    }
+  }
+}

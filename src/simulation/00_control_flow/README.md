@@ -1,6 +1,6 @@
-# 导读：代码怎样让仿真机械臂与真机运动
+# 1：导读：代码怎样让仿真机械臂与真机运动
 
-本文行数：164行，预期阅读时长：10分钟
+本文行数：191行，预期阅读时长：10分钟
 
 **控制机械臂的基本流程是：给出目标 → 生成运动指令 → 执行器产生力 → 关节运动 → 读取实际状态，再继续调整。仿真用物理引擎计算运动，真机用电机完成运动；上层可以使用相同接口。**
 
@@ -19,6 +19,7 @@
 假设任务是“让末端到达基坐标系下的某个位姿”，其中位置以 m 表示，姿态也必须明确表达方式和参考系。运动学求解把末端目标转换成关节目标，规划考虑路径与约束，执行环节再按照时间下发指令。
 
 ```mermaid
+
 flowchart TD
     A["任务代码：末端到达目标位姿"] --> B["运动学与规划：关节目标、路径"]
     B --> C["带时间的关节轨迹"]
@@ -33,6 +34,7 @@ flowchart TD
     J --> K
     K --> D
     K --> B
+
 ```
 
 这是功能划分，不要求每一层都是独立进程。MoveIt 可以负责规划，厂商控制柜可以负责底层伺服；简单 MuJoCo 程序也可以完全不经过 ROS。状态反馈用于获得规划起点和监控执行，不表示每收到一次反馈就自动重新规划。
@@ -90,9 +92,9 @@ self.data.ctrl[:7] = self.q_des
 
 对一个单位传动比的简化位置伺服关节，执行器可以按 PD 关系产生力矩：
 
-\[
+$$
 \tau = K_p(q_{\mathrm{des}}-q)-K_d\dot q
-\]
+$$
 
 这里 `q` 为关节角（rad），`q_dot` 为关节角速度（rad/s），`tau` 为关节力矩（N·m）；`Kp` 单位为 N·m/rad，`Kd` 单位为 N·m·s/rad。若 `Kp=100`、当前速度为零，那么这个时刻产生 `100 × (0.5 - 0.2) = 30 N·m` 的力矩。此计算未考虑力矩限幅等因素，也不意味着所有 position actuator 默认带有同样的阻尼项。
 
@@ -100,7 +102,7 @@ self.data.ctrl[:7] = self.q_des
 
 **结果与解释：** 连续重复“给目标 → 算力 → 积分更新状态”，形成运动；viewer 把状态画出来。[末端控制示例](../../kinematics/examples/model_alignment/control_ee_with_pinocchio.py)中可以看到读取当前关节角、求解 IK、写入 `ctrl`、调用 `mj_step`、更新画面的顺序。该脚本在缺少足够执行器时还有直接写 `qpos` 的兜底分支，需要另行区分。
 
-`ctrl` 的含义由 actuator 配置决定：位置型接收位置目标，速度型接收速度目标，motor 的输入还要经过传动映射才能得到关节力矩。单位传动比等条件不满足时，不能直接把 `ctrl` 数值当作关节角或关节力矩。细节见[控制输入](../mujoco/03_control_inputs/README.md)。
+`ctrl` 的含义由 actuator 配置决定：位置型接收位置目标，速度型接收速度目标，motor 的输入还要经过传动映射才能得到关节力矩。单位传动比等条件不满足时，不能直接把 `ctrl` 数值当作关节角或关节力矩。细节见[控制输入](../04_control_inputs/README.md)。
 
 ## 5. 画面动了，是否就验证了控制
 
@@ -115,50 +117,75 @@ self.data.ctrl[:7] = self.q_des
 
 ## 6. MoveIt 的控制链：仿真与真机哪些相同
 
-**当两边都采用相同的 `ros2_control` 轨迹控制方案时，你理解的链路可以保持相同：**
+**当仿真与真机都采用相同的 `ros2_control` 轨迹控制方案时，上层可以保留相同的规划与执行流程，底层通过不同的硬件接口实现连接各自后端：**
 
 ```text
-任务代码 → MoveIt（可由 MTC 组织任务）
-         → FollowJointTrajectory Action
-         → JointTrajectoryController
-         → ros2_control 硬件接口
-              ├─ 假硬件：模拟命令与状态
-              ├─ 仿真适配：MuJoCo 等仿真器
-              └─ 真机驱动：厂商 SDK/协议 → 控制柜 → 电机
+任务代码 / MTC：提出目标、组织任务
+    ↓
+MoveIt
+    ├─ 规划：求解路径、进行时间参数化 → 带时间的关节轨迹
+    └─ 执行管理：发送轨迹、接收反馈与结果
+             ↓ 通过 FollowJointTrajectory Action 通信
+JointTrajectoryController：按时间采样轨迹，输出关节指令
+    ↓
+ros2_control 硬件接口：写出命令、读取状态
+    ├─ 假硬件：模拟命令与状态
+    ├─ 仿真适配：MuJoCo 等仿真器
+    └─ 真机驱动：厂商 SDK/协议 → 控制柜 → 电机
 ```
+
+图中的“规划”和“执行管理”是 **MoveIt 内部的两类职责**，合起来就是下文所说的 MoveIt 规划与执行组件。`FollowJointTrajectory` Action 则是 MoveIt 与轨迹控制器之间的通信接口，约定轨迹请求、反馈和结果；图中把它标在连接两者的箭头上。
 
 ### 各层分别负责什么
 
 | 层次 | 职责与输出 |
 | --- | --- |
 | 任务代码 / MTC | 提出目标、组织接近与抓取等阶段；MTC 是可选的任务编排工具 |
-| MoveIt 规划与执行组件 | 求解路径、进行时间参数化，再把关节轨迹交给执行接口 |
-| `FollowJointTrajectory` Action | 约定轨迹请求、反馈和结果的消息形式，本身不驱动电机 |
+| MoveIt：规划 | 求解路径、进行时间参数化，生成带时间的关节轨迹 |
+| MoveIt：执行管理 | 通过 `FollowJointTrajectory` 把轨迹交给对应控制器，接收执行反馈与结果 |
 | `JointTrajectoryController` | 随时间采样或插值轨迹，输出关节指令，按配置监控执行误差 |
 | `ros2_control` 硬件接口 | 写出命令、读取状态；后端可以是 mock、物理仿真或真机 |
+
+### 例子：规划与执行调用分别交给谁
+
+下面是调用关系示意，省略了错误处理；只有规划成功后才应执行：
+
+```cpp
+move_group_interface.plan(plan);     // 请求 MoveIt 规划，得到轨迹
+move_group_interface.execute(plan);  // 请求 MoveIt 执行已有规划
+```
+
+**结果与解释：** `execute(plan)` 触发 MoveIt 的轨迹下发与结果监控。收到轨迹后，`JointTrajectoryController` 计算每个控制时刻的关节指令；底层执行器或真机伺服再让关节跟随目标。这三个环节分别承担执行管理、轨迹跟踪和底层驱动职责。
 
 仓库的 [MoveIt 执行配置](../../manipulation/packages/panda_moveit_config/config/moveit_controllers.yaml)把机械臂轨迹交给 `panda_arm_controller/follow_joint_trajectory`；[轨迹控制器配置](../../manipulation/packages/panda_moveit_config/config/ros2_controllers.yaml)使用 `position` 命令接口，配置更新频率为 `100 Hz`。这是配置值，不是本次实测频率。
 
 `ros2_control` 典型更新循环是“读取状态 → 更新控制器 → 写出命令”。在这里，轨迹控制器向下提供位置目标，底层执行器或真机伺服负责让关节跟随目标；不能把这个位置接口的轨迹控制器直接理解成电机力矩 PID。状态还可经 `joint_state_broadcaster` 发布为 `/joint_states`，供 MoveIt 获取当前构型，并经 `robot_state_publisher` 计算 TF 供 RViz 显示。
+
+### 仓库里在哪里用过 FollowJointTrajectory
+
+**当前仓库通过 MoveIt 间接使用了 `FollowJointTrajectory`，没有找到手写该 Action 服务端或直接客户端的代码。** 任务代码调用执行方法，MoveIt 内部的客户端发送轨迹，现成的 `JointTrajectoryController` 提供服务端。
+
+| 证据位置 | 对应内容 | 说明 |
+| --- | --- | --- |
+| [hello_moveit.cpp](../../manipulation/packages/hello_moveit/src/hello_moveit.cpp) | `move_group_interface.execute(plan)` | 任务代码发起执行，不需要自己构造 Action 请求 |
+| [moveit_controllers.yaml](../../manipulation/packages/panda_moveit_config/config/moveit_controllers.yaml) | `type: FollowJointTrajectory`、`action_ns: follow_joint_trajectory` | 指定 MoveIt 使用的执行接口，机械臂端点为 `/panda_arm_controller/follow_joint_trajectory` |
+| [ros2_controllers.yaml](../../manipulation/packages/panda_moveit_config/config/ros2_controllers.yaml) | `joint_trajectory_controller/JointTrajectoryController` | 加载现成的控制器，由它提供该 Action 服务端 |
+| [历史运行记录](../../manipulation/03_move_group_interface/history.md) | `sending trajectory to panda_arm_controller`、`Goal request accepted!`、`successfully finished` | 保存了发送轨迹、接受目标和执行成功的历史日志，不是本次重新运行的结果 |
+
+**结果与解释：** 这里写的是上层执行调用，配置指定接口，底层通信和轨迹执行由已有组件完成。结合第 5 节的假硬件配置，不能把上述成功日志当作 MuJoCo 动力学跟踪验证。
+
+第 4 节的 MuJoCo Python 示例走的是“自定义插值函数 → `q_des` → `data.ctrl` → MuJoCo 仿真”，没有接入 `FollowJointTrajectory`；要接收 MoveIt 的轨迹，还需对应的桥接或控制器集成。
 
 ### 为什么不能说所有 MoveIt 系统都必须经过 JointTrajectoryController
 
 有些厂商驱动或自定义仿真桥接节点直接提供 `FollowJointTrajectory` Action 服务端，自己处理轨迹、插值或将整条轨迹交给控制柜，便不必使用 `ros2_control` 的 `JointTrajectoryController`：
 
 ```text
-任务代码 → MoveIt → FollowJointTrajectory → 厂商驱动/仿真桥接
+任务代码 → MoveIt（规划与执行管理）
+                    ↓ 通过 FollowJointTrajectory Action 通信
+               厂商驱动/仿真桥接
 ```
 
 因此，**MoveIt 上层依赖的是兼容的执行接口，具体由谁实现接口可以不同。** 仿真和真机使用同一个 `JointTrajectoryController` 是常见方案，不是 MoveIt 的强制要求；其他执行适配方式还可能使用不同接口。单独运行 MuJoCo Python 脚本也不会自动接上这条 ROS 链路。
-
-## 7. 真机怎样把指令变成电机运动
-
-一种常见实现是保留规划和轨迹接口，由对应机器人驱动通过厂商 SDK 或协议把目标发送给控制柜。控制柜及伺服驱动器执行内部控制环，调节电机电流，产生转矩，带动关节。编码器测量实际位置，反馈给底层伺服并经驱动返回上层。
-
-**例子与解释：** 上层可能只给出“目标关节角 0.5 rad”，但厂商内部仍在持续执行位置、速度、电流等控制环。你没有亲自编写这些代码，是因为厂商已经实现了。各环所在设备、更新频率和开放接口因机器人而异，不是所有机械臂都允许用户直接发送力矩指令。
-
-也可以直接采用 `Python/C++ 程序 → 厂商 SDK → 控制柜 → 电机`，不经过 ROS 或 MoveIt。有些 SDK 自带关节运动与末端直线运动指令，由控制柜负责相应轨迹生成和执行。
-
-从仿真迁移到真机时，上层任务逻辑通常可复用，但还要对齐关节名称与顺序、单位、坐标系、零位、工具与负载配置、运动限值、控制模式、通信周期，并处理使能、停止及故障反馈。它不是只换一个 IP 地址，也不能假定仿真中的增益、速度和容差适合真机。具体需要替换哪些模块，应由厂商驱动提供的接口决定。
 
 [返回仿真目录](../README.md) · [下一章：机器人模型](../01_robot_models/README.md)

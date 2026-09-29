@@ -21,7 +21,7 @@
 
 | 内容 | 后续主要归属 |
 | --- | --- |
-| MJCF、模型加载、状态、步进、控制输入接口与 Viewer | `simulation/mujoco/` |
+| MJCF、模型加载、状态、步进、控制输入接口与 Viewer | `simulation/00_control_flow/`～`06_reset_recording/` 正文；`simulation/mujoco/` 实现参考 |
 | PID 原理、偏置力补偿与跟踪误差 | `control/`；引用 MuJoCo 接口说明 |
 | 仿真与解析 FK 的对齐 | `kinematics/` |
 | 相机成像、标定与目标位姿 | `perception/`；渲染接口回链 MuJoCo |

@@ -1,4 +1,4 @@
-# 05：重置、记录与重复运行
+# 7：重置、记录与重复运行
 
 本文行数：50行，预期阅读时长：3分钟
 
@@ -25,7 +25,7 @@ mujoco.mj_forward(model, data)
 
 **记录约定：** 第 k 次循环先写输入，再执行一步；记录步后 `time、qpos、qvel`。第一行时间为 `0.002 s`，末行为 `0.2 s`；这一行的输入是刚刚作用于前一个时间区间的命令，而不是下一步新命令。
 
-**结果与解释：** 两次重置后的轨迹按相同列逐项比较；实际误差见[验证记录](../verification.md)。这证明本模型在该环境和输入下可重复，不代表不同版本、硬件或任意接触场景都会逐位一致。示例的固定命令也不是反馈跟踪控制。
+**结果与解释：** 两次重置后的轨迹按相同列逐项比较；实际误差见[验证记录](../mujoco/verification.md)。这证明本模型在该环境和输入下可重复，不代表不同版本、硬件或任意接触场景都会逐位一致。示例的固定命令也不是反馈跟踪控制。
 
 ## 只重置 qpos 为什么不够
 
@@ -47,4 +47,4 @@ mujoco.mj_forward(model, data)
 
 资料：[State API](https://mujoco.readthedocs.io/en/3.8.1/APIreference/APIfunctions.html#mj-getstate)
 
-[上一章](../04_viewer_rendering/README.md) · [返回目录](../README.md) · [学习路线](../../../../doc/learning-roadmap.md#s3)
+[上一章](../05_viewer_rendering/README.md) · [返回目录](../README.md) · [学习路线](../../../doc/learning-roadmap.md#s3)

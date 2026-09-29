@@ -12,7 +12,7 @@
 - **按问题查阅**：[知识索引](doc/README.md)，直接进入需要的专题。
 - **查看总体架构与代码位置**：[总体目录与案例索引](src/README.md)，查看按主题整理后的实际目录与源码位置。
 - **整理新的笔记**：[文档样板](doc/lesson-template.md)，参考 [Lesson 1](src/ros2/examples/communication/README.md) 的完整示例。
-- **复习 MoveIt**：[六章目录](src/manipulation/README.md)。
+- **复习规划与操作**：[六章 MoveIt / MTC 与五个原理专题](src/manipulation/README.md)。
 - **复习机器学习**：[七章目录](src/machine_learning/README.md)。
 - **复习 ROS 2**：[章节目录](src/ros2/README.md)，按节点接口、启动配置、通信执行、TF 与记录排错查阅。
 - **复习模型与仿真 S3**：[七章目录](src/simulation/README.md)，从仿真与真机的控制流、带时间的轨迹，到机器人结构与 MuJoCo 状态、输入、步进和重置。

@@ -1,4 +1,4 @@
-# 02：状态、索引与步进
+# 4：状态、索引与步进
 
 本文行数：53行，预期阅读时长：2分钟
 
@@ -18,7 +18,7 @@ free joint 的位置和线速度在世界系表达，四元数按 `(w, x, y, z)`
 
 ## 例子：joint ID 不是数组起点
 
-自带模型的编译结果如下，来自[检查脚本](../check_basics.py)：
+自带模型的编译结果如下，来自[检查脚本](../mujoco/check_basics.py)：
 
 | joint 名称 | joint ID | qpos 起点 / 长度 | qvel 起点 / 长度 |
 | --- | --- | --- | --- |
@@ -50,4 +50,4 @@ tip = data.site("tip").xpos.copy()
 
 资料：[计算流程与状态](https://mujoco.readthedocs.io/en/3.8.1/computation/index.html) · [API](https://mujoco.readthedocs.io/en/3.8.1/APIreference/APIfunctions.html)
 
-[上一章](../01_model_loading/README.md) · [返回目录](../README.md) · [下一章：控制输入](../03_control_inputs/README.md)
+[上一章](../02_model_loading/README.md) · [返回目录](../README.md) · [下一章：控制输入](../04_control_inputs/README.md)

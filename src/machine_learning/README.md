@@ -1,25 +1,39 @@
-# 机器学习快速复习与源码
+# 机器学习：快速复习与源码
 
-本文行数：25行，预期阅读时长：2分钟
+本文行数：39行，预期阅读时长：3分钟
 
-七组教程、源码和已有解释集中保存在这里。先看各篇开头的“速记 → 例子 → 结果与解释”，需要推导或历史结果时再往下读。目录已改为 01～07 主题章节；用户已学过这些内容，不要求重做训练。
+这里面向接触过监督学习、无监督学习和神经网络入门，希望找回印象的读者。默认直接阅读，不需要重做训练；章节编号用于定位材料，不再代表每周任务。
 
-| 主题 | 复习笔记 | 实现 |
+## 从哪里开始
+
+先读[概念总览](overview.md)，串起“任务 → 学习信号 → 模型 → 训练与评估”。只想回顾第七周，可以直接读[迁移学习](07_transfer_learning/README.md)，其中解释了“只训练分类头，为什么已经在使用深度学习”。
+
+| 想回忆的问题 | 复习入口 | 对应材料 |
 | --- | --- | --- |
-| KNN 分类 | [01_supervised_knn](01_supervised_knn/README.md) | [源码](01_supervised_knn/src) |
-| 回归 | [02_regression](02_regression/README.md) | [源码](02_regression/src) |
-| 预处理与 Pipeline | [03_preprocessing_pipeline](03_preprocessing_pipeline/README.md) | [源码](03_preprocessing_pipeline/src) |
-| 模型选择 | [04_model_selection](04_model_selection/README.md) | [源码](04_model_selection/src) |
-| 聚类 | [05_clustering](05_clustering/README.md) | [源码](05_clustering/src) |
-| PyTorch 神经网络 | [06_pytorch_networks](06_pytorch_networks/README.md) | [源码](06_pytorch_networks/src) |
-| 迁移学习 | [07_transfer_learning](07_transfer_learning/README.md) | [源码](07_transfer_learning/src) |
+| 监督、无监督、深度、强化学习是什么关系？ | [概念总览](overview.md) | 分类维度、训练过程与机器人例子 |
+| 怎么从带标签的例子预测类别？ | [01 KNN 分类](01_supervised_knn/README.md) | Iris 四个测量值 → 花的品种 |
+| 如何预测数值、解释误差？ | [02 回归与损失](02_regression/README.md) | 房屋特征 → 成交价 |
+| 数据怎么处理才不泄漏答案？ | [03 预处理与分类指标](03_preprocessing_pipeline/README.md) | Titanic、Pipeline、混淆矩阵 |
+| 为什么训练分数高还不够？ | [04 模型选择与泛化](04_model_selection/README.md) | Digits、KNN 与决策树 |
+| 没有标签时能学什么？ | [05 聚类与 PCA](05_clustering/README.md) | 客户消费结构、K-Means |
+| 神经网络到底怎样学？ | [06 神经网络训练](06_pytorch_networks/README.md) | MNIST、张量、梯度与训练循环 |
+| 借用别人训练的模型，自己学了什么？ | [07 CNN 与迁移学习](07_transfer_learning/README.md) | ResNet18、冻结骨干、三分类头 |
 
-## 保存范围与结果含义
+每章先给速记，再用小例子解释输入、输出和结果；结尾可进入源码、历史指标和详细笔记。不必按顺序重读已熟悉的部分。
 
-- 保留 Python 源码、完整 Markdown 笔记、数据来源说明、原 requirements.txt，以及小型历史 JSON 指标和说明图。
-- 不保存数据集、数据划分副本、模型权重、虚拟环境和逐样本预测表。文中的“已下载”“本次运行”指原项目记录，不能据此认定此仓库包含数据或已完成复测。
-- 长篇原文中的命令是按需参考，当前目录使用 `src/machine_learning/01_… ～ 07_…`；运行需要自行提供对应依赖和数据。本次只检查迁入完整性、语法和文档路径，没有训练模型。
-- 历史结果保留原来的条件和解释；它们不是读者必须达到的成绩，也不是对个人掌握程度的新判断。
-- [原实战清单](机器学习入门实战清单.md) 作为历史材料；当前复习按本页主题索引，机器人策略应用见 [S9](../../doc/learning-roadmap.md#s9)。
+## 笔记与源码怎么放
 
-[迁入范围与来源](../../doc/source-consolidation.md) · [返回总索引](../README.md)
+- 各章 `README.md`：当前复习正文。
+- 各章 `reference.md`：原长篇笔记、推导与运行步骤，保留当时语境；07 的 `concepts.md` 另保留 CNN 详细讲解。
+- 各章 `src/`：已有实现；`experiment_log.md`、`outputs/`：保留的历史记录与小型结果。
+- [旧清单入口](机器学习入门实战清单.md)：通往原 8 周计划的归档，不作为当前任务清单。
+
+## 结果与运行边界
+
+“示意”表示为解释概念而选择的数字；“静态推导”表示按公式或源码计算；“历史记录”表示迁入的既往结果。本次整理没有重新训练，也不把文件存在当作个人掌握或实验复测的证据。
+
+数据集、权重、虚拟环境和部分生成产物未迁入。需要运行时，再查看各章数据说明、详细笔记及[依赖清单](requirements.txt)；历史绝对路径仅供追溯，不是本仓库的环境要求。
+
+机器人方面，[概念总览](overview.md#robot-learning)先区分感知、行为克隆与强化学习；完整采集和策略任务仍按[学习路线 S8 / S9](../../doc/learning-roadmap.md#s8)推进。
+
+[本次整理核对记录](verification.md) · [迁入来源](../../doc/source-consolidation.md) · [返回总索引](../README.md)

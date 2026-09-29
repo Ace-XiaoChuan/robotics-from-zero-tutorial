@@ -1,6 +1,6 @@
 # S3 数值验证记录
 
-本文行数：52行，预期阅读时长：3分钟
+本文行数：56行，预期阅读时长：3分钟
 
 2026-09-20 实际运行；这是实现参考，不是读者必做练习，也不代表个人掌握程度或 S5 控制验收。
 
@@ -43,7 +43,11 @@ python3 -m venv .venv
 | 重置后的时间、速度、输入 | 均恢复为 0，hinge 再设为 0.5 rad |
 | 杆质量从 1 kg 改为 2 kg | 同构型尖端坐标不变，杆惯量翻倍 |
 
-名称映射也由脚本输出：joint `hinge=0, floating=1`；actuator `hinge_motor=0`；body `world=0, rod=1, marker=2`；site `tip=0`。关节的 qpos / qvel 地址见[状态章](02_state_step/README.md)。
+名称映射也由脚本输出：joint `hinge=0, floating=1`；actuator `hinge_motor=0`；body `world=0, rod=1, marker=2`；site `tip=0`。关节的 qpos / qvel 地址见[状态章](../03_state_step/README.md)。
+
+## 2026-09-25 模型加载章补充核对
+
+使用已有 `/home/ace/mujoco-env/bin/python`（MuJoCo 3.8.1），无窗口加载同一份 `models/pendulum.xml`，创建 `MjData`。实测 `nq/nv/nu=8/7/1`；初始 `qpos=[0,1,0,1,1,0,0,0]`，`qvel` 七项和 `ctrl` 一项均为零，`time=0 s`。调用 `mj_forward` 后时间仍为零，与[模型加载章](../02_model_loading/README.md)的例子一致。本次只核对加载与初态，没有重新执行前述 100 步检查或增加控制验证结论。
 
 ## 验证边界
 
