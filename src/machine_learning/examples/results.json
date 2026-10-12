@@ -1,0 +1,231 @@
+{
+  "checks_passed": 17,
+  "results": {
+    "knn_scale": {
+      "raw_m_g": [
+        200.00002499999843,
+        10.04987562112089
+      ],
+      "raw_m_kg": [
+        0.223606797749979,
+        1.0000499987500624
+      ]
+    },
+    "knn_votes_boundary": {
+      "k1": "B",
+      "k3": "A",
+      "distance_weighted_k3": "B"
+    },
+    "least_squares": {
+      "slope": 0.5,
+      "intercept": 1.1666666666666667,
+      "mse": 0.05555555555555555,
+      "first_step_mse": 0.9333333333333333
+    },
+    "l1_l2": [
+      {
+        "lambda": 0,
+        "l2": 2.0,
+        "l1": 2.0
+      },
+      {
+        "lambda": 1,
+        "l2": 0.8,
+        "l1": 1.25
+      },
+      {
+        "lambda": 3,
+        "l2": 0.36363636363636365,
+        "l1": 0
+      }
+    ],
+    "preprocessing": {
+      "training_mean": 30,
+      "training_std": 10,
+      "validation_z": 5,
+      "one_hot": {
+        "红": [
+          1,
+          0
+        ],
+        "蓝": [
+          0,
+          1
+        ],
+        "黄": [
+          0,
+          0
+        ]
+      }
+    },
+    "thresholds": [
+      {
+        "threshold": 0.3,
+        "tp_fp_fn_tn": [
+          3,
+          2,
+          0,
+          1
+        ],
+        "precision": 0.6,
+        "recall": 1.0
+      },
+      {
+        "threshold": 0.5,
+        "tp_fp_fn_tn": [
+          2,
+          1,
+          1,
+          2
+        ],
+        "precision": 0.6666666666666666,
+        "recall": 0.6666666666666666
+      },
+      {
+        "threshold": 0.8,
+        "tp_fp_fn_tn": [
+          1,
+          0,
+          2,
+          3
+        ],
+        "precision": 1.0,
+        "recall": 0.3333333333333333
+      }
+    ],
+    "bias_variance": [
+      {
+        "bias_squared": 0.0,
+        "variance": 0.6666666666666666,
+        "expected_mse": 0.9166666666666666
+      },
+      {
+        "bias_squared": 0.25,
+        "variance": 0.0,
+        "expected_mse": 0.5
+      }
+    ],
+    "group_split": {
+      "train": [
+        "A",
+        "B"
+      ],
+      "validation": [
+        "C"
+      ],
+      "test": [
+        "D"
+      ]
+    },
+    "kmeans_2d": {
+      "centers": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          8.0,
+          1.0
+        ]
+      ],
+      "sse": 4
+    },
+    "pca": {
+      "covariance": [
+        [
+          21.333333333333332,
+          0.0
+        ],
+        [
+          0.0,
+          1.3333333333333333
+        ]
+      ],
+      "scores": [
+        -4,
+        -4,
+        4,
+        4
+      ],
+      "explained_ratio": 0.9411764705882353,
+      "reconstruction_sse": 4
+    },
+    "backpropagation": {
+      "gradients": [
+        -1,
+        -2,
+        -1,
+        -0.25,
+        -0.5
+      ],
+      "updated_parameters": [
+        0.55,
+        -0.4,
+        1.05,
+        2.0125,
+        0.525
+      ],
+      "updated_prediction": 2.1350000000000002,
+      "updated_loss": 0.009112500000000032,
+      "larger_step_loss": 0.3022531249999999
+    },
+    "cross_entropy_gradient": [
+      -0.3347590442251782,
+      0.24472847105479764,
+      0.09003057317038046
+    ],
+    "convolution_pooling": {
+      "feature_map": [
+        [
+          -4,
+          -4
+        ],
+        [
+          -4,
+          5
+        ]
+      ],
+      "relu_map": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          5
+        ]
+      ],
+      "global_average": 1.25
+    },
+    "receptive_field_parameters": {
+      "two_3x3_receptive_field": 5,
+      "rgb_to_two_channels_parameters": 56
+    },
+    "robot_geometry": {
+      "camera_point_m": [
+        0.075,
+        0.025,
+        0.5
+      ],
+      "base_point_m": [
+        0.7,
+        -0.075,
+        0.775
+      ],
+      "grasp_tcp_m": [
+        0.7,
+        -0.075,
+        0.875
+      ]
+    },
+    "robot_candidate_conditions": {
+      "valid_candidate": true,
+      "rejections_checked": 10,
+      "age_s": 0.25
+    },
+    "robot_latency_success": {
+      "motion_during_age_m": 0.05,
+      "task_success_ratio": 0.65
+    }
+  }
+}

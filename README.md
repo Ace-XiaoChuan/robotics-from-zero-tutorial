@@ -4,7 +4,7 @@
 
 这个仓库集中保存个人机器人工程教程、复习笔记与源码，包括 MoveIt、MuJoCo 和机器学习。主要用于快速阅览已学内容：先看要点、例子和结果解释，需要时再查实现；不要求配齐运行环境或重做实验。当前主线是机械臂的建模、感知、规划、控制与仿真，后续扩展到数据采集和模仿学习。
 
-仓库定位是个人学习记录：笔记以快速复习为主，用例子、结果和解释帮助找回印象；代码供需要实现或复现时参考。
+仓库定位是个人学习记录：笔记以快速复习为主，用例子、结果和解释帮助找回印象；VLM 等尚未学过的指定专题按首次预习展开。代码供需要实现或复现时参考。
 
 ## 从哪里开始
 
@@ -13,7 +13,7 @@
 - **查看总体架构与代码位置**：[总体目录与案例索引](src/README.md)，查看按主题整理后的实际目录与源码位置。
 - **整理新的笔记**：[文档样板](doc/lesson-template.md)，参考 [Lesson 1](src/ros2/examples/communication/README.md) 的完整示例。
 - **复习规划与操作**：[六章 MoveIt / MTC 与五个原理专题](src/manipulation/README.md)。
-- **复习机器学习**：[七章目录](src/machine_learning/README.md)。
+- **复习与深入机器学习**：[20 章阅读导航](src/machine_learning/README.md)与[工作目录](src/machine_learning/机器学习入门实战清单.md)，01～20 正文建设已完成；可直接读 [16 VLM 五篇正文](src/machine_learning/16_vision_language/README.md)，或查看 [18～20 机器人学习](src/machine_learning/18_imitation_learning/README.md)。
 - **复习 ROS 2**：[章节目录](src/ros2/README.md)，按节点接口、启动配置、通信执行、TF 与记录排错查阅。
 - **复习模型与仿真 S3**：[七章目录](src/simulation/README.md)，从仿真与真机的控制流、带时间的轨迹，到机器人结构与 MuJoCo 状态、输入、步进和重置。
 - **快速回忆工程基础**：[S0 · 单元 01：终端、路径与环境](src/foundations/engineering/01_shell_paths/README.md)。

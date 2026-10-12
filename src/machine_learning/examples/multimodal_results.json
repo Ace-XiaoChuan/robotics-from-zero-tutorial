@@ -1,0 +1,474 @@
+{
+  "date": "2026-10-11",
+  "python": "3.10.12",
+  "checks_passed": 33,
+  "scope": "12-17 artificial arrays, analytic gradients, regions and oracle sampling; no real models",
+  "results": {
+    "12_box_iou": {
+      "ground_area_px2": 16000,
+      "iou": 0.6666666666666666,
+      "match_at_0_5": true,
+      "match_at_0_75": false
+    },
+    "12_nms": {
+      "kept_at_0_5": [
+        0,
+        2
+      ],
+      "kept_at_0_75": [
+        0,
+        1,
+        2
+      ]
+    },
+    "12_detection_ranking": {
+      "tp_sequence": [
+        true,
+        false,
+        true
+      ],
+      "precision_recall": [
+        {
+          "precision": 1.0,
+          "recall": 0.5
+        },
+        {
+          "precision": 0.5,
+          "recall": 0.5
+        },
+        {
+          "precision": 0.6666666666666666,
+          "recall": 1.0
+        }
+      ],
+      "noninterpolated_ap_not_coco": 0.8333333333333333
+    },
+    "12_mask_metrics": {
+      "intersection": 2,
+      "union": 4,
+      "iou": 0.5,
+      "dice": 0.6666666666666666
+    },
+    "12_keypoints": {
+      "error_px": 5.0,
+      "pck_reference_100": true,
+      "pck_reference_20": false
+    },
+    "12_letterbox_coordinates": {
+      "processed_box": [
+        42.0,
+        77.0,
+        77.0,
+        133.0
+      ],
+      "restored_box": [
+        120.00000000000001,
+        140.0,
+        220.0,
+        300.0
+      ],
+      "missed_padding_error_px": 80
+    },
+    "13_motion_history": [
+      {
+        "velocity_m_s": 1.0,
+        "next_position_m": 0.30000000000000004
+      },
+      {
+        "velocity_m_s": -0.9999999999999998,
+        "next_position_m": 0.10000000000000003
+      }
+    ],
+    "13_rnn_states": {
+      "states": [
+        0.0,
+        1.0,
+        2.5
+      ],
+      "reversed_states": [
+        2.0,
+        2.0,
+        1.0
+      ]
+    },
+    "13_bptt_gradient": [
+      {
+        "inputs": [
+          0,
+          1,
+          2
+        ],
+        "loss": 0.125,
+        "shared_parameter_gradient": -0.5
+      },
+      {
+        "inputs": [
+          1,
+          1,
+          2
+        ],
+        "loss": 0.03125,
+        "shared_parameter_gradient": -0.5
+      }
+    ],
+    "13_gru_retention": [
+      {
+        "retain_gate": 0,
+        "state": 0.2
+      },
+      {
+        "retain_gate": 0.1,
+        "state": 0.26
+      },
+      {
+        "retain_gate": 0.9,
+        "state": 0.7400000000000001
+      },
+      {
+        "retain_gate": 1,
+        "state": 0.8
+      }
+    ],
+    "13_teacher_forcing": {
+      "sequence_probability": 0.216,
+      "mean_nll": 0.383119217824493,
+      "valid_target_count": 4
+    },
+    "14_self_attention": {
+      "Q": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "K": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "V": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "second_weights": [
+        0.1977758146404282,
+        0.4011120926797859,
+        0.4011120926797859
+      ],
+      "second_output": [
+        0.5988879073202141,
+        1.6044483707191437
+      ]
+    },
+    "14_causal_mask": {
+      "second_weights": [
+        0.3302384506733431,
+        0.6697615493266569,
+        0.0
+      ],
+      "second_output": [
+        0.3302384506733431,
+        1.3395230986533138
+      ],
+      "future_perturbation_first_two_unchanged": true
+    },
+    "14_cross_attention": {
+      "weights_shape": [
+        1,
+        2
+      ],
+      "weights": [
+        0.6697615493266569,
+        0.3302384506733431
+      ],
+      "output": [
+        6.697615493266569,
+        6.604769013466862
+      ]
+    },
+    "14_positions_permutation": {
+      "position_vectors_d2": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.8414709848078965,
+          0.5403023058681398
+        ]
+      ],
+      "content_only_permutation_equivariance": true
+    },
+    "14_multihead": {
+      "two_heads_second_output": [
+        0.6666666666666666,
+        0.8446375965030364
+      ],
+      "output_shape": [
+        3,
+        2
+      ]
+    },
+    "14_language_output": {
+      "logits": [
+        2,
+        1,
+        0
+      ],
+      "probabilities": [
+        0.6652409557748218,
+        0.24472847105479764,
+        0.09003057317038046
+      ],
+      "greedy_token": "猫"
+    },
+    "14_kv_cache": {
+      "single_layer_cached_outputs": [
+        [
+          1.0,
+          0.0
+        ],
+        [
+          0.3302384506733431,
+          1.3395230986533138
+        ],
+        [
+          0.7517449217422769,
+          1.5034898434845538
+        ]
+      ],
+      "illustrative_cache_bytes": 25600,
+      "score_matrix_size_ratio_128_to_256": 4
+    },
+    "15_autoencoder_bottleneck": [
+      {
+        "input": [
+          2,
+          0
+        ],
+        "latent": 1.0,
+        "reconstruction": [
+          1.0,
+          1.0
+        ],
+        "loss": 1.0
+      },
+      {
+        "input": [
+          0,
+          2
+        ],
+        "latent": 1.0,
+        "reconstruction": [
+          1.0,
+          1.0
+        ],
+        "loss": 1.0
+      }
+    ],
+    "15_contrastive_loss": {
+      "positive_probability": 0.9820137900379085,
+      "loss": 0.01814992791780973
+    },
+    "15_representation_collapse": {
+      "contrastive_collapsed_loss": 0.6931471805599453,
+      "positive_only_zero_loss": 0
+    },
+    "15_augmentation_coordinates": {
+      "flipped_box": [
+        420,
+        140,
+        520,
+        300
+      ],
+      "double_flip_restores_original": true
+    },
+    "15_masked_prediction": {
+      "masked_mse": 0.25,
+      "visible_patches": 49,
+      "hidden_patches": 147
+    },
+    "16_candidate_changes": [
+      {
+        "configuration": "original",
+        "first_red_probability": 0.5986876593736791
+      },
+      {
+        "configuration": "remove_blue",
+        "first_red_probability": 0.9999999979388463
+      },
+      {
+        "configuration": "duplicate_red",
+        "first_red_probability": 0.3744869461294448
+      }
+    ],
+    "16_query_resampling": {
+      "query_outputs": [
+        [
+          0.6697615493266569,
+          0.5
+        ],
+        [
+          0.5,
+          0.6697615493266569
+        ]
+      ],
+      "visual_token_count_224_448": [
+        196,
+        784
+      ],
+      "visual_only_score_size_ratio": 16
+    },
+    "16_frozen_module_gradient": {
+      "connector_gradient": -18,
+      "updated_weight": 0.6799999999999999,
+      "loss_before": 4.5,
+      "loss_after": 1.8432
+    },
+    "16_counterfactual_grounding": {
+      "artificial_answer_schemes": [
+        {
+          "answer_accuracy": 0.5,
+          "pair_accuracy": 0.0
+        },
+        {
+          "answer_accuracy": 1.0,
+          "pair_accuracy": 1.0
+        }
+      ],
+      "wrong_target_iou": 0.0
+    },
+    "17_conditional_mean": {
+      "mean": 0,
+      "mse_mean": 1.0,
+      "mse_at_mode": 2.0
+    },
+    "17_trajectory_modes": {
+      "samples": [
+        {
+          "upper_m": [
+            -1.0,
+            1.2246467991473532e-16
+          ],
+          "lower_m": [
+            -1.0,
+            -1.2246467991473532e-16
+          ],
+          "average_m": [
+            -1.0,
+            0.0
+          ]
+        },
+        {
+          "upper_m": [
+            -0.7071067811865475,
+            0.7071067811865476
+          ],
+          "lower_m": [
+            -0.7071067811865475,
+            -0.7071067811865476
+          ],
+          "average_m": [
+            -0.7071067811865475,
+            0.0
+          ]
+        },
+        {
+          "upper_m": [
+            6.123233995736766e-17,
+            1.0
+          ],
+          "lower_m": [
+            6.123233995736766e-17,
+            -1.0
+          ],
+          "average_m": [
+            6.123233995736766e-17,
+            0.0
+          ]
+        },
+        {
+          "upper_m": [
+            0.7071067811865476,
+            0.7071067811865475
+          ],
+          "lower_m": [
+            0.7071067811865476,
+            -0.7071067811865475
+          ],
+          "average_m": [
+            0.7071067811865476,
+            0.0
+          ]
+        },
+        {
+          "upper_m": [
+            1.0,
+            0.0
+          ],
+          "lower_m": [
+            1.0,
+            -0.0
+          ],
+          "average_m": [
+            1.0,
+            0.0
+          ]
+        }
+      ],
+      "obstacle_radius_m": 0.25,
+      "average_midpoint_collides": true
+    },
+    "17_forward_noise": {
+      "noisy_scalar": 1.0,
+      "conditional_mean": 1.6,
+      "conditional_variance": 0.36
+    },
+    "17_denoising_error": {
+      "oracle_restored": 2.0,
+      "imperfect_restored": 1.8499999999999999,
+      "noise_mse": 0.03999999999999998,
+      "amplification": 0.75
+    },
+    "17_sampling_algebra": {
+      "oracle_ddpm_mean": 1.49071198499986,
+      "posterior_variance": 0.1111111111111111,
+      "oracle_ddim_first": 1.3416407864998738,
+      "oracle_ddim_final": 2.0
+    },
+    "17_condition_guidance": {
+      "scale_2_prediction": -1.0000000000000002,
+      "scale_0_1_endpoints": [
+        0.2,
+        -0.4000000000000001
+      ]
+    }
+  }
+}

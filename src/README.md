@@ -1,6 +1,6 @@
 # 教程与源码总目录
 
-本文行数：86行，预期阅读时长：3分钟
+本文行数：102行，预期阅读时长：4分钟
 
 教程和源码按主题集中保存；目录树只列实际存在的内容。每个主题从 README 进入，先看速记、例子与结果解释，需要时查源码。未配齐环境不影响阅读。
 
@@ -17,7 +17,7 @@
 | 感知与估计 S6 | [六章复习目录](perception/README.md) | 成像标定、目标位姿、噪声、误差传播、Kalman 与时间对齐；含数值检查及旧视觉案例 |
 | 规划操作 S7 | [MoveIt / MTC](manipulation/README.md) | 六章 MoveIt / MTC 与五个规划原理专题；packages 内保存六个 ROS 包 |
 | 数据采集 S8 | [数据采集](data_collection/README.md) | 复用视觉采集代码 |
-| 机器学习 | [概念总览与七章复习](machine_learning/README.md) | 可直接阅读的例子与结果解释；各章保留源码和历史详细笔记 |
+| 机器学习 | [20 章导航与已有材料](machine_learning/README.md) | 01～20 正文已深化或补齐，16 保留五篇 VLM 正文并补齐衔接；真实模型与机器人验证单独记录 |
 
 机器人策略学习仍是 [路线 S9](../doc/learning-roadmap.md#s9) 中的扩展方向，尚无完整案例，不创建空目录。
 
@@ -63,13 +63,29 @@ src/
 │   └── packages/                       # 完整 ROS 包，不按章节拆散
 ├── data_collection/                    # 已有采集代码索引
 ├── machine_learning/
+│   ├── README.md                       # 20 章导航与已有材料
+│   ├── 机器学习入门实战清单.md           # 20 章正文建设工作项已完成
 │   ├── 01_supervised_knn/
 │   ├── 02_regression/
 │   ├── 03_preprocessing_pipeline/
 │   ├── 04_model_selection/
 │   ├── 05_clustering/
 │   ├── 06_pytorch_networks/
-│   └── 07_transfer_learning/
+│   ├── 07_transfer_learning/
+│   ├── 08_robot_integration/            # 机器人接口与任务结果；闭环未验证
+│   ├── 09_probability_uncertainty/      # 概率、位置统计、校准与不确定性
+│   ├── 10_classical_models/             # 逻辑回归、SVM、树与集成的四点比较
+│   ├── 11_training_optimization/        # 训练机制、优化更新与人工曲线
+│   ├── 12_detection_segmentation/      # 分类、框、掩码、关键点与评价
+│   ├── 13_sequence_models/             # 时间历史、RNN/GRU 与编码器—解码器
+│   ├── 14_attention_transformer/        # 注意力、Transformer、token 与缓存
+│   ├── 15_representation_learning/     # 重建、对比、掩码与预训练
+│   ├── 16_vision_language/              # VLM 五篇正文，已深化并衔接基础
+│   ├── 17_generative_models/           # 多解、绕障示意与扩散公式
+│   ├── 18_imitation_learning/           # 动作标签、BC、DAgger、ACT 与 Diffusion Policy
+│   ├── 19_reinforcement_learning/       # 回报、价值、Q 更新、策略梯度与 PPO/SAC
+│   ├── 20_generalization_sim2real/      # 独立评价、随机化、延迟、约束与恢复
+│   └── examples/                       # 01～20 标准库教学数值与机制核对
 └── lesson1/ … lesson9/                 # 仅保留历史编号跳转 README
 ```
 

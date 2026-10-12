@@ -1,0 +1,379 @@
+{
+  "date": "2026-10-11",
+  "python": "3.10.12",
+  "scope": "09-11 artificial examples and analytic solutions; no real model training",
+  "checks_passed": 20,
+  "results": {
+    "bayes_prior_shift": [
+      {
+        "prior": 0.5,
+        "posterior": 0.9,
+        "tp_fp": [
+          450,
+          50
+        ]
+      },
+      {
+        "prior": 0.1,
+        "posterior": 0.5,
+        "tp_fp": [
+          90,
+          90
+        ]
+      },
+      {
+        "prior": 0.01,
+        "posterior": 0.08333333333333333,
+        "tp_fp": [
+          9,
+          99
+        ]
+      }
+    ],
+    "position_moments": {
+      "mean_m": 0.5,
+      "variance_m2": 0.00020000000000000036,
+      "std_m": 0.014142135623730963,
+      "one_std_coverage": 0.5,
+      "rotated_covariance_m2": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.00020000000000000036,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    "bernoulli_likelihood": {
+      "mle": 0.75,
+      "likelihood_half": 0.0625,
+      "likelihood_mle": 0.10546875,
+      "mean_nll_mle": 0.5623351446188084
+    },
+    "calibration_brier": {
+      "group_count": 100,
+      "positive_frequency": 0.8,
+      "brier_original": 0.17000000000000007,
+      "brier_group_frequency": 0.16000000000000011,
+      "two_group_accuracy_at_half": 0.7
+    },
+    "entropy_disagreement": {
+      "entropy_nats": [
+        0.6931471805599453,
+        0.3250829733914482,
+        0.056001534354847386
+      ],
+      "disagreement_nats": 0.3680642071684971,
+      "identical_model_disagreement_nats": 0
+    },
+    "logistic_xor": {
+      "stationary_parameters": [
+        0,
+        0,
+        0
+      ],
+      "loss": 0.6931471805599453,
+      "interaction_probabilities": [
+        0.11920292202211755,
+        0.8807970779778823,
+        0.8807970779778823,
+        0.11920292202211755
+      ]
+    },
+    "linear_svm_hinge": {
+      "stationary_loss": 1,
+      "example_hinge_losses": [
+        1.5,
+        0.8,
+        0
+      ]
+    },
+    "rbf_svm_optimality": {
+      "alpha": 1.3375330579912432,
+      "C": 2,
+      "gamma": 0.5,
+      "training_margins": [
+        0.9999999999999999,
+        0.9999999999999999,
+        0.9999999999999999,
+        0.9999999999999999
+      ],
+      "primal_dual_gap": 0.0,
+      "query_score": 0.8185612027004803
+    },
+    "tree_xor_gini": {
+      "root_gini": 0.5,
+      "first_splits": [
+        {
+          "axis": 0,
+          "gini_improvement": 0.0
+        },
+        {
+          "axis": 1,
+          "gini_improvement": 0.0
+        }
+      ],
+      "manual_tree_predictions": [
+        0,
+        1,
+        1,
+        0
+      ]
+    },
+    "forest_aggregation": {
+      "manual_pure_tree_probability_B": 0.6666666666666666,
+      "mixed_leaf_hard_vote": 1,
+      "mixed_leaf_mean_probability": 0.34
+    },
+    "boost_negative_gradient": {
+      "initial_loss": 0.6931471805599453,
+      "steps": [
+        {
+          "eta": 1,
+          "loss": 0.4740769841801067,
+          "probabilities": [
+            0.37754066879814546,
+            0.6224593312018546,
+            0.6224593312018546,
+            0.37754066879814546
+          ]
+        },
+        {
+          "eta": 0.1,
+          "loss": 0.6684596480132863,
+          "probabilities": [
+            0.48750260351578967,
+            0.5124973964842103,
+            0.5124973964842103,
+            0.48750260351578967
+          ]
+        }
+      ],
+      "stump_leaf_means": [
+        0,
+        0
+      ]
+    },
+    "shared_query_predictions": {
+      "queries": [
+        [
+          -0.8,
+          -0.8
+        ],
+        [
+          -0.8,
+          0.8
+        ],
+        [
+          0.8,
+          -0.8
+        ],
+        [
+          0.8,
+          0.8
+        ]
+      ],
+      "labels": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "predictions": {
+        "logistic": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "linear_svm": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "knn": [
+          0,
+          1,
+          1,
+          0
+        ],
+        "rbf_svm": [
+          0,
+          1,
+          1,
+          0
+        ],
+        "manual_tree": [
+          0,
+          1,
+          1,
+          0
+        ],
+        "manual_forest": [
+          0,
+          1,
+          1,
+          0
+        ],
+        "manual_boost": [
+          0,
+          1,
+          1,
+          0
+        ]
+      }
+    },
+    "gradient_chain_initialization": {
+      "chain": [
+        {
+          "layers": 5,
+          "half": 0.03125,
+          "one_and_half": 7.59375
+        },
+        {
+          "layers": 10,
+          "half": 0.0009765625,
+          "one_and_half": 57.6650390625
+        },
+        {
+          "layers": 20,
+          "half": 9.5367431640625e-07,
+          "one_and_half": 3325.256730079651
+        }
+      ],
+      "xavier_std": 0.1,
+      "he_std": 0.1414213562373095
+    },
+    "quadratic_learning_rate": {
+      "initial_loss": 50.5,
+      "steps": [
+        {
+          "eta": 0.1,
+          "parameters_after_one_step": [
+            0.9,
+            -9.0
+          ],
+          "loss": 4050.405
+        },
+        {
+          "eta": 0.01,
+          "parameters_after_one_step": [
+            0.99,
+            0.0
+          ],
+          "loss": 0.49005
+        }
+      ],
+      "stable_eta_interval": [
+        0,
+        0.02
+      ]
+    },
+    "sgd_momentum": [
+      {
+        "sgd": 0.8,
+        "momentum": 0.8,
+        "velocity": 2.0
+      },
+      {
+        "sgd": 0.9,
+        "momentum": 0.72,
+        "velocity": 0.8
+      }
+    ],
+    "adam_bias_correction": [
+      {
+        "step": 1,
+        "m": 0.2,
+        "v": 0.004,
+        "corrected_m": 2.0000000000000004,
+        "corrected_v": 3.9999999999999964,
+        "theta": 0.9000000005
+      },
+      {
+        "step": 2,
+        "m": 0.08000000000000002,
+        "v": 0.0049960000000000004,
+        "corrected_m": 0.42105263157894757,
+        "corrected_v": 2.4992496248124403,
+        "theta": 0.8733662967024315
+      }
+    ],
+    "weight_decay_algorithms": {
+      "sgd_l2": 0.98,
+      "adam_coupled_l2": 0.9000000049999998,
+      "adamw": 0.890000009999999
+    },
+    "gradient_clipping": {
+      "original": [
+        3,
+        4
+      ],
+      "clipped": [
+        0.6000000000000001,
+        0.8
+      ],
+      "norm_limit": 1
+    },
+    "normalization_modes": {
+      "batch_mean": 2.0,
+      "batch_variance": 1.0,
+      "unbiased_variance": 2.0,
+      "bn_train": [
+        -1.0,
+        1.0
+      ],
+      "bn_eval": [
+        0.5,
+        1.5
+      ],
+      "ln_per_sample": [
+        [
+          -1.0,
+          1.0
+        ],
+        [
+          -1.0,
+          1.0
+        ]
+      ],
+      "epsilon_for_toy": 0
+    },
+    "dropout_expectation": {
+      "outputs": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          8.0
+        ],
+        [
+          4.0,
+          0.0
+        ],
+        [
+          4.0,
+          8.0
+        ]
+      ],
+      "mean_activations": [
+        2.0,
+        4.0
+      ],
+      "scalar_expected_train_loss": 4.0,
+      "scalar_eval_loss": 2
+    }
+  }
+}

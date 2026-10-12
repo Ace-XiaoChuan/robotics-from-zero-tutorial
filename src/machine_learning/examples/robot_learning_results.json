@@ -1,0 +1,258 @@
+{
+  "date": "2026-10-12",
+  "python": "3.10.12",
+  "checks_passed": 26,
+  "scope": "18-20 artificial labels, analytic feedback, tabular values, probability gradients and evaluation arithmetic; no policy training or robot rollout",
+  "results": {
+    "18_bc_fit": {
+      "k": 0.19999999999999996,
+      "initial_mse_m2": 0.0001999999999999999,
+      "initial_rmse_m": 0.014142135623730947,
+      "gradient": -0.004000000000022323
+    },
+    "18_action_semantics": {
+      "increment_m": 0.22,
+      "absolute_target_m": 0.02,
+      "velocity_m_per_s": 0.202
+    },
+    "18_reaching_feedback": {
+      "positions_first_three_m": [
+        0.22,
+        0.236,
+        0.2488
+      ],
+      "error_step20_m": 0.0011529215046068297
+    },
+    "18_bias_accumulation": {
+      "dt_s": 0.1,
+      "replay_error_m": [
+        0.0,
+        0.001,
+        0.002,
+        0.003,
+        0.004,
+        0.005,
+        0.006,
+        0.007,
+        0.008,
+        0.009000000000000001,
+        0.010000000000000002,
+        0.011000000000000003,
+        0.012000000000000004,
+        0.013000000000000005,
+        0.014000000000000005,
+        0.015000000000000006,
+        0.016000000000000007,
+        0.017000000000000008,
+        0.01800000000000001,
+        0.01900000000000001,
+        0.02000000000000001
+      ],
+      "feedback_error_m": [
+        0.0,
+        0.001,
+        0.0018,
+        0.0024400000000000003,
+        0.0029520000000000006,
+        0.0033616000000000006,
+        0.0036892800000000005,
+        0.003951424,
+        0.0041611392,
+        0.004328911360000001,
+        0.004463129088000001,
+        0.004570503270400001,
+        0.004656402616320001,
+        0.004725122093056,
+        0.004780097674444801,
+        0.004824078139555841,
+        0.004859262511644672,
+        0.004887410009315738,
+        0.004909928007452591,
+        0.004927942405962072,
+        0.0049423539247696584
+      ],
+      "limit_m": 0.005
+    },
+    "18_dagger_recovery_label": {
+      "visited_position_m": 0.32,
+      "expert_increment_m": -0.0040000000000000036
+    },
+    "18_action_chunk_alignment": {
+      "chunk_m": [
+        0.020000000000000004,
+        0.016000000000000004,
+        0.012800000000000006,
+        0.010240000000000004
+      ],
+      "executed_prefix_steps": 2,
+      "replan_position_m": 0.236,
+      "tail_valid_mask": [
+        true,
+        true,
+        false,
+        false
+      ]
+    },
+    "18_same_time_ensemble": {
+      "same_execution_time_targets_m": [
+        0.25,
+        0.254
+      ],
+      "weights": [
+        2,
+        1
+      ],
+      "combined_target_m": 0.25133333333333335
+    },
+    "19_returns": {
+      "three_reward_return": 6.2,
+      "advance_return": 0.8,
+      "wait_then_advance_return": 0.62
+    },
+    "19_discount_time_scale": {
+      "weight_after_10_steps": 0.3486784401000001,
+      "gamma_at_half_dt": 0.9486832980505138
+    },
+    "19_bellman_values": {
+      "V": {
+        "S0": 0.8,
+        "S1": 1.0,
+        "G": 0.0
+      },
+      "Q_advance_wait": {
+        "S0": [
+          0.8,
+          0.6200000000000001
+        ],
+        "S1": [
+          1.0,
+          0.8
+        ],
+        "G": []
+      }
+    },
+    "19_q_learning_updates": {
+      "updates": [
+        0.5,
+        0.175,
+        0.75,
+        0.375
+      ]
+    },
+    "19_policy_gradient": {
+      "probability": 0.5,
+      "expected_gradient": 0.25,
+      "baseline_gradient": 0.25,
+      "sample_gradients_with_baseline": [
+        0.25,
+        0.25
+      ]
+    },
+    "19_ppo_clip": {
+      "positive_advantage": 2.4,
+      "negative_advantage": -1.6,
+      "outside_improvement_gradients": [
+        0,
+        0
+      ]
+    },
+    "19_sac_critic_target": {
+      "nonterminal_target": 0.6650000000000001,
+      "terminal_target": -0.1,
+      "without_entropy": 0.6200000000000001
+    },
+    "19_squashed_density": {
+      "increment_at_u2_m": 0.048201379003790845,
+      "log_scale_correction_at_u0": 2.995732273553991,
+      "density_at_zero": 7.978845608028654,
+      "integrated_probability_u_minus3_to3": 0.997300241875136
+    },
+    "19_terminal_vs_truncation": {
+      "terminal_target": -0.1,
+      "external_truncation_target": 0.62,
+      "last_observation_value": 0.8
+    },
+    "19_reward_loophole": {
+      "infinite_wait_value": 2.0000000000000004,
+      "advance_value": 0.8
+    },
+    "20_group_split": {
+      "train": [
+        "A",
+        "B"
+      ],
+      "validation": [
+        "C"
+      ],
+      "test": [
+        "D"
+      ]
+    },
+    "20_success_hold_duration": {
+      "success_time_s": 0.6,
+      "five_in_range_samples_duration_s": 0.4,
+      "six_in_range_samples_duration_s": 0.5
+    },
+    "20_artificial_perturbation_counts": {
+      "successes": {
+        "baseline": 18,
+        "new_goal": 15,
+        "new_view": 12,
+        "delay": 11,
+        "combined": 7
+      },
+      "attempts_each": 20,
+      "rates": {
+        "baseline": 0.9,
+        "new_goal": 0.75,
+        "new_view": 0.6,
+        "delay": 0.55,
+        "combined": 0.35
+      },
+      "status": "artificial counts, not rollout measurements"
+    },
+    "20_wilson_intervals": {
+      "8_of_10": [
+        0.49015684672072335,
+        0.9433190520193067
+      ],
+      "80_of_100": [
+        0.7111690380734977,
+        0.8666340774409013
+      ]
+    },
+    "20_scene_aggregation": {
+      "pooled_rate": 0.76,
+      "equal_scene_rate": 0.55
+    },
+    "20_mass_mismatch": {
+      "force_N": 1,
+      "duration_s": 0.2,
+      "sim_displacement_m": 0.020000000000000004,
+      "double_mass_displacement_m": 0.010000000000000002,
+      "training_range_displacements_m": [
+        0.025000000000000005,
+        0.01666666666666667
+      ]
+    },
+    "20_latency_mismatch": {
+      "age_s": 0.25,
+      "position_offset_m": 0.05,
+      "old_increment_m": 0.019999999999999997,
+      "current_increment_m": 0.009999999999999998
+    },
+    "20_action_constraints": {
+      "positive_executed_m": 0.0050000000000000044,
+      "negative_executed_m": -0.010000000000000009,
+      "invalid_inputs_rejected": 5,
+      "scope": "1D kinematic bounds only"
+    },
+    "20_recovery_accounting": {
+      "successes": 16,
+      "initial_tasks": 20,
+      "successes_without_recovery": 12,
+      "successes_with_recovery": 4,
+      "status": "artificial event counts"
+    }
+  }
+}

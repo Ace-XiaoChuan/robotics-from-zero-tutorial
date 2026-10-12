@@ -1,6 +1,6 @@
 # 文档索引
 
-本文行数：67行，预期阅读时长：5分钟
+本文行数：68行，预期阅读时长：5分钟
 
 这里存放学习路线、阶段总结、整理样板和知识导航。默认阅读例子、结果与解释即可复习；具体运行方法按需查阅。案例入口放在各案例目录的 `README.md` 中，已有案例仍可通过 `src/lesson*/` 查找。
 
@@ -10,7 +10,8 @@
 | --- | --- |
 | [学习路线](learning-roadmap.md) | 10 个能力阶段，先修关系、实验验收和选修分支；替代原固定 16 周计划。 |
 | [总体目录与案例索引](../src/README.md) | 查看按主题整理的实际目录与源码位置。 |
-| [机器人学习目录补全计划](robotics-content-plan.md) | 保存 2026-09-22 的缺口评估与三级工作优先顺序，区分已有材料和待补目录。 |
+| [机器人学习目录补全计划](robotics-content-plan.md) | 只列尚未完成的工作，按实际需要补充、按项目需要扩展两个优先级维护。 |
+| [机器学习 20 章工作目录](../src/machine_learning/机器学习入门实战清单.md) | 保留原八章、深化基础并扩展到 VLM 与机器人学习；维护各章编写范围、材料状态与建设顺序。 |
 | [近期处理顺序](learning-roadmap.md#next) | 从已有材料出发安排下一步，不要求重复已经验收的内容。 |
 
 ## 按学习阶段查阅
@@ -26,7 +27,7 @@
 | 感知与估计 | [S6](learning-roadmap.md#s6) | [视觉与传感器笔记](../src/perception/examples/camera_and_tags/cv_trainning/README.md)；状态估计待补 |
 | 规划与操作 | [S7](learning-roadmap.md#s7) | [MoveIt 例子](../src/manipulation/packages/hello_moveit/src/draw_line_and_circle.cpp)、[MTC](../src/manipulation/06_pick_place/history.md)；[六章 MoveIt / MTC 与五个规划原理专题](../src/manipulation/README.md) |
 | 数据与回放 | [S8](learning-roadmap.md#s8) | [episode 采集](../src/perception/examples/camera_and_tags/cv_trainning/demo/sim_camera_tag_pose_demo.py)；回放验收待补 |
-| 机器学习与模仿学习 | [S9](learning-roadmap.md#s9) | [概念总览与七章复习](../src/machine_learning/README.md)：监督、无监督、神经网络和迁移学习，附强化学习概念入口；机器人策略闭环评估待建设 |
+| 机器学习与模仿学习 | [S9](learning-roadmap.md#s9) | [20 章导航与已有材料](../src/machine_learning/README.md)：01～20 正文已深化或补齐，16 VLM 可直接阅读；[教学数值核对](../src/machine_learning/examples/README.md)通过，实际策略训练与机器人闭环评估仍待实现 |
 
 ## 整理样板
 
