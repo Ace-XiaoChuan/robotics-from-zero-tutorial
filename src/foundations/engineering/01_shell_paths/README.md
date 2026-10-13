@@ -47,8 +47,8 @@
 
 > 我从……目录启动，完整命令是……，想读取的文件在……，实际报错是……。请定位原因并给出最小修改。
 
-需要时查 [排错速查](notes.md)。配套 [路径示例](read_relative.py)、[环境观察](inspect_context.py)、[环境设置示例](set_lesson_env.sh)和 [自动检查](test_examples.py)供实现参考，不是复习作业。
+需要时查 [排错速查](notes.md)。配套 [路径示例](read_relative.py)、[环境观察](inspect_context.py)、[环境设置示例](set_lesson_env.sh)和 [自动检查](test_examples.py)供实现参考。
 
-验证依据：配套代码此前在 Linux / Bash 5.1.16 / Python 3.10.12 下通过 10 项自动检查。本文只将阅读方式改为例子与结论。
+验证依据：配套代码此前在 Linux / Bash 5.1.16 / Python 3.10.12 下通过 10 项自动检查。
 
 返回 [S0 索引](../README.md) · [学习路线](../../../../doc/learning-roadmap.md#s0)。

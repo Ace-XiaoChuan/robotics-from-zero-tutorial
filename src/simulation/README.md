@@ -18,6 +18,6 @@
 
 七章采用“速记 + 例子 + 结果与解释”：导读建立控制流与轨迹时间的整体印象，后续以仓库自带单摆和自由关节说明仿真核心概念。原有 [Lesson 7](mujoco/examples/state_and_control/README.md) 保留作详细参考；PID 和轨迹跟踪的深入分析属于 S5。
 
-[MuJoCo 模型、源码与依赖](mujoco/README.md) · [数值验证与环境边界](mujoco/verification.md) · [旧 MuJoCo 材料清点](mujoco/materials.md)
+[MuJoCo 模型、源码与依赖](mujoco/README.md) · [数值验证与环境边界](mujoco/verification.md) · [Panda 外加关节力脚本](mujoco/materials.md)
 
 [学习路线 S3](../../doc/learning-roadmap.md#s3) · [总体目录](../README.md)

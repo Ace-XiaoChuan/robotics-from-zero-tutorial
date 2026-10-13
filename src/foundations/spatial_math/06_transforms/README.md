@@ -74,6 +74,6 @@ $$
 
 这些矩阵的来源不同：机械臂 FK 提供工具位姿，手眼标定提供相机安装关系，视觉估计提供目标位姿。移动相机的观测必须与对应时刻的机械臂状态配对；矩阵维度正确不代表时间关系正确。
 
-结果依据：教学数值推导；数值核对范围见[验证记录](../verification.md)。历史实现见[旋转与齐次变换案例](../examples/rigid_transforms/README.md)，其舍入与角度输入约定需按源码理解。
+结果依据：教学数值推导；数值核对范围见[验证记录](../verification.md)。实现见[旋转与齐次变换案例](../examples/rigid_transforms/README.md)，其舍入与角度输入约定需按源码理解。
 
 [上一章：旋转表示](../05_rotations/README.md) · [返回目录](../README.md) · [下一章：位姿误差](../07_pose_errors/README.md)

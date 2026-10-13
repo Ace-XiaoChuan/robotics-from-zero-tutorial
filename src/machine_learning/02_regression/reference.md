@@ -1,26 +1,19 @@
-# 历史详细笔记：第 2 周：回归与误差
+# 房价预测：回归与预处理实现
 
-本文行数：213行，预期阅读时长：11分钟
+本文行数：193行，预期阅读时长：10分钟
 
-> 保留迁入时的概念解释、操作过程与阶段记录，按需查阅。文中“当前”“下一步”“已下载”指原记录时点，未完成清单不作为当前学习安排；数据与权重未随笔记迁入。复习请回到[本章入口](README.md)。
+概念复习见[本章入口](README.md)。以下命令在 `src/machine_learning/02_regression/` 下运行，使用已安装本项目依赖的 Python 环境。数据来源见 `data/README.md`，训练会在 `outputs/` 生成结果和模型。
 
 本项目使用 **Ames Housing** 房价数据集，训练模型来预测房屋成交价 `SalePrice` 这个**连续数值**。数据集有 2,930 条房屋记录和 82 列字段（其中 `SalePrice` 为目标列），包含房屋面积、建造年份、社区、装修质量等数值与类别特征。
 
-原始制表符分隔数据文件已下载到 `data/AmesHousing.txt`（`data/AmesHousing.txt`，原项目数据或生成产物，未迁入），来源为 [Ames Housing 数据发布页](https://jse.amstat.org/v19n3/decock/AmesHousing.txt)。训练脚本读取时应使用 `sep="\t"`；第一列 `Order` 只是记录编号，通常不应作为预测特征。
-
-## 本周目标
-
-- 用线性回归完成一个可复现的基线模型。
-- 分开处理数值特征和类别特征，避免预处理造成数据泄漏。
-- 使用 MSE、MAE 和 R² 评估训练集与测试集表现。
-- 通过真实值—预测值图、残差图和误差最大的样本理解模型的局限。
+运行时将 [Ames Housing 数据发布页](https://jse.amstat.org/v19n3/decock/AmesHousing.txt)提供的原始文件放到 `data/AmesHousing.txt`。`split_ames.py` 用 `sep="\t"` 读取原始制表符分隔文件，再生成供训练脚本读取的 CSV；第一列 `Order` 只是记录编号，不作为本案例的预测特征。
 
 ## 目录说明
 
 ```text
 02_regression/
-├── README.md                 # 本周任务、概念和运行说明
-├── experiment_log.md         # 每次实验的记录模板
+├── README.md                 # 本案例任务、概念和运行说明
+├── results.md         # 实验配置与指标
 ├── data/                     # 数据说明或本地数据（原始大文件不提交 Git）
 ├── src/                      # 训练、评估和绘图脚本
 └── outputs/                  # 指标、图表、预测结果和误差样本
@@ -68,7 +61,7 @@ y = b₀ + b₁x
 y = b₀ + b₁x + b₂x²
 ```
 
-第二个式子中的 `x²` 是一个新特征，称为二次项；模型仍只是学习 `b₀、b₁、b₂` 三个权重，因此仍可用线性回归。相反，`b₁ × b₂ × x` 让未知参数彼此相乘，不是普通线性回归的形式。本周的第一版基线先不加入平方项或特征交互项。
+第二个式子中的 `x²` 是一个新特征，称为二次项；模型仍只是学习 `b₀、b₁、b₂` 三个权重，因此仍可用线性回归。相反，`b₁ × b₂ × x` 让未知参数彼此相乘，不是普通线性回归的形式。本案例的第一版基线先不加入平方项或特征交互项。
 
 ### 原始特征与独热编码
 
@@ -117,7 +110,7 @@ MAE： (|e₁| + |e₂| + … + |eₙ|) / n
 
 因为同一训练集上的样本数 `n` 是固定的，最小化 RSS 与最小化 `MSE = RSS / n` 得到的最佳参数相同。`scikit-learn` 的 `LinearRegression` 默认使用的就是普通最小二乘思想：它会寻找一组权重，使训练数据上的残差平方和尽可能小。这里的“最小”只保证训练集的平方误差最小，不保证测试集也最好，因此仍需用未参与训练的测试集 MSE、MAE 和 R² 评估泛化能力。
 
-## 推荐工作流程
+## 处理流程
 
 ```text
 原始数据
@@ -133,22 +126,11 @@ MAE： (|e₁| + |e₂| + … + |eₙ|) / n
 
 对预处理器调用 `fit()` 时，它从训练集记住填补值、均值、标准差和类别列表；对线性回归调用 `fit()` 时，它学习各特征的权重。测试集不能再次 `fit()`，只能沿用训练集规则完成 `transform()`，再调用 `predict()` 得到房价预测。
 
-## 本周完成清单
-
-- [x] 确定数据集：Ames Housing；目标列为 `SalePrice`。
-- [x] 检查数据形状、字段类型、缺失值和目标值分布；探索结果见 `outputs/saleprice_distribution.png`。
-- [x] 固定随机种子 42，按 80% / 20% 划分训练集（2,344 条）和测试集（586 条）。
-- [x] 建立“预测训练集目标均值”的朴素参照，以及线性回归基线。
-- [x] 对数值与类别特征分别进行缺失值处理、标准化或独热编码（处理后共 341 个特征）。
-- [x] 报告训练集和测试集的 MSE、MAE、R²，并解释两者差距。
-- [x] 保存真实值—预测值散点图、残差图和绝对误差最大的五个样本。
-- [x] 在 `experiment_log.md` 中写下本周结论和下一步只准备改变的一个变量。
-
 ## 结果输出约定
 
-完成训练脚本后，建议将以下产物保存到 `outputs/`：
+数据探索、预处理、训练和系数检查脚本分别在 `outputs/` 生成以下产物：
 
-- `regression_metrics.json`：随机种子、数据划分和训练/测试指标。
+- `regression_metrics.json`：固定数据划分、训练/测试样本数，以及均值参照和线性回归的 MSE、MAE、R²。
 - `actual_vs_predicted.png`：真实值与预测值的散点图，并绘制理想的 `y = x` 参考线。
 - `residual_plot.png`：预测值与残差的关系图，辅助检查系统性偏差。
 - `largest_errors.csv`：按绝对误差降序排列的五个测试样本，包含原始特征、真实值、预测值和残差。
@@ -156,7 +138,6 @@ MAE： (|e₁| + |e₂| + … + |eₙ|) / n
 - `preprocessed/x_train.npz`、`preprocessed/x_test.npz`：经训练集规则转换后的稀疏特征矩阵。
 - `preprocessed/preprocessor.joblib`：在训练集上拟合的预处理器，可用于后续推理。
 - `preprocessed/feature_names.json`、`preprocessed/preprocessing_summary.json`：编码后的特征名称与预处理摘要。
-- `regression_metrics.json`：均值参照和线性回归在训练/测试集上的 MSE、MAE、R²。
 - `linear_regression_pipeline.joblib`：包含预处理与线性回归的完整已拟合 Pipeline。
 - `linear_regression_formula.md`、`linear_regression_coefficients.csv`：拟合公式的阅读说明与全部 341 个预处理后特征的系数。
 
@@ -172,7 +153,6 @@ MAE： (|e₁| + |e₂| + … + |eₙ|) / n
 先启用本项目使用的虚拟环境。若需要重新生成固定的训练/测试集划分：
 
 ```bash
-source ~/mujoco-env/bin/activate
 python src/split_ames.py --random-state 42 --test-size 0.2
 ```
 

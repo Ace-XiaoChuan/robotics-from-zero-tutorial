@@ -1,8 +1,6 @@
 # Ames Housing 数据说明
 
-本文行数：38行，预期阅读时长：1分钟
-
-> 迁入说明：本目录仅保留数据来源说明；下文“已下载”等描述属于原项目历史状态，数据集与划分文件未随教程迁入。
+本文行数：34行，预期阅读时长：1分钟
 
 - 文件：`AmesHousing.txt`
 - 格式：UTF-8 文本，制表符分隔（TSV）
@@ -10,9 +8,8 @@
 - 字段数：82
 - 目标列：`SalePrice`（房屋成交价）
 - 数据来源：[Ames Housing 数据发布页](https://jse.amstat.org/v19n3/decock/AmesHousing.txt)
-- 下载日期：2026-08-19
 
-读取示例：
+运行时将原始文件放到本目录；以下示例和命令在 `src/machine_learning/02_regression/` 下执行。读取示例：
 
 ```python
 import pandas as pd
@@ -24,7 +21,7 @@ data = pd.read_csv("data/AmesHousing.txt", sep="\t")
 
 ## 固定的数据划分
 
-已用 `random_state=42` 将完整数据随机划分为：
+`split_ames.py` 使用 `random_state=42` 将完整数据随机划分为：
 
 - `train.csv`：2,344 条记录（80%），仅用于拟合预处理规则和模型。
 - `test.csv`：586 条记录（20%），在模型方案确定前不参与调参，只用于最终评估。
@@ -33,6 +30,5 @@ data = pd.read_csv("data/AmesHousing.txt", sep="\t")
 重新生成同一划分：
 
 ```bash
-source ~/mujoco-env/bin/activate
 python src/split_ames.py --random-state 42 --test-size 0.2
 ```

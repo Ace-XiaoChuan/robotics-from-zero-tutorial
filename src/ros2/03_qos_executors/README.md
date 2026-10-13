@@ -1,6 +1,6 @@
 # 03：QoS、Executor 与组件
 
-本文行数：94行，预期阅读时长：5分钟
+本文行数：96行，预期阅读时长：5分钟
 
 **QoS 决定消息交付规则，Executor 决定回调何时执行；同进程、能通信和能及时处理数据是不同的问题。**
 
@@ -85,9 +85,11 @@ B：              消息到达，等待                 最早此后执行
 
 **源码结论：** 两个节点共用一个进程，Executor 回调仍逐个执行。发布端用 `unique_ptr` 传递消息，订阅端接收 `UniquePtr`，代码还打印地址，意图观察消息传递。
 
-这属于代码中手动组合节点，不等于已经实现可由组件容器动态加载的组件。启用进程内通信也不能单凭开关就宣称所有路径都零拷贝；本次没有执行地址、吞吐或延迟测量。
+这个主程序采用手动组合入口；Talker 和 Listener 的源码还各自使用 `RCLCPP_COMPONENTS_REGISTER_NODE`，CMake 也注册了两个组件，因此同一组节点定义还提供容器加载入口。容器需要实际构建并安装的共享库，本地 `add_library()` 未显式指定 `SHARED`，构建时需启用 `BUILD_SHARED_LIBS=ON`，详见[组件案例说明](../examples/composition/lesson2_composition/README.md)。
 
-Lesson 1 为 Action 另起了分离线程。它可以让任务循环离开 Executor 回调，但线程仍可能与节点并发访问状态，且节点退出时需要管理线程生命周期。详见[已有并发笔记](../examples/communication/ros2_interfaces_notes.md#execution)。
+启用进程内通信也不能单凭开关就宣称所有路径都零拷贝，具体数据传递与性能要结合实际测量。本章没有容器加载或性能测量结果。
+
+Lesson 1 的各个程序使用 `rclcpp::spin()` 的单线程执行器。Action 任务由每 `0.05 s` 触发的定时器逐步检查、发布速度和反馈，不另起分离线程；每次回调返回后，状态订阅、查询和取消仍有执行机会。单线程不保证实时性，慢回调仍会增加控制与取消延迟。详见[执行实现](../examples/communication/ros2_interfaces_notes.md#execution)与[通信检查记录](../examples/communication/verification.md)。
 
 本章时序为教学示意，案例结论来自静态源码分析；执行器背景参照 [Humble Executor 文档](https://raw.githubusercontent.com/ros2/ros2_documentation/humble/source/Concepts/Intermediate/About-Executors.rst)。
 

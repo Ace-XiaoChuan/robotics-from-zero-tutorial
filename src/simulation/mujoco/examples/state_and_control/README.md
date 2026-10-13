@@ -1,18 +1,16 @@
 
 
+# MuJoCo / MJCF 状态与控制案例笔记
 
+本文行数：465行，预期阅读时长：9分钟
 
-# 本周任务：MuJoCo / MJCF 基础学习
-
-本文行数：472行，预期阅读时长：8分钟
-
-本周主要围绕 MuJoCo 和 MJCF 展开基础学习，内容包括 MJCF 模型文件结构、仿真状态读取、body / site ID 查询、PID 控制、position actuator、torque actuator，以及一个关节空间轨迹跟踪 demo。
+本笔记围绕 MuJoCo 和 MJCF 展开，内容包括 MJCF 模型文件结构、仿真状态读取、body / site ID 查询、PID 控制、position actuator、torque actuator，以及一个关节空间轨迹跟踪 demo。
 
 演示视频：https://github.com/user-attachments/assets/a2d3b6b4-4e5e-4765-ab45-800a21bf23b2
 
-## 1. 任务目标
+## 1. 主要内容
 
-本周主要完成以下内容：
+本目录包含以下示例与说明：
 
 1. 简要了解 MJCF。
 2. 学习以下 MuJoCo 基础操作：
@@ -24,8 +22,9 @@
    * PID 控制
    * position actuator
    * torque actuator
-3. 编写一个关节空间轨迹跟踪 demo。
+3. 关节空间轨迹跟踪 demo。
 
+Python 示例仍使用外部 `src.mujoco_viewer` 旧接口，本机 `mujoco-learning` 的工具现位于 `mujoco_learning` 包。仅将外部项目根目录加入 `sys.path` 不能建立旧包名；这些脚本尚未完成包名适配。下面按源码解释行为，单摆数值结果见[独立验证记录](../../verification.md)。
 
 ---
 
@@ -62,7 +61,8 @@ MJCF 官方 XML 参考文档：
 
   <!--
     compiler：编译设置
-    angle="degree" 表示角度单位使用度。
+    angle="degree" 表示 joint range 等 XML 角度属性使用度。
+    keyframe 的 qpos 和运行时状态仍使用 rad。
     coordinate="local" 表示局部坐标系定义。
   -->
   <compiler angle="degree" coordinate="local"/>
@@ -272,12 +272,14 @@ MJCF 官方 XML 参考文档：
   <keyframe>
     <key
       name="home"
-      qpos="25 -60  0.7 0.45 0.35  1 0 0 0"
+      qpos="0.436332313 -1.047197551  0.7 0.45 0.35  1 0 0 0"
       ctrl="0 0"
     />
   </keyframe>
 </mujoco>
 ```
+
+`home` 的前两项分别约为 `25°`、`−60°` 的弧度值。`compiler angle="degree"` 不会把 `key qpos` 中的数值从度转换为 rad；直接写 `25 -60` 会变成 `25 rad` 和 `−60 rad`，超过本例关节范围。关键帧也不会在加载时自动应用，使用它初始化需显式调用 `mj_resetDataKeyframe`。
 
 ---
 
@@ -323,7 +325,7 @@ mujoco
 相关代码文件：
 
 * `get_all_body_xpos.py`
-* `get_all_body_qpos_qvel_ctrl.py`
+* [get_all_body_qpos_qvel_ctrl.py](get_all_body_qpos_qvel_ctrl.py)
 
 建议重点关注以下 MuJoCo 数据结构：
 
@@ -372,7 +374,7 @@ PID.py
 
 这类 actuator 的本质并不是单纯的力矩输入，而是已经包含了类似 PD 控制的内部机制。
 
-因此，如果在外层再写 PID，就会形成类似下面的结构：
+若将外层 PID 的输出明确定义为关节位置目标，才形成下面这种串级结构：
 
 ```text
 外层 PID
@@ -384,9 +386,7 @@ PID.py
 生成实际控制力 / 力矩
 ```
 
-也就是说，Panda 机械臂并不是最适合作为“从零实现 PID”的练习对象。
-
-不过，本阶段主要以教育和理解为目的，因此暂时不深入考虑该嵌套控制结构带来的影响。
+现有 `PID.py` 将名为 `torque` 的 PID 输出直接写入 `data.ctrl[0]`；它加载的上述 Panda 模型接收位置目标，因此变量名不表示实际施加了相同数值的力矩。源码还将物理步长与额外 `sleep(0.01)` 的墙钟等待相加，作为积分和微分的时间间隔；这没有明确区分仿真时间与控制周期。该旧例子展示 PID 运算，尚未完成输入单位与时间的正确映射；单杆 motor 闭环与实际误差见[控制第六章](../../../../control/06_control_constraints/README.md)。
 
 ---
 
@@ -420,7 +420,7 @@ Torque actuator 更接近直接力矩控制。
 
 需要重点理解：
 
-* 对于 torque actuator，`data.ctrl` 通常表示输入`力矩`。
+* 对于转动关节的 motor，只有单位传动比等条件满足时，`data.ctrl` 的数值才直接对应关节力矩 N·m；其他传动配置见[控制输入](../../../04_control_inputs/README.md)。
 * 控制器需要自己根据误差计算力矩。
 * 相比 position actuator，torque actuator 更灵活，但也更容易不稳定。
 
@@ -428,40 +428,33 @@ Torque actuator 更接近直接力矩控制。
 
 ## 6. 关节空间轨迹跟踪 Demo
 
-本周最终目标是完成一个关节空间轨迹跟踪 demo，并录制了一个简短演示视频：
+现有关节空间轨迹跟踪脚本为 [joint_space_trajectory_tracking_demo.py](joint_space_trajectory_tracking_demo.py)，已有演示视频：
 
 https://github.com/user-attachments/assets/a2d3b6b4-4e5e-4765-ab45-800a21bf23b2
 
 该 demo 主要展示在 MuJoCo 仿真环境中，通过读取关节状态、生成期望关节轨迹并写入 actuator 控制量，实现机械臂关节空间轨迹跟踪的基本流程。
 
-建议 demo 包含以下基本流程：
+该脚本当前的具体流程是：
 
 1. 加载 MJCF 模型。
 
-2. 获取需要控制的关节 ID。
+2. 用 `qpos[:7]` 读取机械臂位置，假定模型中的前七项与前七个执行器按相同关节顺序对应；没有按名称建立映射。
 
-3. 构造期望关节轨迹，例如：
+3. 用 `time.time()` 的墙钟经过时间，在 `5 s` 内对 `q_start` 与 `q_goal` 做线性插值；并非按 `data.time` 采样。
 
-   * 简单的插值轨迹
+4. 在回调中读取关节位置，计算 `q_des-q`；这个脚本没有读取速度来计算控制力矩。
 
-4. 在仿真循环中读取当前关节位置和速度。
+5. 直接将位置目标写入 `data.ctrl[:7]`，保存目标、位置与误差到内存列表，定期打印误差范数；没有另行实现 torque PID 分支或导出误差文件。
 
-5. 根据控制方式计算控制输入：
+6. 外部 Viewer 调用 `mujoco.mj_step(model, data)` 推进仿真，再更新画面。
 
-   * position actuator：直接输入目标关节角度
-   * torque actuator：使用 PD / PID 计算控制力矩
-
-6. 写入 `data.ctrl`。
-
-7. 调用 `mujoco.mj_step(model, data)` 推进仿真。
-
-
+视频保留演示参考；当前仓库没有该脚本固定配置下的轨迹误差指标，也没有因为目录中的单摆检查通过而验证 Panda 跟踪结果。
 
 ---
 
-## 7. 阶段总结
+## 7. 复习要点
 
-本周学习重点可以概括为：
+本案例的复习重点是：
 
 1. 理解 MJCF 的基本文件结构。
 2. 能够阅读简单的 MJCF 模型。
@@ -469,4 +462,4 @@ https://github.com/user-attachments/assets/a2d3b6b4-4e5e-4765-ab45-800a21bf23b2
 4. 能够读取关节状态和末端位姿。
 5. 区分 position actuator 和 torque actuator 的控制含义。
 6. 理解 Panda 模型中 actuator 自带 PD 控制这一点。
-7. 完成一个关节空间轨迹跟踪 demo，为后续学习更复杂的机械臂控制打基础。
+7. 理解现有轨迹脚本的位置接口、关节顺序与时间假定，再用实际误差判断跟踪结果。

@@ -1,6 +1,6 @@
 # 05：数据记录与排错
 
-本文行数：92行，预期阅读时长：4分钟
+本文行数：94行，预期阅读时长：5分钟
 
 **先确认程序与连接，再核对数据语义和业务结果。记录消息能帮助解释发生了什么，但不能自动恢复完整机器人世界。**
 
@@ -17,15 +17,15 @@
 
 ## 例子 1：Action 服务端明明启动了，客户端却找不到
 
-**输入：** 现有客户端使用 `Navigation`，服务端使用 `navigation`，均在默认命名空间且没有重映射。
+**教学输入：** 假设一个客户端误把 Action 名写成 `Navigation`，服务端仍使用 `navigation`，两者都在 `lesson1` 命名空间且没有重映射。
 
-**结果（源码推导）：** 两个完整名称分别为 `/Navigation` 和 `/navigation`。客户端等待的那个服务端不存在，单纯增加等待时间无法修正名称。
+**预期结果：** 两个完整名称分别为 `/lesson1/Navigation` 和 `/lesson1/navigation`，客户端等待的名称没有对应服务端，增加等待时间无法修正名称。这里的大写类型名 `robot_interfaces/action/Navigation` 与实际 Action 名称是两回事。
 
-名字改对后仍有第二个问题：目标是 `(5, 3) m`，模拟位置始终在 `y=0`，最小距离为 `3 m`，不能达到 `0.1 m` 内。这个推导见[第一章](../01_nodes_interfaces/README.md)。
+**当前源码：** 客户端和服务端均使用相对名称 `navigation`，位置节点响应 `cmd_vel` 进行二维积分，默认目标为 `(1.0, 0.5) m`；上述名称错误是排错示例。服务就绪、目标是否接受和最终是否到达，应分别查看连接、反馈和结果，默认链路的运行证据见[检查记录](../examples/communication/verification.md)。
 
 ## 例子 2：频率正常，位置为何已经旧了
 
-**教学输入：** `/robot_pose` 在观察终端约每秒输出一条消息，但某条消息的采样时间为 `10.0 s`，消费时同一时钟已到 `12.0 s`。
+**教学输入：** 某个 `robot_pose` 话题在观察终端约每秒输出一条消息，但某条消息的采样时间为 `10.0 s`，消费时同一时钟已到 `12.0 s`。这是旧数据示例，Lesson 1 的默认位置发布周期是 `0.05 s`。
 
 **结果：** 这条数据年龄为 `2.0 s`；“约 1 Hz 收到消息”并不能证明它足够新。频率与延迟是两个不同指标。
 
@@ -33,13 +33,13 @@
 
 ## 例子 3：怎样留下一份有解释价值的记录
 
-**教学条件：** Lesson 1 已满足依赖并正常启动。以下命令仅供需要时参考，本次未执行录制：
+**教学条件：** Lesson 1 已满足依赖并正常启动。录制命令示例：
 
 ```bash
-ros2 bag record -o status_sample /battery_level /robot_pose
+ros2 bag record -o status_sample /lesson1/battery_level /lesson1/robot_pose
 ```
 
-输出目录 `status_sample` 应尚未存在；结束录制后查看：
+以上名称对应原 launch 的默认 `lesson1` 命名空间，改 namespace 后需相应改名。输出目录 `status_sample` 应尚未存在；结束录制后查看：
 
 ```bash
 ros2 bag info status_sample
@@ -68,7 +68,9 @@ ros2 bag play status_sample
 
 **预期结果：** 回放工具按记录安排发送消息；原来的传感器、状态节点和机器人动力学并没有因此重新运行。若真实发布者也在发同一话题，接收端还可能混合两路数据。
 
-记录中的消息时间戳与当前系统时间可能相隔很久。需要按记录时间回放的消费者，应协调仿真时钟；例如播放器使用 `--clock` 发布回放时钟，消费者启用 `use_sim_time`。这不会自动补齐缺失 TF，也不应与另一 `/clock` 来源冲突。参照 [Humble rosbag2 回放选项](https://raw.githubusercontent.com/ros2/rosbag2/humble/README.md)。
+记录中的消息时间戳与当前系统时间可能相隔很久。对于支持仿真时间的消费者，可以让播放器使用 `--clock` 发布回放时钟、消费者启用 `use_sim_time`；这不会自动补齐缺失 TF，也不应与另一 `/clock` 来源冲突。参照 [Humble rosbag2 回放选项](https://raw.githubusercontent.com/ros2/rosbag2/humble/README.md)。
+
+Lesson 1 要求 `use_sim_time=false`，不能直接套用这个时钟配置；任务节点会拒绝生产者时间戳过旧的位置消息。因此回放上述 bag 适合观察消息内容，不会自动恢复原来的任务闭环。要按记录时间重新执行，需要另外实现适配记录时钟与动作语义的回放链路。
 
 ## 按问题查命令
 
@@ -85,8 +87,8 @@ ros2 bag play status_sample
 
 若两个终端连节点都互相发现不了，再核对 `ROS_DOMAIN_ID`、网络发现设置和加载环境；同域只是正常发现的前提之一，不是通信成功的充分条件。
 
-详细案例问题集中在 [Lesson 1 问题记录](../examples/communication/ros2_interfaces_notes.md#issues)。求助时给出启动目录、完整命令、实际日志、预期结果及相关数据，不必把所有工具输出都堆进去。
+具体接口与执行条件见 [Lesson 1 核对入口](../examples/communication/ros2_interfaces_notes.md#issues)。求助时给出启动目录、完整命令、实际日志、预期结果及相关数据，不必把所有工具输出都堆进去。
 
-本章的消息数量、时间和输出是教学示意；未录制 bag、回放数据或重新验证整个 ROS 系统。
+本章的 bag 步骤、消息数量和时间是教学示例，未录制或回放验证；Lesson 1 二维通信模拟的实际验证范围见[检查记录](../examples/communication/verification.md)。
 
 [返回目录](../README.md) · [回到第一章](../01_nodes_interfaces/README.md)

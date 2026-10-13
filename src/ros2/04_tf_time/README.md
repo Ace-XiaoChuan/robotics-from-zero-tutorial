@@ -1,6 +1,6 @@
 # 04：TF、坐标系与时间
 
-本文行数：86行，预期阅读时长：4分钟
+本文行数：88行，预期阅读时长：4分钟
 
 **一个位置数值只有结合“在哪个坐标系、对应哪个时刻”才有明确意义；TF 帮助查询这些坐标系之间的变换。**
 
@@ -79,7 +79,9 @@ Python tf2 的核心调用形式是 `lookup_transform(target_frame, source_frame
 
 `use_sim_time=true` 不会自动生成时钟，仍需仿真器或回放工具提供 `/clock`。暂停仿真时 ROS 时间可能停止，重置时可能向后跳；依赖它的缓存和超时逻辑应处理这些情况。[ROS 2 时钟设计](https://design.ros2.org/articles/clock_and_time.html)
 
-Lesson 1 的位置节点使用 wall timer 触发，却用节点时钟给消息盖章。启用仿真时间后，如果 `/clock` 暂停，不能假设 wall timer 也暂停。任务节点只缓存 `msg->point`，还丢弃了 header，因此无法从缓存判断坐标系和状态年龄。
+Lesson 1 的位置节点使用 wall timer 触发、节点时钟盖章，积分和等待时长由 steady clock 度量。各节点在启动时要求 `use_sim_time=false`，传入 `true` 会报告错误并退出；运行中切换仿真时间也不受支持。这是独立的墙钟模拟，不能直接当作 `/clock` 驱动的仿真节点。
+
+任务节点保留完整 `PointStamped`：接收时检查 `frame_id` 和生产者时间戳，缓存后用 steady clock 检查距上次接收的时长，Service 返回原 header 与接收年龄。对真实传感器，还要另行约定 header 表示哪个采样时刻，电量 `Int32` 本身则没有采样时间戳。
 
 本章坐标与时序例子为教学推导；未搭建或运行上述 TF 链。已有源码说明见[位置消息语义](../examples/communication/ros2_interfaces_notes.md#topics)。
 

@@ -1,8 +1,8 @@
-# 历史详细笔记：第 5 周：无监督学习与 K-Means 聚类
+# 客户消费聚类：K-Means 实现说明
 
-本文行数：543行，预期阅读时长：29分钟
+本文行数：515行，预期阅读时长：27分钟
 
-> 保留迁入时的概念解释、操作过程与阶段记录，按需查阅。文中“当前”“下一步”“已下载”指原记录时点，未完成清单不作为当前学习安排；数据与权重未随笔记迁入。复习请回到[本章入口](README.md)。
+概念复习见[本章入口](README.md)，中心更新与 PCA 的完整求导见[按需推导](derivations.md)。以下命令在 `src/machine_learning/05_clustering/` 下运行，使用已安装本项目依赖的 Python 环境。数据来源见 `data/README.md`，训练会在 `outputs/` 生成结果和模型。
 
 本项目以**客户数据聚类**为可运行模板，学习在没有训练标签时如何依据样本相似性组织数据。也可通过同一套命令替换为机器人传感器 CSV。
 
@@ -14,7 +14,7 @@
 
 **无监督学习（Unsupervised Learning）**通常只有样本的**特征**，没有供模型学习的正确标签。模型尝试从样本之间的相似性、差异或结构中发现规律。例如，根据客户消费、访问频率和停留时间聚类，或根据传感器读数寻找相似的设备运行状态。
 
-本周使用的 K-Means 属于无监督学习：它按特征距离将相似样本分到同一簇，但 `cluster=0`、`cluster=1` 等编号只是代号，不等于天然的真实类别。轮廓系数、肘部图、PCA 图和簇画像可帮助理解分组，却不能单独证明分组就是客观规律；最终仍要结合业务或领域知识解释。
+本案例使用的 K-Means 属于无监督学习：它按特征距离将相似样本分到同一簇，但 `cluster=0`、`cluster=1` 等编号只是代号，不等于天然的真实类别。轮廓系数、肘部图、PCA 图和簇画像可帮助理解分组，却不能单独证明分组就是客观规律；最终仍要结合业务或领域知识解释。
 
 ## 聚类是什么？
 
@@ -45,7 +45,7 @@ K-Means 中的 `K` 是希望分成的簇数，`Means` 指每个簇用其成员�
 输出每个样本的簇编号与 3 个簇中心
 ```
 
-本项目在 K-Means 之前进行“中位数填补 → 可选异常值处理 → 缩放”。这是因为 K-Means 依赖距离：量纲大的消费金额会压过访问次数，极端值也可能把平均中心拉偏。它更适合大小相近、近似圆团状的簇；若数据呈细长、弯曲、密度差异很大的形状，K-Means 的分组未必合适。
+通用演示框架在 K-Means 之前进行“中位数填补 → 可选 IQR 截断 → 缩放”；本章 Wholesale Customers 正式实验没有缺失值，也不截断，使用 `log1p → 保留六位小数 → RobustScaler`。K-Means 依赖距离，数值范围大的特征会压过其他特征，极端值也可能把平均中心拉偏。它更适合大小相近、近似圆团状的簇；若数据呈细长、弯曲、密度差异很大的形状，K-Means 的分组未必合适。
 
 ## 如何阅读聚类结果？
 
@@ -75,24 +75,16 @@ PCA 图适合观察大致的分离、重叠、离群点和簇形状；坐标轴�
 
 ### 簇画像（Cluster Profile）
 
-簇画像是对每个簇的原始特征进行汇总后的描述，例如样本数、占比、各特征的均值和中位数。本项目的 final_k2_cluster_profiles.csv（`outputs/tables/final_k2_cluster_profiles.csv`，原项目数据或生成产物，未迁入） 就是最终簇画像：它帮助回答“这个簇的客户通常有什么特征”“它是否足够大、值得单独解释”。
+簇画像是对每个簇的原始特征进行汇总后的描述，例如样本数、占比、各特征的均值和中位数。本项目的 `outputs/tables/final_k2_cluster_profiles.csv` 就是最终簇画像：它帮助回答“这个簇的客户通常有什么特征”“它是否足够大、值得单独解释”。
 
 还会导出距簇中心最近的若干代表样本。它们便于回到原始记录核对，但不能被当作整个簇的唯一真相；均值容易受极端值影响，所以应同时看中位数、分布和多个代表样本。
-
-## 本周目标
-
-- 明确可用于聚类的数值特征，诊断缺失值、量纲和 IQR 异常值。
-- 使用中位数填补、可选 IQR 截断和缩放后完成 K-Means。
-- 比较多个 `K`，将肘部法、轮廓系数与可解释性一起用于选择。
-- 以 PCA 投影到二维，观察聚类后的相对分布。
-- 为每个簇导出均值/中位数画像与靠近簇中心的代表样本。
 
 ## 目录说明
 
 ```text
 05_clustering/
 ├── README.md
-├── experiment_log.md
+├── results.md
 ├── data/
 │   ├── README.md
 │   └── customer_data.csv              # 运行演示生成器后出现；可替换为自己的 CSV
@@ -119,7 +111,6 @@ PCA 图适合观察大致的分离、重叠、离群点和簇形状；坐标轴�
 在项目目录中执行：
 
 ```bash
-cd 05_clustering
 # 如需运行，先激活自行准备的 Python 环境
 
 python src/generate_demo_data.py
@@ -129,7 +120,7 @@ python src/explore_data.py \
 python src/compare_cluster_counts.py \
   --feature-columns age,monthly_spending,visits_per_month,avg_session_minutes \
   --reference-label-column reference_segment --k-values 2,3,4,5,6
-# 根据诊断图、簇规模和解释性选择 K；下面仅以 K=3 为例：
+# 以下分别演示 K=2 与 K=3；实际选择结合诊断图、簇规模和解释性：
 python src/fit_and_visualize_clusters.py \
   --feature-columns age,monthly_spending,visits_per_month,avg_session_minutes \
   --reference-label-column reference_segment --n-clusters 2
@@ -143,9 +134,9 @@ python src/profile_clusters.py \
 
 演示数据含有少量缺失值和一个故意加入的极端消费值，便于练习诊断。请先判断该值是否可能是真实大客户；只有有合理理由时，才在后三个命令中同时加上 `--clip-outliers`。也可用 `--scaler robust` 比较对异常值更稳健的缩放方式。
 
-### 使用已下载的真实客户数据
+### 使用 Wholesale Customers 数据
 
-本项目的 data/wholesale_customers.csv（`data/wholesale_customers.csv`，原项目数据或生成产物，未迁入） 来自 UCI，包含 440 位批发客户的六类年消费额；字段、许可证和来源记录在 [data/README.md](data/README.md)。以下命令显式只使用六个消费特征，避免将已有分组 `Channel`、`Region` 混入距离计算。这里将 `Channel` 仅作事后参考。
+运行时将 UCI 的 Wholesale Customers 数据准备为 `data/wholesale_customers.csv`，其中包含 440 位批发客户的六类年消费额；字段、许可证和来源记录在 [data/README.md](data/README.md)。以下说明只使用六个消费特征，避免将已有分组 `Channel`、`Region` 混入距离计算；`Channel` 用于聚类后的解释对照。
 
 在开始任何缩放或聚类前，先理解每一列描述的消费类别。六列都是客户在对应类别上的**年消费额**；原始资料没有公开货币单位：
 
@@ -193,9 +184,9 @@ K-Means 使用欧氏距离。假设只看 `Fresh`：普通客户消费 5,000 和
 
 因此需要缩放，并考虑 `log1p` 等长尾转换；是否截断则要先判断极端值是不是有业务意义的真实大客户。
 
-#### 本阶段的决定：保留全部客户并进行 log1p 转换
+#### 保留全部客户并进行 log1p 转换
 
-查看六列分布后，本阶段不删除客户，也不使用 IQR 截断。原因是这些极端消费额可能代表真实的大型批发客户，不能仅凭统计规则认定为错误。
+查看六列分布后，正式实验不删除客户，也不使用 IQR 截断。原因是这些极端消费额可能代表真实的大型批发客户，不能仅凭统计规则认定为错误。
 
 对六个消费字段分别计算：
 
@@ -203,14 +194,14 @@ K-Means 使用欧氏距离。假设只看 `Fresh`：普通客户消费 5,000 和
 x_log1p = ln(1 + x)
 ```
 
-加 `1` 是为了让原始值为 `0` 时也能计算对数。转换会压缩大数值之间的差距，同时保留大小顺序。生成的 wholesale_customers_log1p.csv（`outputs/tables/wholesale_customers_log1p.csv`，原项目数据或生成产物，未迁入） 包含全部 440 位客户：
+加 `1` 是为了让原始值为 `0` 时也能计算对数。转换会压缩大数值之间的差距，同时保留大小顺序。生成的 `outputs/tables/wholesale_customers_log1p.csv` 包含全部 440 位客户：
 
 - `customer_row` 是为对照原始 CSV 添加的行号，不作为聚类特征；
 - `Channel` 和 `Region` 保留原值，不参与 `log1p`；
 - 六个以 `_log1p` 结尾的字段是转换后的消费额；
-- 当前文件尚未执行 `RobustScaler`，也没有进行 K-Means。
+- 这份 log1p 中间表不含 `RobustScaler` 或 K-Means 的计算结果；缩放表和最终簇归属分别保存。
 
-这是一份用于观察转换效果的**衍生数据**，不是对原始数据的覆盖或修正。原始 wholesale_customers.csv（`data/wholesale_customers.csv`，原项目数据或生成产物，未迁入） 始终保持不变。
+这是一份用于观察转换效果的**衍生数据**，不是对原始数据的覆盖或修正。原始 `data/wholesale_customers.csv` 始终保持不变。
 
 #### RobustScaler 是什么？
 
@@ -225,14 +216,14 @@ IQR = Q3 - Q1
 
 但 `RobustScaler` **不会删除或截断异常值**：极端大客户缩放后仍可能离其他样本很远。`--scaler robust` 负责改变尺度；`--clip-outliers` 才负责把超出 1.5 IQR 边界的数值截到边界。是否截断必须结合业务判断，二者不能混为一谈。
 
-#### 本阶段完成：对 log1p 特征进行稳健特征缩放
+#### 对 log1p 特征进行稳健特征缩放
 
-本阶段以 wholesale_customers_log1p.csv（`outputs/tables/wholesale_customers_log1p.csv`，原项目数据或生成产物，未迁入） 为输入，只对六个 `_log1p` 消费特征拟合 `RobustScaler`。`customer_row`、`Channel` 和 `Region` 仅用于追踪和事后参考，不参与缩放参数的计算。
+预处理以 `outputs/tables/wholesale_customers_log1p.csv` 为输入，只对六个 `_log1p` 消费特征拟合 `RobustScaler`。`customer_row`、`Channel` 和 `Region` 仅用于追踪和事后参考，不参与缩放参数的计算。
 
 生成了两份衍生文件：
 
-- wholesale_customers_log1p_robust_scaled.csv（`outputs/tables/wholesale_customers_log1p_robust_scaled.csv`，原项目数据或生成产物，未迁入）：440 位客户的六个缩放后特征；没有删除或截断任何样本。
-- robust_scaler_parameters.csv（`outputs/tables/robust_scaler_parameters.csv`，原项目数据或生成产物，未迁入）：每个特征的 Q1、中位数、Q3 和 IQR，可用于核对缩放过程。
+- `outputs/tables/wholesale_customers_log1p_robust_scaled.csv`：440 位客户的六个缩放后特征；没有删除或截断任何样本。
+- `outputs/tables/robust_scaler_parameters.csv`：每个特征的 Q1、中位数、Q3 和 IQR，可用于核对缩放过程。
 
 检查结果为：六个缩放后特征的中位数都约为 `0`，IQR 都约为 `1`。这些值没有原始货币单位，而表示某位客户相对于该商品类别典型消费范围的位置。负数不是负消费，而是表示转换后的消费低于该列中位数。
 
@@ -277,7 +268,7 @@ RobustScaler 统一中心与典型尺度
 
 在 `log1p` 之后，再对每个特征使用 `(x-median)/IQR`。这使六列的中位数约为 `0`、IQR 约为 `1`，避免某一列仅因数值范围较大而主导欧氏距离。RobustScaler 不改变 `log1p` 后的分布形状，也不删除或截断离群点。
 
-两步解决的问题不同：`log1p` 主要改变分布形状，RobustScaler 主要统一中心和尺度。K-Means 应只读取 wholesale_customers_log1p_robust_scaled.csv（`outputs/tables/wholesale_customers_log1p_robust_scaled.csv`，原项目数据或生成产物，未迁入） 中六个以 `_robust_scaled` 结尾的特征；`customer_row`、`Channel`、`Region` 都不参与距离计算。
+两步解决的问题不同：`log1p` 主要改变分布形状，RobustScaler 主要统一中心和尺度。K-Means 应只读取 `outputs/tables/wholesale_customers_log1p_robust_scaled.csv` 中六个以 `_robust_scaled` 结尾的特征；`customer_row`、`Channel`、`Region` 都不参与距离计算。
 
 #### 第 3 步：K-Means 前检查相关性
 
@@ -334,7 +325,7 @@ K-Means 使用欧氏距离。如果多个高度相关的特征表达几乎同一
 
 本次使用六个 `log1p + RobustScaler` 特征计算 Pearson 相关系数，生成了：
 
-- scaled_feature_correlation.csv（`outputs/tables/scaled_feature_correlation.csv`，原项目数据或生成产物，未迁入）：完整相关系数表；
+- `outputs/tables/scaled_feature_correlation.csv`：完整相关系数表；
 - [scaled_feature_correlation_heatmap.png](outputs/figures/scaled_feature_correlation_heatmap.png)：颜色和数字标注的相关性热力图。
 
 两份输出表达的是同一个 `6×6` 相关系数矩阵：CSV 保留四位小数，热力图将同一数值映射成颜色并显示两位小数。矩阵关于主对角线对称，因为 `corr(X,Y)=corr(Y,X)`；主对角线恒为 `1`，表示每个特征与自身完全相关。
@@ -390,9 +381,9 @@ cd 05_clustering
 python src/compare_k_candidates.py
 ```
 
-本阶段只生成两个正式结果：
+`compare_k_candidates.py` 只生成以下指标表和诊断图，不生成最终模型、PCA 图或簇画像：
 
-- k_candidate_comparison.csv（`outputs/tables/k_candidate_comparison.csv`，原项目数据或生成产物，未迁入）：K=2～6 的指标与簇规模；
+- `outputs/tables/k_candidate_comparison.csv`：K=2～6 的指标与簇规模；
 - [k_candidate_diagnostics.png](outputs/figures/k_candidate_diagnostics.png)：肘部曲线和轮廓系数曲线。
 
 | K | inertia | 相对前一个 K 的下降 | 轮廓系数 | 各簇客户数（由小到大） |
@@ -403,13 +394,13 @@ python src/compare_k_candidates.py
 | 5 | 779.017 | 8.3% | 0.190 | 37、97、100、102、104 |
 | 6 | 714.740 | 8.3% | 0.196 | 22、34、82、88、92、122 |
 
-目前只能把范围缩小到 `K=2` 和 `K=3`，还不能宣布最终 K：
+单看这份候选比较表，适合将范围缩小到 `K=2` 和 `K=3`；最终 K 还要结合后面的簇画像和解释：
 
 - `K=2` 的轮廓系数最高，两个簇规模也较均衡；
 - `K=3` 的轮廓系数只略低，但比 K=2 多解释一层结构，且从 K=2 到 K=3 的 inertia 仍下降约 18.7%；
 - 从 K=4 开始轮廓系数明显下降，新增簇带来的 inertia 改善也变小，因此暂不优先考虑 K=4～6。
 
-下一步应只为 K=2 和 K=3 生成可视化和初步簇画像，判断第三个簇是否提供了真实、稳定、容易理解的新消费模式。
+下面的 `compare_k2_k3.py` 为 K=2 和 K=3 生成可视化和簇画像，用于检查第三个簇是否提供值得解释的新消费模式；正式结果最终选择 K=2。
 
 #### 第 5 步：比较候选结果并作出解释
 
@@ -427,7 +418,7 @@ python src/compare_k_candidates.py
 
 - [k2_k3_pca_comparison.png](outputs/figures/k2_k3_pca_comparison.png)：同一 PCA 投影下的 K=2、K=3 标签；
 - [k2_k3_profile_heatmap.png](outputs/figures/k2_k3_profile_heatmap.png)：各簇消费中位数相对于全体中位数的倍数；
-- k2_k3_cluster_profiles.csv（`outputs/tables/k2_k3_cluster_profiles.csv`，原项目数据或生成产物，未迁入）：合并的原始金额均值、中位数和簇规模表。
+- `outputs/tables/k2_k3_cluster_profiles.csv`：合并的原始金额均值、中位数和簇规模表。
 
 PCA 前两个主成分合计保留约 `69.1%` 的数据变化，因此散点图能辅助观察主要分离方向，但仍遗漏约 `30.9%` 的六维信息。图中的大叉号是投影后的簇中心。为方便阅读，C0、C1、C2 按簇内“每位客户六类总消费额的中位数”从低到高重新编号；编号本身仍没有天然类别含义。
 
@@ -446,7 +437,7 @@ K=3 基本保留第一类模式，同时将另一侧进一步分开：
 
 从客户重新划分看，K=2 的高 `Milk/Grocery/Detergents_Paper` 簇中，有 68 人进入 K=3 的专门消费簇，120 人进入整体高消费簇。这说明 K=3 的第三簇提供了可解释的新结构，而不只是产生一个很小的边缘簇。
 
-阶段性判断：K=2 更简单且平均轮廓系数略高；K=3 的画像更细致、更有解释力。由于两个方案的平均轮廓系数都不高，且 PCA 只是二维投影，本阶段只认为 K=3 **更值得作为最终候选继续检查**，还不能把它称为客观正确答案。下一步才使用 `Channel` 做事后参考，检查三种消费模式与 Horeca/Retail 是否存在合理关系。
+这份图与画像表明：K=2 更简单且平均轮廓系数略高；K=3 提供更细的消费模式。两个方案的平均轮廓系数都不高，PCA 也只是二维投影，因此图表不能确定唯一正确 K。下面使用 `Channel` 做事后对照，结合解释需求说明最终保留 K=2 的理由。
 
 ##### 使用 Channel 做事后对照并选择最终 K
 
@@ -454,7 +445,7 @@ K=3 基本保留第一类模式，同时将另一侧进一步分开：
 
 生成了：
 
-- k2_k3_channel_comparison.csv（`outputs/tables/k2_k3_channel_comparison.csv`，原项目数据或生成产物，未迁入）：各簇中 Horeca、Retail 的人数与簇内百分比；
+- `outputs/tables/k2_k3_channel_comparison.csv`：各簇中 Horeca、Retail 的人数与簇内百分比；
 - [k2_k3_channel_comparison.png](outputs/figures/k2_k3_channel_comparison.png)：K=2、K=3 的 Channel 构成堆叠图。
 
 | 方案与簇 | Horeca | Retail | 观察 |
@@ -487,29 +478,16 @@ K=3 保留为有价值的备选解释：如果未来确实需要把“专门购�
 
 生成了四份明确带有 `final_k2` 名称的正式成果：
 
-- final_k2_customer_assignments.csv（`outputs/tables/final_k2_customer_assignments.csv`，原项目数据或生成产物，未迁入）：440 位客户的原始字段、最终簇编号和描述性名称；
-- final_k2_cluster_profiles.csv（`outputs/tables/final_k2_cluster_profiles.csv`，原项目数据或生成产物，未迁入）：最终簇规模、Channel 事后构成，以及原始金额的均值、中位数和相对全体中位数倍数；
+- `outputs/tables/final_k2_customer_assignments.csv`：440 位客户的原始字段、最终簇编号和描述性名称；
+- `outputs/tables/final_k2_cluster_profiles.csv`：最终簇规模、Channel 事后构成，以及原始金额的均值、中位数和相对全体中位数倍数；
 - [final_k2_metadata.json](outputs/tables/final_k2_metadata.json)：特征、预处理、K-Means 参数、指标、软件版本和文件位置；
-- final_k2_model.joblib（`outputs/models/final_k2_model.joblib`，原项目数据或生成产物，未迁入）：可重新加载的预处理与 K-Means 模型包，另含原始标签到 C0/C1 的映射。
+- `outputs/models/final_k2_model.joblib`：可重新加载的预处理与 K-Means 模型包，另含原始标签到 C0/C1 的映射。
 
 模型重新加载后，对全部 440 行的预测与保存的客户归属逐行完全一致。最终簇规模为 C0=252、C1=188；平均轮廓系数为 `0.252915`。`Channel` 和 `Region` 仍未进入模型，只保留在客户归属表中用于追踪和事后理解。
 
 如果继续进阶，重点不再是盲目寻找更多 K，而是检查典型客户、边界客户和抽样稳定性。对于本项目“了解完整流程”的学习目标，这些不属于必做内容；当前 Week 5 已完成，可以直接进入下一周。
 
-#### 当前学习进度
-
-- [x] 理解字段并确认六个消费特征没有缺失值。
-- [x] 查看原始分布和 IQR 异常值，决定保留全部客户、不截断。
-- [x] 完成 `log1p` 并查看转换前后图表。
-- [x] 完成 RobustScaler 并核对缩放参数。
-- [x] 生成并阅读相关系数表和热力图；当前保留全部六个特征。
-- [x] 使用当前预处理方案正式比较 K=2～6；候选范围缩小为 K=2 与 K=3。
-- [x] 比较 K=2、K=3 的同坐标 PCA 图和原始金额簇画像；K=3 更值得继续检查。
-- [x] 使用 Channel 做事后对照；最终选择 K=2 为主要解释方案，K=3 保留为备选。
-- [x] 保存最终 K=2 客户归属、簇画像、模型和元数据，并完成实验记录。
-- [ ] （可选进阶）检查典型客户、边界客户和抽样稳定性。
-
-早期通用演示流程产生的旧模型、旧分簇表和旧 PCA 图已在收尾时清理，避免与本次 Wholesale Customers 正式结果混淆。当前应优先阅读 [outputs/README.md](outputs/README.md) 中列出的正式成果和过程证据。
+输出文件说明见 [outputs/README.md](outputs/README.md)，配置和指标见[实验结果](results.md)。
 
 ## 使用自己的机器人传感器或客户 CSV
 
@@ -535,9 +513,3 @@ python src/explore_data.py \
 | PCA 二维图 | 辅助观察大致分离和重叠 | 把二维投影误认为完整高维距离 |
 
 本次正式结果统一使用 `final_k2_*` 命名，候选比较文件则使用 `k_candidate_*` 或 `k2_k3_*` 命名。簇编号本来没有天然语义；为方便前后阅读，本项目按簇内总消费额中位数从低到高映射为 C0、C1，并把映射一同保存在模型包和元数据中。
-
-## 验收与实验记录
-
-本项目已经保留 K=2、K=3 的比较结果和解释，完成 PCA 图，并记录了特征与预处理、最终 K 的选择理由、簇画像和局限性。完整结论见 [experiment_log.md](experiment_log.md)，成果清单见 [outputs/README.md](outputs/README.md)。
-
-交付问题：无监督学习发现的是客观规律，还是我们希望看到的一种解释？

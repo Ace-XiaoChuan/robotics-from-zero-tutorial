@@ -1,10 +1,10 @@
 # 1：导读：代码怎样让仿真机械臂与真机运动
 
-本文行数：191行，预期阅读时长：10分钟
+本文行数：190行，预期阅读时长：10分钟
 
 **控制机械臂的基本流程是：给出目标 → 生成运动指令 → 执行器产生力 → 关节运动 → 读取实际状态，再继续调整。仿真用物理引擎计算运动，真机用电机完成运动；上层可以使用相同接口。**
 
-本章先建立完整印象，再进入模型、状态与控制输入等章节。下文数值是教学示意，代码与配置结论来自仓库静态检查；不代表本次运行了仿真或接入了真机。
+本章先建立完整印象，再进入模型、状态与控制输入等章节。下文数值是教学示意，控制链说明来自仓库源码与配置。
 
 ## 1. 速记要点
 
@@ -157,7 +157,7 @@ move_group_interface.execute(plan);  // 请求 MoveIt 执行已有规划
 
 **结果与解释：** `execute(plan)` 触发 MoveIt 的轨迹下发与结果监控。收到轨迹后，`JointTrajectoryController` 计算每个控制时刻的关节指令；底层执行器或真机伺服再让关节跟随目标。这三个环节分别承担执行管理、轨迹跟踪和底层驱动职责。
 
-仓库的 [MoveIt 执行配置](../../manipulation/packages/panda_moveit_config/config/moveit_controllers.yaml)把机械臂轨迹交给 `panda_arm_controller/follow_joint_trajectory`；[轨迹控制器配置](../../manipulation/packages/panda_moveit_config/config/ros2_controllers.yaml)使用 `position` 命令接口，配置更新频率为 `100 Hz`。这是配置值，不是本次实测频率。
+仓库的 [MoveIt 执行配置](../../manipulation/packages/panda_moveit_config/config/moveit_controllers.yaml)把机械臂轨迹交给 `panda_arm_controller/follow_joint_trajectory`；[轨迹控制器配置](../../manipulation/packages/panda_moveit_config/config/ros2_controllers.yaml)使用 `position` 命令接口，配置更新频率为 `100 Hz`。这是控制器配置的更新频率。
 
 `ros2_control` 典型更新循环是“读取状态 → 更新控制器 → 写出命令”。在这里，轨迹控制器向下提供位置目标，底层执行器或真机伺服负责让关节跟随目标；不能把这个位置接口的轨迹控制器直接理解成电机力矩 PID。状态还可经 `joint_state_broadcaster` 发布为 `/joint_states`，供 MoveIt 获取当前构型，并经 `robot_state_publisher` 计算 TF 供 RViz 显示。
 
@@ -170,9 +170,8 @@ move_group_interface.execute(plan);  // 请求 MoveIt 执行已有规划
 | [hello_moveit.cpp](../../manipulation/packages/hello_moveit/src/hello_moveit.cpp) | `move_group_interface.execute(plan)` | 任务代码发起执行，不需要自己构造 Action 请求 |
 | [moveit_controllers.yaml](../../manipulation/packages/panda_moveit_config/config/moveit_controllers.yaml) | `type: FollowJointTrajectory`、`action_ns: follow_joint_trajectory` | 指定 MoveIt 使用的执行接口，机械臂端点为 `/panda_arm_controller/follow_joint_trajectory` |
 | [ros2_controllers.yaml](../../manipulation/packages/panda_moveit_config/config/ros2_controllers.yaml) | `joint_trajectory_controller/JointTrajectoryController` | 加载现成的控制器，由它提供该 Action 服务端 |
-| [历史运行记录](../../manipulation/03_move_group_interface/history.md) | `sending trajectory to panda_arm_controller`、`Goal request accepted!`、`successfully finished` | 保存了发送轨迹、接受目标和执行成功的历史日志，不是本次重新运行的结果 |
 
-**结果与解释：** 这里写的是上层执行调用，配置指定接口，底层通信和轨迹执行由已有组件完成。结合第 5 节的假硬件配置，不能把上述成功日志当作 MuJoCo 动力学跟踪验证。
+**结果与解释：** 这里写的是上层执行调用，配置指定接口，底层通信和轨迹执行由已有组件完成。第 5 节使用假硬件配置，轨迹由假硬件接口执行。
 
 第 4 节的 MuJoCo Python 示例走的是“自定义插值函数 → `q_des` → `data.ctrl` → MuJoCo 仿真”，没有接入 `FollowJointTrajectory`；要接收 MoveIt 的轨迹，还需对应的桥接或控制器集成。
 

@@ -1,6 +1,6 @@
 # Lesson 1 实现检查记录
 
-本文行数：39行，预期阅读时长：2分钟
+本文行数：37行，预期阅读时长：1分钟
 
 ## 结论
 
@@ -20,7 +20,7 @@
 | 速度命令停止 | 位姿节点在 watchdog 到期后停止积分 |
 | 客户端结果超时 | 请求取消且不重复发送目标 |
 
-测试使用独立 namespace、`ROS_LOCALHOST_ONLY=1` 和隔离的 ROS domain，不连接真机。它验证的是本课二维运动学通信模拟，不证明真实导航、动力学控制或急停能力。
+测试使用独立 namespace、`ROS_LOCALHOST_ONLY=1` 和隔离的 ROS domain，不连接真机。测试对象是二维运动学通信模拟。
 
 ## 复现命令
 
@@ -33,7 +33,5 @@ source install/setup.bash
 colcon test --packages-select ros2_comm_demo
 colcon test-result --verbose
 ```
-
-本次检查曾遇到默认 `build/ros2_comm_demo` 残留了另一个同名包的 CMake cache；验证时改用 `/tmp` 下独立的 build/install/log 目录，没有删除用户的既有构建产物。这是构建目录复用问题，不是 Lesson 1 的源码依赖问题。
 
 [返回课程入口](README.md) · [接口与实现说明](ros2_interfaces_notes.md)

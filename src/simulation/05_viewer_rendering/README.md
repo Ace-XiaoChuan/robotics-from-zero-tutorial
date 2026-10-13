@@ -33,7 +33,7 @@
 
 渲染图像的典型流程是 `renderer.update_scene(data)` 后 `renderer.render()`，返回 RGB 图像数组。它不是相机位姿估计算法；相机坐标与视觉测量留到 [S6](../../../doc/learning-roadmap.md#s6)。
 
-**验证边界：** 本次执行无窗口数值检查，未验证本机 Viewer、OpenGL 或相机图像。这里的频率为教学计算，不是渲染性能测量。
+上面的频率是教学计算。小模型通过无窗口数值检查；Viewer、OpenGL 与相机渲染尚无运行验证记录。
 
 资料：[Python Viewer 与渲染](https://mujoco.readthedocs.io/en/3.8.1/python.html)
 

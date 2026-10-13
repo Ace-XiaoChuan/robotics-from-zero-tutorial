@@ -2,7 +2,7 @@
 
 本文行数：49行，预期阅读时长：2分钟
 
-本模型在预处理后的 341 个特征上拟合。完整系数请查看 `linear_regression_coefficients.csv`（`linear_regression_coefficients.csv`，原项目数据或生成产物，未迁入）。
+本模型在预处理后的 341 个特征上拟合。完整系数请查看 `linear_regression_coefficients.csv`（`linear_regression_coefficients.csv`）。
 
 ## 精确形式
 

@@ -48,6 +48,6 @@ J = w_l Σ ||(q_(k+1) − q_k)/q_ref||²
 
 可以先搜索可行路径，再优化形状，再安排时间，并检查最终轨迹；实际流水线是否这样组合要以配置与返回数据为准。若动力学、力矩或接触是任务限制，还要显式建模，不能只凭平滑关节曲线推断满足。
 
-本地六章主要解释 MoveIt / MTC 请求与结果，没有因此新增或启用轨迹优化插件。扩展优化问题的变量、目标和约束写法见[基本约束优化](../../foundations/spatial_math/10_constrained_optimization/README.md)。本次仅完成专题与静态例子，未作优化器性能、动力学执行或真机验证。
+优化问题的变量、目标和约束写法见[基本约束优化](../../foundations/spatial_math/10_constrained_optimization/README.md)，MoveIt 接口与任务组织见[六章目录](../README.md)。
 
 [上一专题：约束规划](../10_constrained_planning/README.md) · [返回规划与操作](../README.md)

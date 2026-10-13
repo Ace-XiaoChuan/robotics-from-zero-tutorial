@@ -1,10 +1,10 @@
 # 抓放任务：抓取条件、完整流程与结果判断
 
-本文行数：208行，预期阅读时长：11分钟
+本文行数：215行，预期阅读时长：11分钟
 
 **一次抓放要同时满足几何可达、运动可执行、接触能承载，以及释放后物体处于期望状态。MTC 的完整任务解连接了规划阶段，但物体是否抓牢、是否滑落、是否放稳，还需要独立判断。**
 
-**本章职责：** 用现有桌面案例串起抓取位姿、接近、闭合、抬升、搬运与释放，解释物理条件和失败结果。MTC 机制见[第五章](../05_mtc_stages/README.md)，场景中允许碰撞与附着的含义见[第四章](../04_planning_scene/README.md)。
+用现有桌面案例串起抓取位姿、接近、闭合、抬升、搬运与释放，解释物理条件和失败结果。MTC 机制见[第五章](../05_mtc_stages/README.md)，场景中允许碰撞与附着的含义见[第四章](../04_planning_scene/README.md)。
 
 ## 速记要点
 
@@ -29,7 +29,14 @@
 
 这些实现分别保留，不把不同阶段的案例当作重复文件。`hello_moveit` 圆柱案例与桌面盒子案例的尺寸、参考系和放置目标不同，不能把其中一份的数值套到另一份上。
 
-[原运行记录与视频](history.md) 保留历史材料；以下讨论根据当前源码整理，没有将历史演示扩大为对当前所有文件的运行验证。
+桌面案例启动命令（在已构建并加载环境的 ROS 工作区运行）：
+
+```bash
+source install/setup.bash
+ros2 launch mtc_week3_demo desktop_pick_place.launch.py
+```
+
+[桌面抓放演示视频](https://github.com/user-attachments/assets/9785c306-41e5-4b07-914a-69691fb47451)。
 
 ## 2. 一个抓取目标需要哪些信息？
 
@@ -146,7 +153,7 @@ N ≥ m(g+a)/(2μ) = 5.905 N（每侧）
 实际目标中心：(0.45,0.20) m → X 不满足
 ```
 
-实际目标仍在桌面投影内，盒子底面也仍是 `0.22 m`，所以“放在桌上”与“放在指定区域里”是不同判据。本页标明差异，没有擅自修改用户原来的目标值或推断历史视频最终放在哪里。
+实际目标仍在桌面投影内，盒子底面也仍是 `0.22 m`，所以“放在桌上”与“放在指定区域里”是不同判据。
 
 放置时还要考虑支撑稳定性。在水平平面、准静态、无其他外力的简化条件下，质心竖直投影位于支撑区域内部是避免倾覆的重要条件；释放速度、残余振动和倾斜接触会改变结果。仅让模型中心达到某点不能证明释放后能保持稳定。
 
@@ -199,10 +206,10 @@ N ≥ m(g+a)/(2μ) = 5.905 N（每侧）
 
 分层示例把环境交给 `EnvironmentManager`，阶段构建交给 `TaskBuilder`，初始化、规划和执行交给 `RobotAppController`。这种组织便于维护，但功能范围仍按实际加入的 Stage 判断；目前不能把它当作已完成桌面抓放的替代实现。
 
-## 按需查阅与验证边界
+## 源码与参考
 
-本页对桌面几何、放置区域、简化摩擦承载和统计示例进行了静态核对；没有新增实验作业，也未执行 ROS / MoveIt、接触仿真或真机抓取。接触规则和位姿采样的源码结构可结合 [Humble MTC 抓放教程](https://moveit.picknik.ai/humble/doc/tutorials/pick_and_place_with_moveit_task_constructor/pick_and_place_with_moveit_task_constructor.html) 阅读，但 API 执行成功不等于物理任务成功。
+几何、摩擦和统计例子为静态计算。接触规则与位姿采样可对照 [Humble MTC 抓放教程](https://moveit.picknik.ai/humble/doc/tutorials/pick_and_place_with_moveit_task_constructor/pick_and_place_with_moveit_task_constructor.html)阅读；物理抓放结果需观察物体是否被提起、搬运和放到目标区域。
 
-[桌面抓放源码](../packages/mtc_week3_demo/src/desktop_pick_place.cpp) · [完整抓放源码](../packages/hello_moveit/src/pick_and_place.cpp) · [原运行记录与视频](history.md)
+[桌面抓放源码](../packages/mtc_week3_demo/src/desktop_pick_place.cpp) · [完整抓放源码](../packages/hello_moveit/src/pick_and_place.cpp)
 
 [上一章：MTC 多阶段规划](../05_mtc_stages/README.md) · [返回 MoveIt 目录](../README.md) · [学习路线 S7](../../../doc/learning-roadmap.md#s7)

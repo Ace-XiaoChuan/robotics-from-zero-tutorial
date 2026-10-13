@@ -1,6 +1,6 @@
 # S4：运动学与数值求解
 
-本文行数：31行，预期阅读时长：4分钟
+本文行数：31行，预期阅读时长：3分钟
 
 **先明确机器人模型与任务，再从关节构型求位姿、从目标求关节解，并理解哪些方向能动、哪些限制会让任务失败。八章按“速记 + 例子 + 结果与解释”组织，无需执行代码即可复习。**
 
@@ -24,8 +24,8 @@
 ## 数学前置与已有案例
 
 - [空间数学与数值方法](../foundations/spatial_math/README.md)：复用旋转、变换、位姿误差、最小二乘与阻尼解释，本主题侧重机器人中的几何含义。
-- [Modified DH 历史源码](02_dh_conventions/lesson4_Modified_D-H.py)：保留原 Lesson 4，本次数值结果已核对。
-- [模型对齐与末端控制历史案例](examples/model_alignment/README.md)：保留原 Lesson 9 的代码、辅助模块与专题笔记；完整外部模型和控制运行未验证。
-- [数值核对记录](verification.md)与[检查脚本](check_examples.py)：26 项检查通过，包含 FK、Jacobian、IK 及失败行为、奇异性和冗余；不代表动力学或真机验证。
+- [Modified DH 源码](02_dh_conventions/lesson4_Modified_D-H.py)：用 NumPy 计算 Modified DH 变换。
+- [模型对齐与末端控制案例](examples/model_alignment/README.md)：MuJoCo、Pinocchio 与 KDL 的对照程序及位姿误差笔记。
+- [数值核对记录](verification.md)与[检查脚本](check_examples.py)：26 项检查通过，包含 FK、Jacobian、IK 及失败行为、奇异性和冗余。
 
 [学习路线 S4](../../doc/learning-roadmap.md#s4) · [总目录](../README.md) · [后续：动力学、轨迹与控制](../control/README.md)

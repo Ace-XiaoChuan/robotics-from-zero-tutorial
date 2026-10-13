@@ -1,25 +1,17 @@
-# 历史详细笔记：第 3 周：数据预处理与管道
+# Titanic：预处理、Pipeline 与评估
 
-本文行数：321行，预期阅读时长：13分钟
+本文行数：292行，预期阅读时长：12分钟
 
-> 保留迁入时的概念解释、操作过程与阶段记录，按需查阅。文中“当前”“下一步”“已下载”指原记录时点，未完成清单不作为当前学习安排；数据与权重未随笔记迁入。复习请回到[本章入口](README.md)。
+概念复习见[本章入口](README.md)。以下命令在 `src/machine_learning/03_preprocessing_pipeline/` 下运行，使用已安装本项目依赖的 Python 环境。数据来源见 `data/README.md`，训练会在 `outputs/` 生成结果和模型。
 
 本项目使用泰坦尼克号乘客数据预测乘客是否生存（`Survived`）。重点不是追求最高准确率，而是把缺失值处理、类别编码、数值标准化和模型训练封装进一个可复现、无数据泄漏的 `Pipeline`。
-
-## 本周目标
-
-- 检查字段类型、目标类别分布和各列缺失情况。
-- 在 `ColumnTransformer` 中分别处理数值列和类别列。
-- 用同一预处理流程比较逻辑回归、KNN 和决策树。
-- 使用准确率、精确率、召回率、F1 和混淆矩阵解释模型表现。
-- 只在训练集上拟合预处理规则和模型；测试集只作最终评估。
 
 ## 目录说明
 
 ```text
 03_preprocessing_pipeline/
 ├── README.md
-├── experiment_log.md
+├── results.md
 ├── data/
 │   ├── README.md               # 数据来源、字段与下载说明
 │   ├── train.csv               # 本地下载，默认不提交 Git
@@ -36,9 +28,9 @@
     └── tables/                 # 指标对比、预测与错误样本
 ```
 
-目前已实现数据探索、固定切分、均值基线、训练集内部的模型比较和最终测试集评估。所有生成文件放入 `outputs/`，不要手动覆盖原始数据。
+本案例已实现数据探索、固定切分、均值基线、训练集内部的模型比较和最终测试集评估。切分脚本在 `data/` 保存训练/测试 CSV 和划分元数据；图表、指标与模型保存在 `outputs/`，原始 `data/train.csv` 保持不变。
 
-## 推荐工作流程
+## 处理流程
 
 ```text
 原始训练数据
@@ -54,14 +46,13 @@
 
 建议固定 `random_state=42`，使用 `train_test_split(..., stratify=y)` 保持生存与未生存样本的比例。决策树通常不依赖标准化，但为保证每个模型的处理逻辑清晰，应分别记录它所用的 Pipeline 配置。
 
-## 预期产物
+## 输出文件
 
-- `outputs/figures/missing_values.png`：各列缺失数量或比例。
-- `outputs/figures/target_distribution.png`：生存标签分布。
-- `outputs/figures/<model>_confusion_matrix.png`：各候选模型的混淆矩阵。
-- `outputs/tables/model_metrics.csv`：训练集与测试集的准确率、精确率、召回率和 F1。
-- `outputs/tables/error_samples.csv`：最终模型的误判样本及其真实标签、预测标签和预测概率。
-- `outputs/models/<model>_pipeline.joblib`：包含预处理器与模型的完整已拟合 Pipeline。
+- `outputs/figures/feature_distributions.png`：七个输入特征的分布图，由 `explore_titanic.py` 生成。
+- `outputs/tables/mean_baseline_metrics.json`、`mean_baseline_predictions.csv` 与 `outputs/figures/mean_baseline_confusion_matrix.png`：均值基线的训练/测试指标、测试预测及混淆矩阵。
+- `outputs/tables/cross_validation_results.csv`、`model_selection.json` 与 `outputs/figures/cross_validation_comparison.png`：三个候选模型在训练集内部的交叉验证结果。
+- `outputs/models/mean_baseline_pipeline.joblib`、`best_cross_validated_pipeline.joblib`：均值基线和选定模型的完整已拟合 Pipeline。
+- `outputs/tables/final_test_metrics.json`、`final_test_predictions.csv`、`final_test_errors.csv` 与 `outputs/figures/final_test_confusion_matrix.png`：选定模型的保留测试集指标、预测、错误样本和混淆矩阵。
 
 ## 为什么本项目使用逻辑回归，而不是线性回归？
 
@@ -130,7 +121,7 @@ P(Survived = 1) = 1 / (1 + e^(-z))
 | 训练时关注 | 预测数值与真实值的平方误差 | 预测概率与实际 0/1 结果是否匹配 |
 | 合适场景 | “房价是多少？” | “乘客会不会生存？” |
 
-线性回归并不低级；它预测房价这类连续目标时很合适。逻辑回归多出的 sigmoid 步骤和适合概率的训练目标，使它更适合本项目的二分类任务。“逻辑回归”中的“回归”指它会学习特征与**对数几率**之间的线性关系，不代表它是和房价预测相同的连续数值回归。本周会使用 `LogisticRegression` 作为第一个真正利用七个特征的模型，并与均值基线、KNN、决策树比较。
+线性回归并不低级；它预测房价这类连续目标时很合适。逻辑回归多出的 sigmoid 步骤和适合概率的训练目标，使它更适合本项目的二分类任务。“逻辑回归”中的“回归”指它会学习特征与**对数几率**之间的线性关系，不代表它是和房价预测相同的连续数值回归。本案例使用 `LogisticRegression`、KNN 和决策树利用七个输入特征预测生存，并与均值基线比较。
 
 ### 逻辑回归在本项目中做什么？
 
@@ -203,7 +194,7 @@ python src/evaluate_model.py
 | 假负例（FN） | 实际生存，模型误预测为未生存。 |
 | 真负例（TN） | 实际未生存，模型也预测未生存。 |
 
-分类模型的评估不只包括准确率、精确率、召回率和 F1；还常见混淆矩阵、ROC-AUC、PR-AUC、对数损失等。对本周这个入门二分类项目，前四项指标加上混淆矩阵已经构成足够的核心组合。并不存在对所有任务都最重要的单一指标：应根据哪一种错误的代价更高来选择重点指标。例如，若漏掉真实生存者的代价更高，应更重视召回率；若错误地预测“会生存”会引发昂贵或危险的行动，应更重视精确率；当希望同时兼顾两者时，可重点比较 F1。
+分类模型的评估不只包括准确率、精确率、召回率和 F1；还常见混淆矩阵、ROC-AUC、PR-AUC、对数损失等。对本案例这个入门二分类项目，前四项指标加上混淆矩阵已经构成足够的核心组合。并不存在对所有任务都最重要的单一指标：应根据哪一种错误的代价更高来选择重点指标。例如，若漏掉真实生存者的代价更高，应更重视召回率；若错误地预测“会生存”会引发昂贵或危险的行动，应更重视精确率；当希望同时兼顾两者时，可重点比较 F1。
 
 ### 准确率、精确率、召回率与 F1
 
@@ -299,23 +290,3 @@ python src/evaluate_model.py
 - `outputs/figures/final_test_confusion_matrix.png`：最终混淆矩阵；
 - `outputs/tables/final_test_predictions.csv`：全部测试集预测和生存概率；
 - `outputs/tables/final_test_errors.csv`：35 个误判样本，适合下一步错误分析。
-
-## 开始顺序
-
-1. 阅读 [`data/README.md`](data/README.md)，确认训练数据位置与字段。
-2. 划分数据：`python src/split_titanic.py`。
-3. 建立参照：`python src/train_mean_baseline.py`。
-4. 实现并运行 `src/explore_titanic.py`，确认数据问题。
-5. 实现 `src/train_models.py`，让每个候选模型都通过 Pipeline 训练和比较。
-6. 记录结果与选择理由到 [`experiment_log.md`](experiment_log.md)。
-7. 确定模型后，才运行 `src/evaluate_model.py` 对测试集做最终评估。
-
-## 本周完成清单
-
-- [ ] 下载数据并记录来源与版本。
-- [ ] 检查字段、缺失值和标签分布。
-- [ ] 划分分层训练集与测试集。
-- [ ] 用 `ColumnTransformer` 和 `Pipeline` 实现预处理。
-- [ ] 比较逻辑回归、KNN 和决策树。
-- [ ] 输出指标对比表与混淆矩阵。
-- [ ] 记录模型选择理由和典型误判样本。

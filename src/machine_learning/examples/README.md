@@ -2,7 +2,7 @@
 
 本文行数：152行，预期阅读时长：12分钟
 
-最近核对：2026-10-12。01～08 使用 [check_foundations.py](check_foundations.py)，09～11 使用 [check_advanced_examples.py](check_advanced_examples.py)，12～17 使用 [check_multimodal_examples.py](check_multimodal_examples.py)，18～20 使用 [check_robot_learning_examples.py](check_robot_learning_examples.py)；均为 Python 3.10.12 标准库程序。它们检查人工输入的计算、梯度、解析解与接口条件，不读取数据集、加载权重、训练真实模型或运行 ROS 2 与机器人。
+01～08 使用 [check_foundations.py](check_foundations.py)，09～11 使用 [check_advanced_examples.py](check_advanced_examples.py)，12～17 使用 [check_multimodal_examples.py](check_multimodal_examples.py)，18～20 使用 [check_robot_learning_examples.py](check_robot_learning_examples.py)；均为 Python 3.10.12 标准库程序。它们检查人工输入的计算、梯度、解析解与接口条件，用于复核正文中的小型数值例子。
 
 ## 实际核对结果
 
@@ -69,7 +69,7 @@ python3 src/machine_learning/examples/check_foundations.py
 | 11：归一化 | BN 训练 `[-1,1]`、评估 `[0.5,1.5]`；LN 每样本 `[-1,1]` | 统计维度与总体/无偏方差区别；本例 ε=0，未模拟运行统计更新 |
 | 11：Dropout | 四种输出的期望为 `[2,4]`；标量训练期望损失 4、评估损失 2 | 枚举全部等概率掩码，区分激活期望和非线性损失 |
 
-11 的[训练曲线图](../11_training_optimization/training_curves_illustration.png)已用 Python 3.10.12、Matplotlib 3.5.1 生成并检查。图中数据是人工构造的五轮序列，不能当作本轮或历史模型训练记录；[绘图源码](../11_training_optimization/plot_training_curves.py)保留供维护参考。
+11 的[训练曲线图](../11_training_optimization/training_curves_illustration.png)已用 Python 3.10.12、Matplotlib 3.5.1 生成并检查。图中数据是人工构造的五轮序列，用于展示训练现象；[绘图源码](../11_training_optimization/plot_training_curves.py)保留供维护参考。
 
 维护命令：
 
@@ -78,7 +78,7 @@ python3 src/machine_learning/examples/check_advanced_examples.py
 MPLCONFIGDIR=/tmp/robotics-ml-mpl python3 src/machine_learning/11_training_optimization/plot_training_curves.py
 ~~~
 
-第一条只输出 JSON；第二条重画人工曲线，需要 Matplotlib，不是数值检查的依赖。正文已提供所有结果，读者无需运行。09～11 没有实际模型拟合、深度训练、概率校准评估、PyTorch 运行时对照或机器人闭环验证。
+第一条只输出 JSON；第二条重画人工曲线，需要 Matplotlib，不是数值检查的依赖。正文已提供所有结果，读者无需运行。
 
 <a id="multimodal"></a>
 
@@ -104,7 +104,7 @@ MPLCONFIGDIR=/tmp/robotics-ml-mpl python3 src/machine_learning/11_training_optim
 - 图像坐标翻转两次恢复原框；只在遮住位置计预测误差，未用可见位置稀释 loss。
 - 扩散链一、二阶矩一致；噪声误差传播与差分一致；oracle DDPM 均值与已知 x₀ 的条件后验公式一致。矩核对用独立零均值、单位方差的离散变量枚举，不把它们当成高斯分布或生成质量评估。
 
-原有 VLM 的 [8 组核对](../16_vision_language/examples/README.md)也在本轮重新运行通过，源码保留。新增两张图使用 Python 3.10.12、Matplotlib 3.5.1 实际生成并检查：[同场景视觉输出](../12_detection_segmentation/vision_outputs_illustration.png)、[绕障与均值](../17_generative_models/trajectory_modes_illustration.png)；它们来自手工形状和解析路径。
+VLM 另有 [8 组数值例子](../16_vision_language/examples/README.md)。两张示意图使用 Python 3.10.12、Matplotlib 3.5.1 实际生成并检查：[同场景视觉输出](../12_detection_segmentation/vision_outputs_illustration.png)、[绕障与均值](../17_generative_models/trajectory_modes_illustration.png)；它们来自手工形状和解析路径。
 
 维护命令：
 
@@ -114,7 +114,7 @@ MPLCONFIGDIR=/tmp/robotics-ml-mpl python3 src/machine_learning/examples/plot_mul
 python3 src/machine_learning/16_vision_language/examples/check_numeric_examples.py
 ~~~
 
-数值程序只输出 JSON，绘图程序只重画指定教学输入。没有新数据训练、真实 tokenizer、视觉/语言网络、VLM 换图推理、扩散去噪器或机器人执行；本文结果不证明真实任务的准确率、概率校准、泛化或闭环成功。
+数值程序只输出 JSON，绘图程序只重画指定教学输入。程序处理的是指定的教学输入。
 
 <a id="robot-learning"></a>
 
@@ -147,6 +147,6 @@ python3 src/machine_learning/examples/check_robot_learning_examples.py
 MPLCONFIGDIR=/tmp/robotics-ml-mpl python3 src/machine_learning/examples/plot_robot_learning_examples.py
 ~~~
 
-数值程序只输出 JSON；绘图程序读取保存的人工结果重画曲线。正文已给出输入、结果与解释，读者无需执行。01～20 四个共享程序合计 **96 组**教学检查，原 VLM 另有 8 组；检查组数不等于模型能力、策略泛化或机器人验收项数。
+数值程序只输出 JSON；绘图程序读取保存的人工结果重画曲线。正文已给出输入、结果与解释，读者无需执行。四个共享程序合计 **96 组**教学检查，VLM 另有 8 组。
 
-[机器学习目录](../README.md) · [20 章工作目录](../机器学习入门实战清单.md) · [核对记录](../verification.md)
+[机器学习目录](../README.md)

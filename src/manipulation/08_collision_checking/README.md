@@ -43,6 +43,6 @@
 
 [规划场景与物体附着](../04_planning_scene/README.md)负责对象 ID、参考系、场景更新和允许碰撞关系。本专题负责解释检测结论。修改场景、轨迹平滑或更换插值方式后，要重新检查最终运动；场景快照的结论不覆盖之后移动的障碍。
 
-OMPL 区分状态检查器和运动检查器；离散运动检查的分辨率会影响漏检风险与计算量，见[官方状态有效性说明](https://ompl.kavrakilab.org/stateValidation.html)。本文没有运行真实碰撞引擎，也未证明本地 ROS 包的检测配置有效。
+OMPL 区分状态检查器和运动检查器；离散运动检查的分辨率会影响漏检风险与计算量，见[官方状态有效性说明](https://ompl.kavrakilab.org/stateValidation.html)。本页例子使用显式定义的几何障碍。
 
 [上一专题：构型空间](../07_configuration_space/README.md) · [下一专题：采样规划](../09_sampling_planning/README.md) · [返回目录](../README.md)

@@ -1,6 +1,6 @@
 # 空间数学与数值方法：数值核对记录
 
-本文行数：39行，预期阅读时长：2分钟
+本文行数：34行，预期阅读时长：2分钟
 
 ## 配置与结果
 
@@ -12,7 +12,7 @@
 python3 src/foundations/spatial_math/check_examples.py
 ```
 
-命令从仓库根目录运行，需要可用的 NumPy；本次使用已安装环境，没有验证全新环境安装。脚本使用标准库 unittest，解析恒等关系通常按约 `1e-12` 绝对容差核对；小数显示值在正文中做了舍入，脚本保留较高精度。
+命令从仓库根目录运行，需要可用的 NumPy。脚本使用标准库 unittest，解析恒等关系通常按约 `1e-12` 绝对容差核对；小数显示值在正文中做了舍入，脚本保留较高精度。
 
 ## 核对范围
 
@@ -27,12 +27,7 @@ python3 src/foundations/spatial_math/check_examples.py
 
 QP 检查求解教学例子的活跃约束方程，并验证可行性、非负乘子、驻点和互补条件；该问题严格凸，因此这些条件足以确认唯一最优解。这里没有实现通用 QP 求解器。
 
-## 结论边界
-
-- 本次核对的是新增 05～10 章的教学数值和数学关系，不是机器人实测。
-- 既有 01～04 章保留原内容与此前结果说明；此次没有重新执行其所有例子，也没有重测历史 Lesson 3、Lesson 9 程序。
-- 没有验证通用 SO(3)/SE(3) 库的所有分支、完整 IK 收敛性、碰撞规划、控制稳定性或真机执行。
-- 数值例子不能代替实际接口的关节顺序、坐标系、单位、误差定义和执行状态检查。
+这些检查使用给定小模型和双精度数值，用于核对各章的数学关系。
 
 理论参考：[Modern Robotics 官方教材入口](https://hades.mech.northwestern.edu/index.php/Modern_Robotics)，重点对应刚体运动与数值运动学；数值接口参考 [NumPy 1.21 lstsq](https://numpy.org/doc/1.21/reference/generated/numpy.linalg.lstsq.html)、[pinv](https://numpy.org/doc/1.21/reference/generated/numpy.linalg.pinv.html) 与 [solve](https://numpy.org/doc/1.21/reference/generated/numpy.linalg.solve.html)。
 

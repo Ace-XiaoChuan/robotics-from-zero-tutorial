@@ -12,7 +12,7 @@
 | `pose_node` | 根据速度指令积分二维位置，发布带时间戳的位置 | [位置节点](ros2_comm_demo/src/pose_node.cpp) |
 | `task_manager_node` | 缓存状态、提供查询、按目标计算速度与反馈 | [任务节点](ros2_comm_demo/src/task_manager_node.cpp) |
 | `command` | 等待服务和有效状态，查询后发送一次目标 | [客户端](ros2_comm_demo/src/command_node.cpp) |
-| `robot_interfaces` | 本次重新定义并随仓库提供的通信协议 | [Service](robot_interfaces/srv/GetRobotStatus.srv) · [Action](robot_interfaces/action/Navigation.action) |
+| `robot_interfaces` | 状态查询与导航通信协议 | [Service](robot_interfaces/srv/GetRobotStatus.srv) · [Action](robot_interfaces/action/Navigation.action) |
 
 源码放在 `ros2_comm_demo/src/`；公共参数与时钟辅助放在 `include/ros2_comm_demo/common.hpp`；启动文件、接口定义和自动检查分别独立保存。基础概念见 [ROS 2 五章教程](../../README.md)，具体实现见[源码阅读笔记](ros2_interfaces_notes.md)。
 
@@ -41,7 +41,7 @@ flowchart LR
 
 ## 失败时怎样结束
 
-| 情况 | 新实现的行为 |
+| 情况 | 当前行为 |
 | --- | --- |
 | 没有有效状态、坐标系不符或位置时间戳过旧 | 不接受新任务；已有任务状态过期时中止 |
 | NaN / Inf 目标，或目标超出默认 `[-5, 5] m` 的 x/y 范围 | 拒绝目标 |
@@ -76,9 +76,9 @@ ros2 action send_goal /lesson1/navigation robot_interfaces/action/Navigation \
 
 [launch 文件](ros2_comm_demo/launch/launch.py)支持 `namespace`、`start_command`、`target_x`、`target_y`。所有通信名使用相对名称；修改 namespace 后查询命令也需相应修改，`frame_id` 默认仍为 `map`。
 
-## 本次重写与适用边界
+## 模型与接口
 
-旧版本的接口缺失、Action 大小写不一致、位置独立递增、分离线程及状态有效性问题已在新实现中处理。接口保留原任务大意，但 Service 改用完整 `PointStamped` 并增加有效性/状态年龄字段；这是新协议，不宣称兼容旧的外部接口包。
+Service 返回 `PointStamped`、状态有效性和状态年龄，Action 返回导航反馈与终止结果。
 
 位置节点只是平面运动学积分，不模拟质量、碰撞或电机。单线程执行器的定时器回调逐步推进任务，不使用 `detach()`。取消和停止有调度与通信延迟，不属于真机急停设计。
 

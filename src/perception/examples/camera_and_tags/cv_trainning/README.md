@@ -1,6 +1,6 @@
 # Lesson 8：MuJoCo 视觉、AprilTag 与传感器数据采集
 
-本文行数：245行，预期阅读时长：7分钟
+本文行数：246行，预期阅读时长：8分钟
 
 本目录记录 MuJoCo 仿真中的相机、AprilTag 和传感器数据读取实践。这里的目标不是深入研究计算机视觉算法本身，而是掌握机器人任务中最常用的一条工程链路：
 
@@ -24,11 +24,13 @@
 | `apriltag.py` | 从 MuJoCo 相机图像中检测 AprilTag，输出 tag id 和中心点像素坐标。 |
 | `get_apriltag_pos.py` | 结合 AprilTag 角点、相机内参和 `solvePnP`，估计 AprilTag 相对于相机的位姿。 |
 | `sensordata.py` | 按传感器名称读取 MuJoCo `data.sensordata` 中的指定数据，并和 `qvel` 等仿真状态做对比。 |
-| `demo/sim_camera_tag_pose_demo.py` | 综合 Demo：机械臂运动时同步采集 RGB、关节状态、末端位姿、物体位姿、动作和时间戳，并保存为 `.npz` episode。 |
+| `demo/sim_camera_tag_pose_demo.py` | 综合 Demo：在同一次回调中采集 RGB、关节状态、末端与物体的仿真真值、动作和时间戳，并保存为 `.npz` episode。 |
 
 ## 运行前提
 
-这些脚本依赖 MuJoCo、OpenCV 和项目中的自定义 viewer 工具。运行前请先确认：
+脚本依赖 MuJoCo 和 OpenCV。`mujoco_get_camera_picture.py` 直接使用 MuJoCo / GLFW；其余标定、AprilTag、传感器和综合采集脚本还依赖外部 `mujoco-learning` 工具，源码仍使用 `src.mujoco_viewer` 等旧导入名。本机外部项目现将工具放在 `mujoco_learning` 包中，尚不能仅凭添加项目根目录到 `sys.path` 让这些旧导入成立；这些旧脚本需要提供 `src.*` 接口的兼容环境，或先完成源码接口适配。
+
+运行还需要满足以下条件：
 
 - 已安装常用依赖：`mujoco`、`opencv-python`、`numpy`、`glfw`、`pynput`、`pupil-apriltags`。
 - 本机存在 MuJoCo XML 场景文件，例如 `scene_withcamera.xml`、`scene_with_checkerboard.xml`、`scene_with_apriltag.xml`、`scene_pos.xml`。
@@ -37,7 +39,7 @@
   - `/home/ace/mujoco_models/mujoco_menagerie/franka_emika_panda`
 - `src.mujoco_viewer`、`src.key_listener`、`src.solvepnp`、`src.matplot` 等自定义模块可以被 Python 找到。
 
-如果运行时报 `No such file or directory` 或 `ModuleNotFoundError`，优先检查 XML 路径和 `sys.path` 中的项目根目录。
+`No such file or directory` 应核对 XML 路径；`ModuleNotFoundError` 则应同时核对模块搜索路径与实际包名。依赖说明和下面的源码解读不表示相机、PnP 与采集链路已经运行验证。
 
 ## 推荐学习顺序
 
@@ -149,6 +151,8 @@ K = np.array([
 
 这个脚本里 AprilTag 的尺寸设为 `0.1 m`，如果 XML 中实际 tag 尺寸不同，需要同步修改，否则 `tvec` 的尺度会错。
 
+脚本调用外部 `SolvePnp.compute(image, 0)` 并打印返回的变换；它使用写死的内参与畸变参数，没有把估计结果与 MuJoCo 真值计算成定位误差。有效位姿和检测失败的返回处理还要结合该外部模块核对。
+
 ### 5. 读取 SensorData
 
 `sensordata.py` 展示了按名称读取 MuJoCo 传感器数据的方式：
@@ -179,19 +183,18 @@ sensor_values = self.data.sensordata[adr:adr + sensor_dim]
 
 ## 综合 Demo：保存一段 Episode
 
-`demo/sim_camera_tag_pose_demo.py` 是这个目录最接近数据采集闭环的脚本。它会在机械臂运动过程中同步保存：
+`demo/sim_camera_tag_pose_demo.py` 在每次 `runFunc` 回调中先读取图像与当前状态，再写入本次关节目标并组装样本。保存字段为：
 
 - `rgb`：相机图像。
-- `qpos`：关节位置。
-- `qvel`：关节速度。
-- `eef_pos`：末端位置。
-- `eef_quat`：末端姿态四元数。
-- `object_pos`：AprilTag / 目标物体位置。
-- `object_quat`：目标物体姿态四元数。
-- `action`：当前下发的关节目标。
+- `qpos`、`qvel`：完整模型的广义位置与速度数组；并非只有七个机械臂关节。
+- `eef_pos`、`eef_quat`：`ee_center_site` 的世界系位置（m）与四元数，排列 `[w,x,y,z]`。
+- `object_pos`、`object_quat`：`apriltag_0` body 的世界系仿真真值，单位与排列同上；没有经过 AprilTag 检测或 PnP。
+- `action`：写入 `ctrl[:7]` 的七维绝对关节位置目标，按当前模型假定的顺序排列，单位 rad。
 - `timestamp`：MuJoCo 仿真时间。
 
-退出仿真后，数据会保存为压缩 `.npz` 文件。这个文件结构更接近后续模仿学习、轨迹回放或离线分析需要的数据格式。
+目标按从 `start_sim_time` 起的仿真时间，在 `1 s` 内由 `q_start` 线性插值到 `q_goal`。一个样本保存本次读取的状态与新下发的动作，没有单独保存动作执行后的 `o_(t+1)`；实际步进顺序由外部 Viewer 决定，图像与派生位姿是否对应同一状态仍需运行核对。
+
+退出时保存压缩 NPZ，还包含 `init_pos`、`init_vel`、`q_start`、`q_goal` 和 `duration`。其中 `init_pos` 取自模型默认构型 `model.qpos0`，`q_start` 才取自回调开始时的前七项实际位置。该脚本提供采集与保存结构，未实现完整回放或行为克隆闭环。
 
 运行示例：
 
@@ -241,5 +244,3 @@ bgr = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
 ### 5. SensorData 读取出来和预期不一致
 
 检查 XML 中 sensor 的定义顺序、名称、维度，以及读取时使用的 `sensor_adr`。不要手写固定下标，优先按 sensor name 查询。
-
-

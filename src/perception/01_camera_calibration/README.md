@@ -242,7 +242,7 @@ $$
 
 ## 源码与参考
 
-[旧标定源码](../examples/camera_and_tags/cv_trainning/camera_calibration.py)和[图像读取源码](../examples/camera_and_tags/cv_trainning/mujoco_get_camera_picture.py)保留原场景用法。本文的解释和示例不要求运行这些脚本，本次文档改写也未运行外部模型或 viewer。原有数值核对依据见[核对记录](../verification.md)。
+[标定源码](../examples/camera_and_tags/cv_trainning/camera_calibration.py)和[图像读取源码](../examples/camera_and_tags/cv_trainning/mujoco_get_camera_picture.py)依赖对应场景和工具库。正文例子的计算见[数值核对](../verification.md)。
 
 需要查阅 OpenCV 的内参、畸变和标定接口时，可参考[官方标定文档](https://docs.opencv.org/4.13.0/d9/d0c/group__calib3d.html)；该资料版本不代表本仓库运行版本。
 

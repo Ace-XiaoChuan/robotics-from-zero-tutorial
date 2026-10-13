@@ -243,10 +243,10 @@ $$
 
 OpenCV 的 `rvec` 是轴角旋转向量：非零时，方向代表旋转轴，长度代表旋转角度，单位 rad。**它的三个分量不是三个欧拉角。** 可以用 `cv2.Rodrigues` 在旋转向量和旋转矩阵之间转换。`tvec` 的长度单位跟随输入三维点单位，本章统一为 m。
 
-## 源码与验证边界
+## 源码与参考
 
 本文数值是人工设定的几何例子，不是真实相机定位或机械臂抓取结果。标记尺寸与深度、90° 旋转例子和逆变换的数值依据见[核对记录](../verification.md)。
 
-[旧位姿源码](../examples/camera_and_tags/cv_trainning/get_apriltag_pos.py)通过外部 `src.solvepnp` 封装求解；仅凭调用点不能确认内部角点顺序和全部坐标约定。本次文档整理未运行该外部封装、ROS tf2、手眼标定或真实抓取。引用的 OpenCV 4.13.0 是资料版本，不表示旧脚本已在该版本验证。
+[位姿源码](../examples/camera_and_tags/cv_trainning/get_apriltag_pos.py)依赖外部 `src.solvepnp` 封装，角点顺序和坐标约定需查看其实现。本文数值使用明确给定的变换，OpenCV 参考资料为 4.13.0。
 
 [上一章：相机成像与标定](../01_camera_calibration/README.md) · [返回感知与估计目录](../README.md) · [下一章：测量误差](../03_measurement_errors/README.md)

@@ -303,7 +303,7 @@ python3 src/control/04_forward_inverse_dynamics/check_examples.py
 ~/mujoco-env/bin/python src/control/04_forward_inverse_dynamics/check_examples.py --mujoco
 ```
 
-依赖版本沿用 [MuJoCo 固定依赖](../../simulation/mujoco/requirements.txt)。官方 stable 文档可能更新，本章 API 行为以 2026-09-26 在已有 Python 3.10.12 / MuJoCo 3.8.1 环境下的实际核对为准，不据此宣称独立环境安装已验证。
+依赖版本沿用 [MuJoCo 固定依赖](../../simulation/mujoco/requirements.txt)。官方 stable 文档可能更新，本章 API 行为以 2026-09-26 在已有 Python 3.10.12 / MuJoCo 3.8.1 环境下的实际核对为准。
 
 检查包括单杆和两连杆的正逆一致性、状态与负载不匹配、外力分配、无时间推进、被动阻尼、执行器限幅以及 `gear=2` 的映射。所有 MuJoCo 核对无窗口、无接触、不调用 `mj_step`；未进行轨迹积分、闭环控制或真机验证。6 项解析检查与 5 项实际 API 检查共 11 项全部通过，输入输出数值及检查结果见配套脚本。
 

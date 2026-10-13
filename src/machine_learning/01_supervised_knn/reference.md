@@ -1,8 +1,8 @@
-# 历史详细笔记：第 1 周：鸢尾花分类
+# 鸢尾花分类：KNN 实现说明
 
 本文行数：175行，预期阅读时长：7分钟
 
-> 保留迁入时的概念解释、操作过程与阶段记录，按需查阅。文中“当前”“下一步”“已下载”指原记录时点，未完成清单不作为当前学习安排；数据与权重未随笔记迁入。复习请回到[本章入口](README.md)。
+概念复习见[本章入口](README.md)。以下命令在 `src/machine_learning/01_supervised_knn/` 下运行，使用已安装本项目依赖的 Python 环境。[训练脚本](src/train_knn.py)与[可视化脚本](src/visualize_iris.py)都通过 `sklearn.datasets.load_iris()` 读取 scikit-learn 自带的 Iris 数据，无需另行下载或准备 `data/` 目录。训练脚本在 `outputs/` 保存图表和 JSON 指标，拟合的 Pipeline 只保留在此次进程内。
 
 本项目使用鸢尾花的测量数据，训练一个模型来判断一朵花属于哪个品种。
 

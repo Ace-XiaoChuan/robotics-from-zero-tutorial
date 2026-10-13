@@ -207,6 +207,30 @@ def main():
         depth = row["layers"]
         close(difference(lambda x: (0.5**depth) * x, 1), row["half"])
         close(difference(lambda x: (1.5**depth) * x, 1), row["one_and_half"], tolerance=1e-7)
+
+    def scalar_chain(initial, coefficients):
+        states = [initial]
+        for coefficient in coefficients:
+            states.append(coefficient * states[-1])
+        return states
+
+    # 逐层前向与独立差分核对输入梯度、各层参数梯度；零系数也无需除法。
+    for coefficients in ([0.5, 0.5, 0.5], [0.5, -1.25, 2.0], [0.5, 0.0, 2.0]):
+        states = scalar_chain(2.0, coefficients)
+        terminal_gradient = states[-1] - 1.0
+        close(difference(lambda x: scalar_chain(x, coefficients)[-1], 2.0), math.prod(coefficients))
+        close(difference(lambda x: 0.5 * (scalar_chain(x, coefficients)[-1] - 1.0)**2, 2.0),
+              terminal_gradient * math.prod(coefficients))
+        for index, coefficient in enumerate(coefficients):
+            def varying(value):
+                changed = list(coefficients)
+                changed[index] = value
+                return 0.5 * (scalar_chain(2.0, changed)[-1] - 1.0)**2
+            expected = terminal_gradient * math.prod(coefficients[index + 1:]) * states[index]
+            close(difference(varying, coefficient), expected)
+    toy_states = scalar_chain(2.0, [0.5, 0.5, 0.5])
+    close(0.5 * (toy_states[-1] - 1.0)**2, 0.28125)
+    close((toy_states[-1] - 1.0) * 0.5 * 0.5 * toy_states[0], -0.375)
     results["gradient_chain_initialization"] = {"chain": chain, "xavier_std": math.sqrt(2 / 200), "he_std": math.sqrt(2 / 100)}
 
     quadratic = lambda a, b: 0.5 * (a*a + 100*b*b)

@@ -21,11 +21,11 @@
 
 坐标变换、旋转误差和 Jacobian 可按需复习[空间数学](../foundations/spatial_math/README.md)；机器人 FK 见[运动学](../kinematics/README.md)；TF 与时钟见 [ROS 2](../ros2/README.md)。
 
-## 已有案例与验证边界
+## 案例与数值例子
 
-- [相机、传感器与 AprilTag 案例](examples/camera_and_tags/README.md)：原 Lesson 8；[详细历史笔记](examples/camera_and_tags/cv_trainning/README.md)保留原实现和运行记录入口。
+- [相机、传感器与 AprilTag 案例](examples/camera_and_tags/README.md)：原 Lesson 8；[实现笔记](examples/camera_and_tags/cv_trainning/README.md)保留原实现和运行记录入口。
 - [相机标定源码](examples/camera_and_tags/cv_trainning/camera_calibration.py)、[AprilTag 位姿源码](examples/camera_and_tags/cv_trainning/get_apriltag_pos.py)、[传感器读取源码](examples/camera_and_tags/cv_trainning/sensordata.py)。
 - [数值核对记录](verification.md)与[检查脚本](check_examples.py)：12 项教学数值检查通过，包括投影、变换、误差传播、Kalman 更新与时间算例。
-- 旧脚本含本机路径、自定义 viewer / PnP 模块和外部 XML 模型依赖；本次数值检查未运行该图像链路，也未验证真实滤波性能、手眼标定或感知驱动抓取。
+- 相机案例依赖 XML 场景与外部 viewer / PnP 模块，源码仍使用旧 `src.*` 导入；运行前按案例说明核对包名与接口。上面的 12 项检查未运行图像、PnP 或综合采集链路。
 
 [学习路线 S6](../../doc/learning-roadmap.md#s6) · [总目录](../README.md) · [后续：规划与操作](../manipulation/README.md) · [数据采集](../data_collection/README.md)

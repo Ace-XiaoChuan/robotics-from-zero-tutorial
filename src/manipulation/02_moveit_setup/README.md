@@ -4,7 +4,7 @@
 
 **MoveIt 配置把“机器人是什么、允许怎样运动、用哪个算法求解、把结果发给谁”连接起来。文件中的关节名、规划组、坐标系和接口必须相互对应，文件齐全不代表系统已经能运行。**
 
-**本章职责：** 解释模型、规划组、末端、IK、关节限制和控制器配置之间的关系，以仓库的 Panda 文件为例。URDF 建模基础见[机器人模型](../../simulation/01_robot_models/README.md)，运动请求与返回值归[第三章](../03_move_group_interface/README.md)，运行中的场景管理归[第四章](../04_planning_scene/README.md)。
+解释模型、规划组、末端、IK、关节限制和控制器配置之间的关系，以仓库的 Panda 文件为例。URDF 建模基础见[机器人模型](../../simulation/01_robot_models/README.md)，运动请求与返回值归[第三章](../03_move_group_interface/README.md)，运行中的场景管理归[第四章](../04_planning_scene/README.md)。
 
 ## 速记要点
 
@@ -226,7 +226,7 @@ MoveItConfigsBuilder("moveit_resources_panda")
 
 此外，这两个抓放 launch 的正文只创建任务节点，不等于同时启动了 `move_group`、控制器和状态发布节点。运行入口的文件名本身不足以说明整套系统已被启动。
 
-本地 [package.xml](../packages/panda_moveit_config/package.xml) 声明了外部模型包等依赖，但没有锁定实际版本；其中 `joint_trajectory_controller` 的依赖声明还是注释，而控制器 YAML 实际引用了它。因此包清单也不能单独证明运行依赖齐全。本章保留这些静态事实，未安装依赖或改写启动逻辑。
+本地 [package.xml](../packages/panda_moveit_config/package.xml) 声明了外部模型包等依赖，但没有锁定实际版本；其中 `joint_trajectory_controller` 的依赖声明还是注释，而控制器 YAML 实际引用了它。因此包清单也不能单独证明运行依赖齐全。运行时需要使包依赖与控制器配置一致。
 
 ## 9. 遇到问题时从哪一层查？
 
@@ -241,10 +241,10 @@ MoveItConfigsBuilder("moveit_resources_panda")
 | 没有当前状态或状态过期 | broadcaster、反馈名称、时间戳与时钟来源 | 规划需要当前状态，不能只依靠模型文件 |
 | 修改 YAML 后行为没变 | launch 选用的包、安装副本和节点参数 | 修改的可能不是运行中的配置来源 |
 
-## 按需查阅与验证边界
+## 源码与参考
 
 复习配置时可沿“外部模型 → SRDF 组与末端 → IK 与限制 → 控制器映射 → 硬件接口与反馈 → 实际加载入口”查阅。关节名、link 名、坐标系、单位和版本是贯穿各层的核对项。
 
-本章完成了本地 XML / YAML 的静态核对与文档示例计算，参考资料采用 Humble 分支。尚未展开第三方模型，未构建或启动 ROS / MoveIt，也未验证运行时参数、TF、IK、控制器激活或实际执行。尤其是末端父链接、全零初值的合法性和第二手指随动关系，仍需结合实际模型与运行环境确认。
+配置说明来自仓库 XML / YAML 和 Humble 资料。外部模型的末端父链接、零位与手指随动关系，需要结合模型和运行时配置核对；本例尚未构建或启动验证。
 
 [上一章：运动规划基础](../01_motion_planning/README.md) · [下一章：运动请求与执行反馈](../03_move_group_interface/README.md) · [返回 MoveIt 目录](../README.md)

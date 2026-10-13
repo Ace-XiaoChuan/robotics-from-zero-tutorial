@@ -27,7 +27,7 @@ MjData：qpos、qvel、ctrl、time 与计算缓冲区
 可读取当前构型对应的位置、力等计算结果
 ```
 
-这里的“编译”是把模型描述整理成 MuJoCo 计算需要的数据结构，不是生成 Python 或 C++ 程序。按本模型的配置，编译器会由 geom 的形状和质量推导刚体惯性，并把 actuator 的关节名称关联到关节索引。流程依据[官方模型说明](https://mujoco.readthedocs.io/en/stable/modeling.html)与[Python 接口说明](https://mujoco.readthedocs.io/en/stable/python.html)；stable 页面会更新，仓库历史实测版本仍以验证记录为准。
+这里的“编译”是把模型描述整理成 MuJoCo 计算需要的数据结构，不是生成 Python 或 C++ 程序。按本模型的配置，编译器会由 geom 的形状和质量推导刚体惯性，并把 actuator 的关节名称关联到关节索引。流程依据[官方模型说明](https://mujoco.readthedocs.io/en/stable/modeling.html)与[Python 接口说明](https://mujoco.readthedocs.io/en/stable/python.html)；stable 页面会更新，本例实测版本为 MuJoCo 3.8.1。
 
 ## 例子：加载本教程模型
 
@@ -69,7 +69,7 @@ Panda 可从官方 [MuJoCo Menagerie](https://github.com/google-deepmind/mujoco_
 
 从 `franka_emika_panda/scene.xml` 加载场景，或按目标选择机器人入口 `panda.xml`；显式传入本机路径，例如 `Path(args.model).expanduser().resolve()`。不要复制旧脚本里的私人绝对路径，也不要假定前七个 `qpos` 永远都是机械臂关节。
 
-本次实测范围是自带小模型，未把外部 Panda 加载或控制标为验收通过。旧材料见[清点记录](../mujoco/materials.md)。
+自带模型的数值见[验证记录](../mujoco/verification.md)，Panda 脚本的模型与路径说明见[实现说明](../mujoco/materials.md)。
 
 ## 出错时查
 

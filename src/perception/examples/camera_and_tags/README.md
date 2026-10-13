@@ -14,9 +14,9 @@
 | --- | --- |
 | [`cv_trainning/`](cv_trainning) | MuJoCo 相机、AprilTag、相机标定、传感器读取和 episode 保存脚本。 |
 | [`cv_trainning/README.md`](cv_trainning/README.md) | 本 lesson 的详细学习笔记、运行前提、推荐学习顺序和常见问题。 |
-| [`cv_trainning/demo/sim_camera_tag_pose_demo.py`](cv_trainning/demo/sim_camera_tag_pose_demo.py) | 同步保存 RGB、关节状态、末端位姿、目标位姿、动作和时间戳的综合 Demo。 |
+| [`cv_trainning/demo/sim_camera_tag_pose_demo.py`](cv_trainning/demo/sim_camera_tag_pose_demo.py) | 在同一次回调中保存 RGB、关节状态、末端与目标物体的仿真真值、动作和时间戳。 |
 
-> 目录名 `cv_trainning` 沿用当前仓库中的已有拼写。后续如果统一改名为 `cv_training`，需要同步更新 README 中的运行命令和脚本路径。
+运行前先核对[详细笔记中的旧模块接口前提](cv_trainning/README.md#运行前提)；源码仍使用 `src.*`，本机外部项目已按 `mujoco_learning` 包组织，不能只改搜索路径就视为完成适配。
 
 ## 建议阅读顺序
 

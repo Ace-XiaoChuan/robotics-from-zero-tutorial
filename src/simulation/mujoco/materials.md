@@ -1,35 +1,13 @@
-# MuJoCo 已有材料与主题归属
+# Panda 外加关节力脚本说明
 
-本文行数：35行，预期阅读时长：2分钟
+本文行数：13行，预期阅读时长：1分钟
 
-2026-09-18 按本地文件与源码清点；当时未启动仿真，也未验证控制效果。2026-09-20 已另建 [S3 六章教程](../README.md)与自带模型的[数值验证](verification.md)；下面保留旧工作区的清点记录，不代表旧 Panda 脚本已验证。
+[run_sim.py](legacy/run_sim.py) 加载 Panda 场景，读取关节位置和速度，用 PID 形式计算控制量，加上 `qfrc_bias` 后写入 `qfrc_applied`，再调用 `mj_step` 和 Viewer 同步。
 
-## 本地工作区
+脚本依赖 MuJoCo、NumPy 和 MuJoCo Menagerie 的 `franka_emika_panda/scene.xml`，没有调用 Matplotlib。模型路径相对于启动目录，读取关节时使用数组前七项；运行前需要使路径和模型关节顺序与脚本一致。
 
-位置：`/home/ace/mujoco_workspace/`。路径仅用于本机查找，完整复现所需的依赖、模型版本与配置后续补齐。
+这里通过外加广义力驱动机器人。模型也定义了 actuator，`qfrc_applied` 与 actuator 的 `ctrl` 是不同输入入口，见[控制输入](../04_control_inputs/README.md)。积分项仅裁剪输出，具体控制表现需结合轨迹误差判断。
 
-| 已有位置 | 实际内容与处理方式 |
-| --- | --- |
-| `run_sim.py` | 加载 Panda 场景，建立模型与数据；读取前 7 个关节位置和速度，计算 PID 形式的控制量并加入 `qfrc_bias`，写入 `qfrc_applied`；调用 `mj_step` 与 Viewer 同步 |
-| `mujoco_menagerie/franka_emika_panda/scene.xml` | 脚本实际引用的场景，通过 `panda.xml` 引入机器人模型 |
-| `mujoco_menagerie/` | 模型库；不能将库内所有模型视为已经学习或验证 |
-| `mj_env/` | 本地 Python 虚拟环境，配置记录 Python 3.10.12；不复制到教程仓库 |
-| `task.md` | 旧的八周跨主题计划，涉及 MoveIt、其他仿真器与模仿学习；保留作历史参考，当前顺序以本仓库学习路线为准 |
-| `MUJOCO_LOG.TXT`、`.vscode/` | 本地日志与编辑器配置，不作为教程章节迁入 |
+该 Panda 脚本尚无运行验证记录。需要自包含模型和数值例子时，查看 [pendulum.xml](models/pendulum.xml) 与 [check_basics.py](check_basics.py)。
 
-## 与其他主题的边界
-
-| 内容 | 后续主要归属 |
-| --- | --- |
-| MJCF、模型加载、状态、步进、控制输入接口与 Viewer | `simulation/00_control_flow/`～`06_reset_recording/` 正文；`simulation/mujoco/` 实现参考 |
-| PID 原理、偏置力补偿与跟踪误差 | `control/`；引用 MuJoCo 接口说明 |
-| 仿真与解析 FK 的对齐 | `kinematics/` |
-| 相机成像、标定与目标位姿 | `perception/`；渲染接口回链 MuJoCo |
-| observation / action、episode 与回放 | `data_collection/` |
-| 策略在仿真中的闭环评估 | `robot_learning/` |
-
-源码中的模型路径相对于启动目录，关节读取依赖前 7 项的排列。积分项仅对输出做裁剪；模型自身还定义了 actuator，脚本则通过外加关节力控制。后续整理控制章节时需一起核对这些行为，不能直接把该脚本标为已验证的执行器力矩控制案例。
-
-2026-09-21 已将 [原脚本](legacy/run_sim.py) 与 [历史计划](legacy/task.md) 迁入本仓库，源码未改写。模型库和环境未打包，旧目录只作来源备份；新教程独立提供小模型与检查脚本。
-
-[返回 MuJoCo 目录](README.md) · [学习路线](../../../doc/learning-roadmap.md#s3)
+[MuJoCo 目录](README.md) · [动力学与控制](../../control/README.md)

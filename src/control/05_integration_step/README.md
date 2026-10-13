@@ -338,6 +338,6 @@ python3 src/control/05_integration_step/check_examples.py
 ~/mujoco-env/bin/python src/control/05_integration_step/check_examples.py --plot
 ```
 
-MuJoCo 与 NumPy 版本沿用[固定依赖](../../simulation/mujoco/requirements.txt)；Matplotlib 仅用于图表再生成，不影响默认数值检查或阅读。未验证新环境安装、Viewer、接触、真机或闭环控制。本章新增了实际开环时间步进的证据，但没有新增轨迹跟踪验收。
+MuJoCo 与 NumPy 版本沿用[固定依赖](../../simulation/mujoco/requirements.txt)；Matplotlib 仅用于图表再生成，不影响默认数值检查或阅读。本章记录的是开环时间推进，闭环跟踪见[下一章](../06_control_constraints/README.md)。
 
 [上一部分：正动力学与逆动力学](../04_forward_inverse_dynamics/README.md) · [返回动力学目录](../README.md) · [下一部分：控制与约束](../06_control_constraints/README.md) · [学习路线 S5](../../../doc/learning-roadmap.md#s5)

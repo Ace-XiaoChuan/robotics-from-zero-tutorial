@@ -1,10 +1,10 @@
-# 运动学：数值核对与验证边界
+# 运动学数值例子与结果
 
-本文行数：55行，预期阅读时长：4分钟
+本文行数：50行，预期阅读时长：3分钟
 
-## 本次配置与结果
+## 配置与结果
 
-2026-09-22 使用 Python 3.10.12、NumPy 1.21.5，执行[检查脚本](check_examples.py)，26 项数值检查全部通过。无需机器人模型、ROS、MuJoCo、Pinocchio 或图形窗口；本次使用已安装环境，没有验证全新环境安装。
+2026-09-22 使用 Python 3.10.12、NumPy 1.21.5，执行[检查脚本](check_examples.py)，26 项数值检查全部通过。无需机器人模型、ROS、MuJoCo、Pinocchio 或图形窗口。
 
 脚本使用标准库 unittest。以下命令从仓库根目录执行，供维护者复核；阅读八章正文不要求运行代码：
 
@@ -16,7 +16,7 @@ python3 src/kinematics/check_examples.py
 
 ## 核对范围
 
-| 章节 | 本次实际检查 |
+| 章节 | 检查内容 |
 | --- | --- |
 | 01 正运动学 | 四组 FK、相对角含义、连续角的几何周期性 |
 | 02 DH | 标准 DH、Craig Modified DH 与几何 FK 对齐；非零扭角与偏距；误用参数表的差异；原 Lesson 4 脚本数值 |
@@ -43,12 +43,7 @@ python3 src/kinematics/check_examples.py
 
 极小残差来自双精度下对自包含几何模型的求解，不是设备精度。解析关系通常以约 `1e-12` 的数值绝对容差核对，浮点结果可能随环境略有差异。
 
-## 未验证的范围
-
-- 原 Lesson 4 的纯 NumPy 脚本本次已执行；其长度数值 10、5 未注明物理单位，输出只按同一长度单位解释。
-- 历史 Panda 的 MuJoCo / Pinocchio / KDL 对齐、外部模型文件、viewer、末端控制与综合里程碑脚本没有运行。
-- 没有验证一般三维 IK、所有奇异边界、全局最优、碰撞路径、动力学跟踪或真机执行。
-- 教学检查脚本用于复核例子，不是生产用机器人运动学库。完整机器人继续使用模型一致、接口明确的运动学工具。
+检查对象是平面教学模型与 DH 数值脚本。Panda 的联合仿真、外部模型与末端控制需按[模型对齐案例](examples/model_alignment/README.md)另行运行。
 
 理论参考：[Modern Robotics 官方教材入口](https://hades.mech.northwestern.edu/index.php/Modern_Robotics)中关于正运动学、速度运动学与逆运动学的章节；Craig《Introduction to Robotics: Mechanics and Control》中关于 Modified DH 的建系约定。两种 DH 的具体因子顺序以[本仓库第二章](02_dh_conventions/README.md)的显式定义为准。
 

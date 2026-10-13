@@ -1,8 +1,8 @@
-# Week 5 输出资产索引
+# 客户聚类输出说明
 
 本文行数：43行，预期阅读时长：2分钟
 
-本目录只保留 Wholesale Customers 正式学习流程产生的成果与必要过程证据。早期通用演示流程生成的旧模型和重复结果已清理；通用脚本仍保留在 `../src/`，需要时可以重新运行。
+这里说明分析流程使用或生成的文件。仓库收录小型图表与 JSON 指标；原始数据、预处理中间 CSV 和完整模型需要在运行时准备。候选比较脚本读取缩放后的 CSV，最终保存脚本还会用它核对预处理结果。
 
 ## 最终成果：优先阅读
 
@@ -11,7 +11,7 @@
 | `tables/final_k2_customer_assignments.csv` | 440 位客户的原始字段、最终 C0/C1 归属和描述性簇名 |
 | `tables/final_k2_cluster_profiles.csv` | 最终簇规模、Channel 事后构成和原始消费金额画像 |
 | `tables/final_k2_metadata.json` | 数据、预处理、模型参数、评价指标、软件版本和标签映射 |
-| `models/final_k2_model.joblib` | 可重新加载的 `log1p → RobustScaler → K-Means(K=2)` 模型包 |
+| `models/final_k2_model.joblib` | 可重新加载的 `log1p → 保留六位小数 → RobustScaler → K-Means(K=2)` 模型包 |
 
 ## 选择 K 的证据
 
@@ -40,4 +40,4 @@
 | `tables/scaled_feature_correlation.csv` | 六个缩放特征的 Pearson 相关系数 |
 | `figures/scaled_feature_correlation_heatmap.png` | 相关系数热力图 |
 
-`.gitkeep` 仅用于保证空目录结构可被 Git 保存，不是分析结果。
+[本章入口](../README.md) · [实验结果](../results.md)

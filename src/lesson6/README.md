@@ -4,4 +4,4 @@
 
 教程与源码的维护位置：[主题目录](../manipulation/06_pick_place/README.md)。
 
-本目录仅保留历史编号导航，不保存重复源码。[全部主题](../README.md) · [迁移对照](../../doc/directory-reorganization.md)。
+[全部主题](../README.md)。

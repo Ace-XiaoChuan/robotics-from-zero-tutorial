@@ -65,9 +65,9 @@ $$
 
 ## 已有 Panda 代码的适用边界
 
-[历史 FK 对比脚本](../examples/model_alignment/check_fk_with_mujoco.py)连接 MuJoCo、Pinocchio 与 KDL，依赖外部模型和 viewer。源码中存在按数组前缀复制关节位置的写法；这只能在模型顺序等前提已经核对后使用，不能当作通用关节映射。
+[FK 对比脚本](../examples/model_alignment/check_fk_with_mujoco.py)连接 MuJoCo、Pinocchio 与 KDL，依赖外部模型和 viewer。源码中存在按数组前缀复制关节位置的写法；这只能在模型顺序等前提已经核对后使用，不能当作通用关节映射。
 
-Pinocchio 中关节 FK 和 frame 位姿更新是不同步骤；MuJoCo 改 qpos 后也需要更新派生量。具体调用见原脚本与[仿真状态章节](../../simulation/03_state_step/README.md)。本次核对的是上述自包含几何例子，没有启动这些库的联合仿真，也没有证明 Panda 模型已经对齐。
+Pinocchio 中关节 FK 和 frame 位姿更新是不同步骤；MuJoCo 改 qpos 后也需要更新派生量。具体调用见原脚本与[仿真状态章节](../../simulation/03_state_step/README.md)。上面的数值来自自包含几何模型，Panda 联合仿真使用对应脚本与外部模型。
 
 结果依据与范围见[数值核对记录](../verification.md)。
 

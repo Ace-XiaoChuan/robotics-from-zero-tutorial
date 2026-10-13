@@ -1,8 +1,8 @@
 # VLM 教学数值核对
 
-本文行数：44行，预期阅读时长：3分钟
+本文行数：44行，预期阅读时长：2分钟
 
-初次核对：2026-10-05；扩展：2026-10-09；复查：2026-10-11。使用 Python 3.10.12 与标准库 math、json，实际运行 [check_numeric_examples.py](check_numeric_examples.py)。无额外依赖、模型、权重或数据下载；程序只核对预习正文的人工数值。2026-10-11 新增的候选、查询压缩、冻结梯度与成对计分，另见[12～17 核对](../../examples/README.md#multimodal)。
+使用 Python 3.10.12 标准库 math、json，通过 [check_numeric_examples.py](check_numeric_examples.py)核对正文中的人工数值。候选变化、查询压缩、冻结梯度与成对计分另见[12～17 数值例子](../../examples/README.md#multimodal)。
 
 ## 实际结果
 
@@ -41,4 +41,4 @@ python3 src/machine_learning/16_vision_language/examples/check_numeric_examples.
 
 程序将核对结果输出到终端，不写文件、不调用外部服务。命令供维护和查阅，不是读者的预习作业；阅读上表即可理解正文数值。
 
-[返回 VLM 专题](../README.md) · [机器学习核对记录](../../verification.md)
+[返回 VLM 专题](../README.md)

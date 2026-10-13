@@ -1,10 +1,8 @@
-# 第五周数据说明
+# 聚类数据说明
 
-本文行数：32行，预期阅读时长：2分钟
+本文行数：29行，预期阅读时长：2分钟
 
-> 迁入说明：本目录仅保留数据来源说明；下文“已下载”等描述属于原项目历史状态，数据集与划分文件未随教程迁入。
-
-默认演示数据由 `python src/generate_demo_data.py` 在本目录生成：
+在 `src/machine_learning/05_clustering/` 下运行 `python3 src/generate_demo_data.py`，默认在本数据目录生成演示数据：
 
 - 文件：`customer_data.csv`
 - 样本数：360（每次固定随机种子生成相同结果）
@@ -16,11 +14,10 @@
 
 替换为真实数据时，请在此记录：数据来源、提取日期或版本、样本单位（每行代表什么）、字段定义、已知缺失值、许可证/隐私约束，以及哪些字段被排除和原因。敏感原始数据不建议提交到 Git。
 
-## 已下载练习数据：Wholesale Customers
+## Wholesale Customers
 
 - 文件：`wholesale_customers.csv`
 - 来源：[UCI Machine Learning Repository：Wholesale customers](https://archive.ics.uci.edu/dataset/292/wholesale%2Bcustomers)
-- 下载日期：2026-08-30
 - 许可证：[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 - 样本数：440；每行代表一位批发分销商客户。
 - 完整性校验（SHA-256）：`c3d018c643565b85cee733c4a2ac76dd76e080e857cb23f0ccfcc2e15a6c17ef`

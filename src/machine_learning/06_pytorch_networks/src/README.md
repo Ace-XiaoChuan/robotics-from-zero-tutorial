@@ -1,8 +1,8 @@
-# 第 6 周代码说明
+# MNIST 代码说明
 
-本文行数：71行，预期阅读时长：3分钟
+本文行数：63行，预期阅读时长：2分钟
 
-当前已实现数据探索、固定划分、DataLoader、小型全连接网络及基线训练。后续仍按学习阶段拆分，避免将数据、训练、评估和推理全写在一个文件中。
+代码分为数据探索、固定划分、DataLoader、网络结构、训练循环和训练入口。
 
 ## 已实现
 
@@ -23,10 +23,10 @@
 数据准备运行方式：
 
 ```bash
-cd 06_pytorch_networks
-/home/ace/mujoco-env/bin/python src/explore_mnist.py
-/home/ace/mujoco-env/bin/python src/split_mnist.py
-/home/ace/mujoco-env/bin/python src/data.py
+cd src/machine_learning/06_pytorch_networks
+python3 src/explore_mnist.py
+python3 src/split_mnist.py
+python3 src/data.py
 ```
 
 这些脚本使用已下载的本地数据，不训练模型。探索脚本 `explore_mnist.py` 支持 `--help` 查看参数；`data.py` 默认每批 64 张，训练时可通过 `make_dataloaders(batch_size=64, seed=42)` 获取训练与验证加载器。
@@ -34,19 +34,11 @@ cd 06_pytorch_networks
 训练运行方式：
 
 ```bash
-/home/ace/mujoco-env/bin/python src/train.py --smoke
-/home/ace/mujoco-env/bin/python src/train.py
+python3 src/train.py --smoke
+python3 src/train.py
 ```
 
-上述命令在 week06 项目目录内运行，每次保存到独立目录。当前只实现 E00/E01，后续受控对比再扩展参数配置。
-
-## 后续计划模块
-
-| 计划文件 | 单一职责 | 不应做什么 |
-| --- | --- | --- |
-| `evaluate.py` | 锁定配置后的一次最终评估 | 不据此反向改参数 |
-| `predict.py` | 重建模型、加载 `state_dict` 并完成单张推理 | 不重新训练 |
-| `visualize.py` | 训练曲线、混淆矩阵和错误样本图 | 不修改模型或数据划分 |
+上述命令在本章目录内运行，使用已安装依赖的环境，每次训练保存到独立目录。
 
 ## 共享数据契约
 

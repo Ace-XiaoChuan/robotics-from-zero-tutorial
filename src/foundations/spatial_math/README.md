@@ -21,8 +21,8 @@
 
 ## 参考材料与验证
 
-- [旋转与齐次变换历史案例](examples/rigid_transforms/README.md)：保留原 Lesson 3 源码。
-- [已有位姿误差笔记](../../kinematics/examples/model_alignment/lie_group_lie_algebra_notes.md)与[Jacobian、最小二乘及伪逆笔记](../../kinematics/examples/model_alignment/qpos_jacobian_notes.md)：按需查阅代码对应关系，不复制历史实现。
+- [旋转与齐次变换案例](examples/rigid_transforms/README.md)：保留原 Lesson 3 源码。
+- [已有位姿误差笔记](../../kinematics/examples/model_alignment/lie_group_lie_algebra_notes.md)与[Jacobian、最小二乘及伪逆笔记](../../kinematics/examples/model_alignment/qpos_jacobian_notes.md)：按需查阅代码对应关系，不复制实现参考。
 - [数值核对记录](verification.md)与[检查脚本](check_examples.py)：新增六章的 16 项教学数值检查通过，不代表机器人控制或真机验证。
 
 [学习路线 S1](../../../doc/learning-roadmap.md#s1) · [案例索引](../../README.md)

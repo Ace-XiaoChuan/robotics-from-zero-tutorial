@@ -2,7 +2,7 @@
 
 本文行数：228行，预期阅读时长：13分钟
 
-**本章职责：** 解释构型空间、约束、采样规划与时间参数化，建立从目标到执行的整体认识。接口用法归第三章，轨迹与控制的系统推导归控制专题。
+解释构型空间、约束、采样规划与时间参数化，建立从目标到执行的整体认识。接口用法归第三章，轨迹与控制的系统推导归控制专题。
 
 **运动规划回答“机械臂怎样合法地从当前构型到达目标”；时间参数化回答“什么时候到达沿途各点”；控制执行回答“实际有没有按要求走到”。** 三者的成功条件必须分开看。
 
@@ -219,10 +219,10 @@ if (fraction > 0.9) {
 
 本章保留全链路概览；需要展开时读[构型空间](../07_configuration_space/README.md)、[碰撞检测](../08_collision_checking/README.md)、[采样规划](../09_sampling_planning/README.md)、[约束规划](../10_constrained_planning/README.md)和[轨迹优化](../11_trajectory_optimization/README.md)。五篇分别解释状态表示、运动有效性、搜索、全程约束和代价改进。
 
-## 按需查阅与验证边界
+## 源码与参考
 
 先修概念可回看 [逆运动学](../../kinematics/05_inverse_kinematics/README.md)、[雅可比](../../kinematics/04_jacobian/README.md) 与 [奇异性](../../kinematics/06_singularities/README.md)。接下来按需要阅读 [机器人模型与 MoveIt 配置](../02_moveit_setup/README.md)、[运动请求、笛卡尔路径与执行反馈](../03_move_group_interface/README.md) 和 [规划场景、碰撞与物体附着](../04_planning_scene/README.md)。
 
-本页数值结果来自明确给定的数学模型或现有源码的静态推导。文档按仓库学习路线采用 MoveIt 2 Humble 资料核对概念与接口示例；未构建或运行 ROS / MoveIt，未验证实际规划器选择、加载后的限制、碰撞结果、轨迹时间或控制器执行。
+数值例子来自给定模型与源码推导，接口解释参考 MoveIt 2 Humble。ROS / MoveIt 示例尚未构建或运行验证。
 
 [返回 MoveIt 目录](../README.md)
