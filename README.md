@@ -29,4 +29,4 @@
 
 `doc/` 保存导航和写作样板，`src/` 按主题保存教程、源码与小型配置。案例的依赖、模型路径和运行方法写在各自的 README 中；数据集、模型权重和运行环境按需要另行准备。
 
-新增笔记参考[文档样板](doc/lesson-template.md)，协作规则见 [AGENTS.md](AGENTS.md)。
+新增笔记参考[文档样板](doc/lesson-template.md)，本地协作约定在 `AGENTS.md` 中维护。

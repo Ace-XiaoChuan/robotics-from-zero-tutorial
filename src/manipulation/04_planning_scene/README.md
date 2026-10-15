@@ -1,6 +1,6 @@
 # 规划场景、碰撞与物体附着
 
-本文行数：158行，预期阅读时长：9分钟
+本文行数：179行，预期阅读时长：10分钟
 
 **规划场景是机器人对当前几何世界的表示：机器人处于什么构型、障碍在哪里、哪些物体随手移动、哪些接触允许发生。规划结果只对它实际使用的场景成立。**
 
@@ -76,17 +76,38 @@ ID = box1
 
 一般情形还要乘旋转矩阵，位姿数据与 TF 应使用对应的测量时刻。运动相机或运动物体不能只凭“有一个最新 TF”就忽略时间。具体变换和时间问题见[位姿变换](../../perception/02_pose_transforms/README.md)与[时间对齐](../../perception/06_time_alignment/README.md)。
 
-## 3. 场景更新完成，究竟指哪里完成？
+## 3. 加入物体后，怎样确认规划器已经知道它？
 
-仓库基础程序调用 `applyCollisionObject(box)`，桌面程序调用 `applyCollisionObjects(objects)`。`apply...` 使用同步服务更新 `move_group` 的场景，返回值应检查；其他场景监视器是否已收到相同更新，仍取决于它们的订阅与同步关系。
+使用 `MoveGroupInterface` 请求规划时，你写的程序负责提出请求，运行中的 `move_group` 节点负责规划。**“场景更新完成”指的是：物体信息已经写进 `move_group` 使用的规划场景，后续基于这份场景的规划会把它纳入碰撞检查。**
 
-异步发布式的添加、删除操作则不能把“消息已发出”直接当作“规划使用的场景已经更新”。方法差异见 [Humble PlanningSceneInterface 接口](https://raw.githubusercontent.com/moveit/moveit2/humble/moveit_ros/planning_interface/planning_scene_interface/include/moveit/planning_scene_interface/planning_scene_interface.h)。
+可以把场景里的世界物体理解为一份“障碍物清单”。以加入上一节的 `box1` 为例，这件事分为三步：
 
-**建议的逻辑顺序：** 构造对象并检查 frame / 单位 → 提交更新 → 检查返回或查询所需对象状态 → 基于更新后的场景规划。附着和分离后也应确认对象位于正确集合，而不是只等固定时长就宣称同步完成。
+| 步骤 | 发生了什么 | 规划使用的场景是否已经包含盒子？ |
+| --- | --- | --- |
+| ① 构造盒子消息 | 在自己的代码里填写 ID、尺寸、位姿、参考系和 `ADD` 操作 | 尚未加入；这些数据还只在你的程序里 |
+| ② 提交更新 | 将盒子信息发给 `move_group` | 需要等对方处理，发送本身不代表加入成功 |
+| ③ 应用更新 | `move_group` 把盒子写入它的场景 | 已加入；此后基于更新后的场景规划会检查这个盒子 |
 
-本地上述程序没有检查 `apply...` 返回值。因此代码能证明它尝试提交对象，不能单独证明添加已经成功。程序中的 “Added table and box” 日志也不是额外的成功证据。
+如果只完成第②步就请求规划，`move_group` 可能先处理规划请求，仍使用没有盒子的旧场景。程序中的两行代码先后执行，不代表接收端已经先后完成了对应操作。
 
-场景快照还会过期：如果物体被人移动、抓取失败或传感器重估了位姿，原路径需要重新判断。场景同步正确也不等于现实环境没有变化。
+### 同步与异步：调用返回时，等到了哪一步？
+
+- **同步 `applyCollisionObject(...)` / `applyCollisionObjects(...)`：** 提交更新后，调用会等待服务处理结果；返回 `true` 表示更新成功应用到 `move_group` 的场景。确认成功后，再请求规划。
+- **异步 `addCollisionObjects(...)` / `removeCollisionObjects(...)`：** 发布更新消息后就返回，不等待 `move_group` 应用更新。若下一步依赖这次修改，应查询场景，确认物体已经加入或移除，再请求规划。
+
+这里“同步”的意思是**等待接收方处理并回应**，不是让所有程序的场景副本同时变化。接口行为见 [Humble PlanningSceneInterface 说明](https://raw.githubusercontent.com/moveit/moveit2/humble/moveit_ros/planning_interface/planning_scene_interface/include/moveit/planning_scene_interface/planning_scene_interface.h)。
+
+查询时，`getObjects(...)` 可检查世界物体的 ID、几何与位姿，`getAttachedObjects(...)` 可检查附着物体。更新已有物体位置时，要核对新位姿，不能只看 ID 是否存在；附着后应确认它进入附着集合，分离后应确认它回到世界物体集合。固定等待一秒只是在留出处理时间，没有检查处理结果。
+
+### 对照仓库代码：什么时候可以打印“添加成功”？
+
+[基础程序](../packages/hello_moveit/src/hello_moveit.cpp) 和[桌面程序](../packages/mtc_week3_demo/src/desktop_pick_place.cpp) 都使用同步的 `apply...`，但没有检查返回值。桌面程序随后直接打印 “Added table and box”，即使服务返回失败，也会执行这条日志。
+
+正确顺序是：**构造物体并核对坐标系、单位 → 调用 `apply...` → 返回 `true` 后记录成功并请求规划；返回 `false` 则处理更新失败。**
+
+最后还要分清更新的是哪份数据。上述成功结果针对 `move_group` 的场景；RViz 显示场景和其他场景监视器需要通过订阅接收更新，本地另建的 `PlanningScene` 也不会自动变成同一份数据。若规划用的是本地场景，应确认那份场景已经更新。
+
+更新场景也不会自动重算已经生成的路径。如果盒子随后被人移动，应更新它的位姿并重新判断原路径是否可用，必要时重新规划。
 
 ## 4. 自碰撞、环境碰撞和允许碰撞
 
