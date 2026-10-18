@@ -1,0 +1,1037 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ROS 2 通信动画 · 01 节点与接口</title>
+<style>
+  :root{
+    --bg:#070b14; --bg2:#0b1220; --card:#0e1728; --line:rgba(255,255,255,.09);
+    --txt:#e6edf7; --muted:#8b98ad; --dim:#5d6b82;
+    --topic:#ffb020; --service:#4da3ff; --action:#3ddc97; --danger:#ff5c7a;
+    --mono:"Cascadia Code","JetBrains Mono",Consolas,ui-monospace,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;color:var(--txt);overflow:hidden;
+    font:15px/1.55 "Segoe UI","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+    background:
+      radial-gradient(1100px 620px at 18% -12%, #13233f 0%, rgba(19,35,63,0) 60%),
+      radial-gradient(900px 500px at 100% 110%, #10233a 0%, rgba(16,35,58,0) 55%),
+      var(--bg);
+  }
+  code{font-family:var(--mono);font-size:.92em;background:rgba(120,170,255,.10);border:1px solid rgba(120,170,255,.14);border-radius:5px;padding:1px 5px;color:#bfd8ff}
+  b{color:#fff}
+
+  /* ---------- header ---------- */
+  header.top{
+    height:70px;display:flex;align-items:center;justify-content:space-between;
+    padding:0 24px;border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg,rgba(13,22,38,.9),rgba(7,11,20,.55));
+    backdrop-filter:blur(6px);
+  }
+  .brand{display:flex;align-items:center;gap:14px;min-width:0}
+  .brand .ring{width:34px;height:34px;border-radius:50%;border:2px solid rgba(77,163,255,.55);position:relative;flex:none}
+  .brand .ring::after{content:"";position:absolute;inset:9px;border-radius:50%;background:var(--action);box-shadow:0 0 14px var(--action)}
+  .brand h1{font-size:17px;margin:0;font-weight:650;letter-spacing:.2px}
+  .brand p{margin:1px 0 0;font-size:12px;color:var(--muted);letter-spacing:.3px}
+  .controls{display:flex;gap:8px;align-items:center}
+  .btn{
+    appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.045);color:var(--txt);
+    font:13px/1 inherit;padding:9px 14px;border-radius:9px;cursor:pointer;transition:.18s;
+  }
+  .btn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2)}
+  .btn.primary{background:rgba(77,163,255,.16);border-color:rgba(77,163,255,.45);color:#cfe6ff}
+  .btn.primary:hover{background:rgba(77,163,255,.28)}
+  .btn.small{padding:6px 10px;font-size:12px;border-radius:7px}
+  .btn[disabled]{opacity:.45;cursor:not-allowed}
+
+  /* ---------- layout ---------- */
+  main{
+    height:calc(100vh - 70px);padding:16px 22px 18px;
+    display:grid;grid-template-columns:minmax(0,1.7fr) minmax(380px,1fr);gap:18px;
+  }
+  .stage{
+    min-width:0;display:flex;flex-direction:column;
+    background:linear-gradient(180deg,rgba(14,23,40,.75),rgba(9,15,26,.75));
+    border:1px solid var(--line);border-radius:18px;padding:12px 14px 10px;
+    box-shadow:0 24px 60px rgba(0,0,0,.35);
+  }
+  .stage-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap}
+  .tab{
+    appearance:none;border:1px solid transparent;background:transparent;color:var(--muted);
+    font:12.5px/1 inherit;padding:8px 12px;border-radius:8px;cursor:pointer;transition:.18s;white-space:nowrap;
+  }
+  .tab:hover{color:#cfe0f5;background:rgba(255,255,255,.05)}
+  .tab.active{color:#fff;background:rgba(77,163,255,.14);border-color:rgba(77,163,255,.35);box-shadow:0 0 0 1px rgba(77,163,255,.08) inset}
+  .legend{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted);white-space:nowrap}
+  .legend i{width:14px;height:2px;border-radius:2px;display:inline-block;margin-left:8px}
+  .legend i.topic{background:var(--topic)}
+  .legend i.service{background:var(--service)}
+  .legend i.action{background:var(--action)}
+
+  .graph-wrap{position:relative;flex:1;min-height:0}
+  #graph{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+
+  /* ---------- SVG graph ---------- */
+  .edge{fill:none;stroke-width:1.7;opacity:.22;transition:opacity .35s,stroke-width .35s}
+  .edge.active{opacity:.9;stroke-width:2.1}
+  .edge.dim{opacity:.07}
+  .edge.topic{stroke:var(--topic)}
+  .edge.service{stroke:var(--service)}
+  .edge.action{stroke:var(--action)}
+  .edge-label text{font:11.5px var(--mono);fill:#a9b8cf;paint-order:stroke;stroke:#070b14;stroke-width:4px;stroke-linejoin:round}
+  .edge-label.topic text{fill:#e2b467}
+  .edge-label.service text{fill:#8dc2f7}
+  .edge-label.action text{fill:#8fe3bd}
+  .edge-label{transition:opacity .35s}
+  .edge-label.dim{opacity:.2}
+
+  .node{opacity:0;transition:opacity .55s ease}
+  .node.in{opacity:1}
+  .node.dim{opacity:.45}
+  .node-box{fill:#0f192b;stroke:rgba(255,255,255,.16);stroke-width:1.2}
+  .node.dim .node-box{stroke:rgba(255,255,255,.08)}
+  .node-led{opacity:.55;transition:.25s}
+  .node.live .node-led{opacity:1}
+  .node.live .node-box{stroke:rgba(255,255,255,.4);filter:drop-shadow(0 0 14px rgba(120,180,255,.28))}
+  .node-title{font:600 16px var(--mono);fill:#e9f1ff;letter-spacing:.2px}
+  .node-sub{font:12px "Segoe UI","Microsoft YaHei",sans-serif;fill:#7f8da4}
+  .node-val{font:12.5px var(--mono);fill:#9fb6d6}
+
+  .packet{pointer-events:none}
+  .packet .pkt-dot{stroke:#070b14;stroke-width:1.4}
+  .packet.topic .pkt-dot{fill:var(--topic);filter:drop-shadow(0 0 7px rgba(255,176,32,.9))}
+  .packet.service .pkt-dot{fill:var(--service);filter:drop-shadow(0 0 7px rgba(77,163,255,.9))}
+  .packet.action .pkt-dot{fill:var(--action);filter:drop-shadow(0 0 7px rgba(61,220,151,.9))}
+  .packet text{font:11px var(--mono);fill:#dce8f8;paint-order:stroke;stroke:#070b14;stroke-width:3.5px;stroke-linejoin:round}
+
+  .readouts{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0 6px;min-height:26px}
+  .chip{
+    display:inline-flex;align-items:center;gap:7px;padding:4px 10px;border-radius:20px;
+    border:1px solid var(--line);background:rgba(255,255,255,.035);font-size:11.5px;color:var(--muted);
+    transition:.25s;
+  }
+  .chip i{font-style:normal;font-family:var(--mono);font-size:9.5px;letter-spacing:.8px;color:var(--dim)}
+  .chip b{font-family:var(--mono);font-size:11.5px;color:#dfeaff;font-weight:500}
+  .chip.off{display:none}
+  .chip.hit{border-color:rgba(61,220,151,.5);background:rgba(61,220,151,.1)}
+
+  .progress{height:3px;border-radius:3px;background:rgba(255,255,255,.07);overflow:hidden;margin-top:2px}
+  .progress i{display:block;height:100%;width:0;border-radius:3px;background:linear-gradient(90deg,#4da3ff,#3ddc97)}
+  .stage-foot{display:flex;justify-content:space-between;font-size:11px;color:var(--dim);margin-top:7px}
+  .stage-foot a{color:#7fb2ff;text-decoration:none}
+  .stage-foot a:hover{text-decoration:underline}
+
+  /* ---------- panel ---------- */
+  .panel{min-width:0;overflow-y:auto;overflow-x:hidden;padding:2px 8px 8px 2px;scrollbar-width:thin;scrollbar-color:#24344c transparent}
+  .panel::-webkit-scrollbar{width:8px}
+  .panel::-webkit-scrollbar-thumb{background:#1d2b40;border-radius:8px}
+  .panel h2{margin:2px 0 6px;font-size:18px;line-height:1.35;letter-spacing:.2px}
+  .narration{min-height:76px;margin:0 0 10px;color:#c3d0e2;font-size:13.5px;line-height:1.7}
+  .narration code{font-size:.88em}
+  .code{
+    margin:0 0 12px;padding:9px 11px;border-radius:9px;border:1px solid rgba(120,170,255,.16);
+    background:rgba(9,16,28,.85);color:#9fc2ee;font:11.5px/1.55 var(--mono);
+    white-space:pre-wrap;word-break:break-word;
+  }
+  .instrument{display:flex;flex-direction:column;gap:10px}
+
+  /* topic cards */
+  .pc{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:rgba(15,25,43,.75)}
+  .pc-head{display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap}
+  .pc-head code{font-size:10.5px;background:transparent;border:0;padding:0;color:#9fb6d6}
+  .tag{font:9.5px/1 var(--mono);letter-spacing:1px;padding:4px 6px;border-radius:4px;text-transform:uppercase}
+  .tag.topic{background:rgba(255,176,32,.14);color:#ffc861;border:1px solid rgba(255,176,32,.3)}
+  .tag.service{background:rgba(77,163,255,.14);color:#8dc2f7;border:1px solid rgba(77,163,255,.3)}
+  .tag.action{background:rgba(61,220,151,.14);color:#8fe3bd;border:1px solid rgba(61,220,151,.3)}
+  .pc-type{font:10.5px var(--mono);color:var(--dim);margin-bottom:6px}
+  .pc-big{display:flex;align-items:baseline;gap:10px;padding:2px 0 6px}
+  .pc-big span{font:10.5px var(--mono);color:var(--dim)}
+  .pc-big b{font:600 26px var(--mono);color:var(--topic);text-shadow:0 0 18px rgba(255,176,32,.35)}
+  .pc-note{font-size:11px;color:var(--muted);border-top:1px dashed rgba(255,255,255,.08);padding-top:6px}
+  .cache{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:rgba(20,16,40,.55)}
+  .cache-h{font:11px var(--mono);color:#bda6ee;margin-bottom:6px}
+  .kv{display:flex;justify-content:space-between;gap:12px;font-size:11.5px;padding:3px 0;border-bottom:1px dashed rgba(255,255,255,.05)}
+  .kv:last-child{border-bottom:0}
+  .kv span{color:var(--muted)}
+  .kv b{font-family:var(--mono);font-size:11.5px;color:#dfeaff;font-weight:500}
+
+  /* service */
+  .clock{font:12px var(--mono);color:var(--muted);display:flex;gap:8px;align-items:baseline;padding:2px 2px 0}
+  .clock b{font-size:19px;color:var(--service)}
+  .tl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px}
+  .tl li{
+    display:flex;gap:10px;align-items:flex-start;font-size:11.5px;color:#8ea0ba;
+    padding:5px 8px;border-left:2px solid rgba(255,255,255,.1);
+    opacity:.4;background:rgba(255,255,255,.02);border-radius:0 7px 7px 0;
+  }
+  .tl li.on{opacity:1;border-left-color:var(--service);color:#d5e3f6;background:rgba(77,163,255,.07)}
+  .tl .ts{font:10.5px var(--mono);color:var(--service);white-space:nowrap;padding-top:1px}
+  .srv{border:1px solid rgba(77,163,255,.24);border-radius:12px;padding:9px 12px;background:rgba(77,163,255,.055)}
+  .srv-h{font:11px var(--mono);color:#8dc2f7;margin-bottom:4px}
+  .srv .kv b.true{color:#6dffb0}
+  .srv .kv b.false{color:#ff8fa6}
+  .srv .kv b.muted{color:#63718a}
+
+  /* action */
+  .map-wrap{position:relative;border:1px solid var(--line);border-radius:12px;background:radial-gradient(400px 240px at 30% 20%,#0e1b30,#070d17);overflow:hidden;max-width:540px;width:100%}
+  .map-wrap canvas{display:block;width:100%;aspect-ratio:4/3}
+  .map-tag{position:absolute;left:10px;top:8px;font:9.5px var(--mono);letter-spacing:1px;color:#5f7391;background:rgba(7,11,20,.6);padding:2px 6px;border-radius:4px}
+  .evlog{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:3px;max-height:150px;overflow:auto}
+  .evlog li{font:10.5px/1.5 var(--mono);padding:3px 7px;border-radius:5px;background:rgba(255,255,255,.025);color:#93a6c0;display:flex;gap:7px}
+  .evlog li .et{color:#4f6079;flex:none}
+  .evlog li.res{color:#8fe3bd;background:rgba(61,220,151,.09)}
+  .evlog li.task{color:#c9b3ff;background:rgba(160,130,255,.08)}
+  .evlog li.cmd{color:#8dc2f7;background:rgba(77,163,255,.08)}
+  .evlog li.warn{color:#ffb0c0;background:rgba(255,92,122,.1)}
+  .map-actions{display:flex;align-items:center;gap:10px}
+  .map-actions .hint{font-size:11px;color:var(--dim)}
+
+  /* checks */
+  .checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+  .checks li{border:1px solid var(--line);border-radius:11px;padding:9px 11px;background:rgba(15,25,43,.6);opacity:.35}
+  .checks li.on{opacity:1;border-color:rgba(120,170,240,.28)}
+  .checks .h{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:#dfeaff;margin-bottom:3px}
+  .checks .h i{font-style:normal;font-family:var(--mono);font-size:9.5px;width:16px;height:16px;display:grid;place-items:center;border-radius:4px;background:rgba(77,163,255,.18);color:#9cc8ff}
+  .checks p{margin:0;font-size:11.5px;color:#a8b8ce;line-height:1.6}
+  .verdict{margin:10px 0 0;font-size:12px;text-align:center;color:#8fe3bd;border:1px dashed rgba(61,220,151,.3);border-radius:9px;padding:8px;opacity:0}
+  .verdict.on{opacity:1}
+
+  @media (max-width:1120px){
+    body{overflow:auto}
+    header.top{height:auto;padding:12px 16px;flex-wrap:wrap;gap:10px}
+    main{height:auto;grid-template-columns:1fr;padding:12px;gap:12px}
+    .stage{min-height:auto}
+    .graph-wrap{height:min(62vh,620px);min-height:400px;flex:none}
+    .panel{overflow:visible;padding-right:0}
+    .narration{min-height:0}
+    .map-wrap{max-width:560px}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <div class="ring"></div>
+    <div>
+      <h1>ROS 2 通信动画 · 01 节点与接口</h1>
+      <p>Lesson 1 · 四节点示例（Humble） · 命名空间 /lesson1</p>
+    </div>
+  </div>
+  <div class="controls">
+    <button class="btn" id="btnRestart" title="重播本章 (R)">重播</button>
+    <button class="btn" id="btnSpeed" title="播放速度">1×</button>
+    <button class="btn primary" id="btnPlay" title="播放 / 暂停 (空格)">暂停</button>
+  </div>
+</header>
+
+<main>
+  <section class="stage">
+    <div class="stage-head">
+      <nav class="tabs" id="tabs"></nav>
+      <div class="legend"><i class="topic"></i>Topic<i class="service"></i>Service<i class="action"></i>Action</div>
+    </div>
+    <div class="graph-wrap"><svg id="graph" viewBox="0 0 1000 760" preserveAspectRatio="xMidYMid meet" role="img" aria-label="ROS 2 四节点通信图"></svg></div>
+    <div class="readouts" id="readouts">
+      <span class="chip" id="ro-battery"><i>BATTERY</i><b>—</b></span>
+      <span class="chip" id="ro-pose"><i>POSE</i><b>—</b></span>
+      <span class="chip" id="ro-task"><i>TASK</i><b>idle</b></span>
+      <span class="chip" id="ro-dist"><i>DIST</i><b>—</b></span>
+    </div>
+    <div class="progress"><i id="bar"></i></div>
+    <div class="stage-foot">
+      <span>空格 播放/暂停 · ← → 切换章节 · R 重播 · <a href="README.md">返回本章教程</a></span>
+      <span id="chCount">1 / 4</span>
+    </div>
+  </section>
+
+  <aside class="panel">
+    <h2 id="chTitle">—</h2>
+    <p class="narration" id="chText" aria-live="polite"></p>
+    <pre class="code" id="chCode"></pre>
+    <div class="instrument" id="inst"></div>
+  </aside>
+</main>
+
+<script>
+(() => {
+  'use strict';
+
+  /* ================= 基础工具 ================= */
+  const NS = 'http://www.w3.org/2000/svg';
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const svgEl = (tag, attrs, parent) => {
+    const el = document.createElementNS(NS, tag);
+    for (const k in attrs) el.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(el);
+    return el;
+  };
+
+  /* ================= 图数据 ================= */
+  const NODES = [
+    { id: 'battery', x: 60,  y: 50,  w: 200, h: 92,  title: 'battery_node',       sub: '0.2 s 定时器 · 发布电量', accent: '#ffb020' },
+    { id: 'pose',    x: 60,  y: 620, w: 200, h: 92,  title: 'pose_node',          sub: '二维点积分 · 发布位置',  accent: '#7ad7ff' },
+    { id: 'task',    x: 420, y: 300, w: 250, h: 150, title: 'task_manager_node',  sub: '缓存 · 服务端 · 动作服务端', accent: '#c9a6ff' },
+    { id: 'command', x: 790, y: 290, w: 175, h: 130, title: 'command',            sub: '客户端',                 accent: '#ff8fb1' }
+  ];
+
+  const EDGES = [
+    { id: 'battery', kind: 'topic',   label: 'battery_level',     lx: 334, ly: 186, d: 'M260 96 C 330 96, 352 286, 420 316' },
+    { id: 'pose',    kind: 'topic',   label: 'robot_pose',        lx: 326, ly: 520, d: 'M260 646 C 300 560, 360 430, 420 402' },
+    { id: 'cmd',     kind: 'topic',   label: 'cmd_vel',           lx: 352, ly: 620, d: 'M420 440 C 380 520, 330 700, 262 700' },
+    { id: 'srvReq',  kind: 'service', label: 'get_robot_status',  lx: 730, ly: 298, d: 'M790 312 C 748 310, 724 326, 670 328' },
+    { id: 'srvRes',  kind: 'service', label: '',                  lx: 730, ly: 372, d: 'M670 358 C 724 360, 748 334, 790 334' },
+    { id: 'goal',    kind: 'action',  label: 'navigation',        lx: 730, ly: 438, d: 'M790 386 C 748 386, 724 392, 670 394' },
+    { id: 'fb',      kind: 'action',  label: '',                  lx: 730, ly: 444, d: 'M670 416 C 724 416, 748 402, 790 402' }
+  ];
+
+  const FOCUS = {
+    1: { nodes: ['battery', 'pose', 'task'], edges: ['battery', 'pose'] },
+    2: { nodes: ['task', 'command'],         edges: ['srvReq', 'srvRes'] },
+    3: { nodes: ['task', 'command', 'pose'], edges: ['goal', 'fb', 'cmd', 'pose'] },
+    4: { nodes: [],                          edges: [] }
+  };
+
+  /* ================= 建图 ================= */
+  const svg = $('#graph');
+  const nodeEls = {}, nodeVals = {}, edgeEls = {}, edgePaths = {};
+  let packetLayer;
+
+  function buildGraph() {
+    const defs = svgEl('defs', {}, svg);
+    const mk = (id, color) => {
+      const m = svgEl('marker', { id, viewBox: '0 0 10 10', refX: 8, refY: 5, markerWidth: 6, markerHeight: 6, orient: 'auto-start-reverse' }, defs);
+      svgEl('path', { d: 'M 0 0 L 10 5 L 0 10 z', fill: color }, m);
+    };
+    mk('arr-topic', '#ffb020'); mk('arr-service', '#4da3ff'); mk('arr-action', '#3ddc97');
+
+    const gEdges = svgEl('g', { class: 'edges' }, svg);
+    EDGES.forEach(e => {
+      const p = svgEl('path', { class: 'edge ' + e.kind, d: e.d, 'marker-end': 'url(#arr-' + e.kind + ')' }, gEdges);
+      p._kind = e.kind;
+      edgeEls[e.id] = p; edgePaths[e.id] = p;
+    });
+
+    const labelLayer = svgEl('g', { class: 'labels' }, svg);
+    EDGES.forEach(e => {
+      if (!e.label) return;
+      const g = svgEl('g', { class: 'edge-label ' + e.kind, transform: 'translate(' + e.lx + ',' + e.ly + ')' }, labelLayer);
+      const txt = svgEl('text', { 'text-anchor': 'middle', y: 0 }, g);
+      txt.textContent = e.label;
+      if (edgeEls[e.id]) edgeEls[e.id]._label = g;
+    });
+
+    const gNodes = svgEl('g', { class: 'nodes' }, svg);
+    NODES.forEach(n => {
+      const g = svgEl('g', { class: 'node', id: 'n-' + n.id, transform: 'translate(' + n.x + ',' + n.y + ')' }, gNodes);
+      svgEl('rect', { class: 'node-box', width: n.w, height: n.h, rx: 16 }, g);
+      svgEl('rect', { width: 4, height: n.h - 30, x: 2, y: 15, rx: 2, fill: n.accent, opacity: .8 }, g);
+      svgEl('circle', { class: 'node-led', cx: n.w - 18, cy: 20, r: 4, fill: n.accent }, g);
+      const t1 = svgEl('text', { class: 'node-title', x: 20, y: 34 }, g); t1.textContent = n.title;
+      const t2 = svgEl('text', { class: 'node-sub', x: 20, y: 56 }, g); t2.textContent = n.sub;
+      const v1 = svgEl('text', { class: 'node-val', x: 20, y: 84 }, g); v1.textContent = '—';
+      nodeEls[n.id] = g;
+      nodeVals[n.id] = [v1];
+      if (n.id === 'task') {
+        const v2 = svgEl('text', { class: 'node-val', x: 20, y: 106 }, g); v2.textContent = '';
+        const v3 = svgEl('text', { class: 'node-val', x: 20, y: 128 }, g); v3.textContent = '';
+        nodeVals[n.id].push(v2, v3);
+      }
+    });
+
+    const gs = svgEl('g', {}, svg);
+    svgEl('text', { x: 60, y: 30, fill: '#5f6f88', 'font-size': 10, 'font-family': 'monospace', 'letter-spacing': 2 }, gs).textContent = 'ROS GRAPH /lesson1';
+
+    packetLayer = svgEl('g', {}, svg);
+  }
+
+  /* ================= 动画原语 ================= */
+  const packets = [];
+  function clearPackets() {
+    packets.forEach(p => p.g.remove());
+    packets.length = 0;
+  }
+  function spawn(edgeId, label, kind, dur, onArrive) {
+    const path = edgePaths[edgeId];
+    if (!path) return;
+    const len = path.getTotalLength();
+    const g = svgEl('g', { class: 'packet ' + kind }, packetLayer);
+    svgEl('circle', { class: 'pkt-dot', r: 6.2 }, g);
+    const t = svgEl('text', { 'text-anchor': 'middle', y: -13 }, g);
+    t.textContent = label;
+    packets.push({ g, path, len, t: 0, dur: Math.max(.25, dur), onArrive });
+  }
+  function updatePackets(dt) {
+    for (let i = packets.length - 1; i >= 0; i--) {
+      const p = packets[i];
+      p.t += dt;
+      const k = Math.min(1, p.t / p.dur);
+      const pt = p.path.getPointAtLength(k * p.len);
+      p.g.setAttribute('transform', 'translate(' + pt.x.toFixed(1) + ',' + pt.y.toFixed(1) + ')');
+      p.g.setAttribute('opacity', k < .07 ? (k / .07).toFixed(2) : k > .93 ? ((1 - k) / .07).toFixed(2) : 1);
+      if (k >= 1) {
+        p.g.remove(); packets.splice(i, 1);
+        if (p.onArrive) p.onArrive();
+      }
+    }
+  }
+
+  function pulse(id) {
+    const g = nodeEls[id];
+    if (!g) return;
+    g.classList.add('live');
+    clearTimeout(g._pulse);
+    g._pulse = setTimeout(() => g.classList.remove('live'), 480);
+  }
+  function setNodeVal(id, text, line = 0) {
+    const arr = nodeVals[id];
+    if (arr && arr[line]) arr[line].textContent = text;
+  }
+  function applyFocus(ch) {
+    const f = FOCUS[ch] || FOCUS[4];
+    Object.entries(edgeEls).forEach(([id, e]) => {
+      const active = f.edges.includes(id);
+      e.classList.toggle('active', active);
+      e.classList.toggle('dim', !active);
+      // 箭头不随 CSS opacity 一起变淡，变暗时直接去掉，避免“亮箭头+淡线”
+      if (active) e.setAttribute('marker-end', 'url(#arr-' + e._kind + ')');
+      else e.removeAttribute('marker-end');
+      if (e._label) e._label.classList.toggle('dim', !active);
+    });
+    Object.entries(nodeEls).forEach(([id, e]) => {
+      e.classList.toggle('dim', !f.nodes.includes(id));
+    });
+  }
+  function resetScene() {
+    clearPackets();
+    Object.values(nodeEls).forEach(g => {
+      g.classList.remove('in', 'live', 'dim');
+      clearTimeout(g._pulse);
+    });
+    Object.values(edgeEls).forEach(e => {
+      e.classList.remove('active', 'dim');
+      if (e._label) e._label.classList.remove('dim');
+    });
+    nodeVals.task.forEach(v => v.textContent = '');
+    nodeVals.battery[0].textContent = '—';
+    nodeVals.pose[0].textContent = '—';
+  }
+
+  /* ================= 读数量 ================= */
+  function setChip(id, val, hit) {
+    const el = $('#ro-' + id);
+    if (!el) return;
+    el.querySelector('b').textContent = val;
+    if (hit !== undefined) el.classList.toggle('hit', !!hit);
+  }
+  function showReadouts(list) {
+    ['battery', 'pose', 'task', 'dist'].forEach(k => {
+      const el = $('#ro-' + k);
+      if (el) el.classList.toggle('off', !list.includes(k));
+    });
+  }
+
+  /* ================= 面板模板 ================= */
+  const tplTopic = () => [
+    '<div class="pc">',
+    '  <div class="pc-head"><span class="tag topic">Topic</span><code>/lesson1/battery_level</code></div>',
+    '  <div class="pc-type">std_msgs/msg/Int32</div>',
+    '  <div class="pc-big"><span>data</span><b id="i-batt">—</b></div>',
+    '  <div class="pc-note">QoS Keep Last <b>10</b> —— 队列深度，不是 10 Hz</div>',
+    '</div>',
+    '<div class="pc">',
+    '  <div class="pc-head"><span class="tag topic">Topic</span><code>/lesson1/robot_pose</code></div>',
+    '  <div class="pc-type">geometry_msgs/msg/PointStamped</div>',
+    '  <div class="pc-big"><span>map</span><b id="i-pose">—</b></div>',
+    '  <div class="pc-note">frame_id 与 stamp 随坐标一起发送</div>',
+    '</div>',
+    '<div class="cache">',
+    '  <div class="cache-h">task_manager_node 缓存</div>',
+    '  <div class="kv"><span>battery_</span><b id="i-cb">—</b></div>',
+    '  <div class="kv"><span>pose_</span><b id="i-cp">—</b></div>',
+    '  <div class="kv"><span>距上次收到</span><b id="i-age">—</b></div>',
+    '</div>'
+  ].join('');
+
+  const tplService = () => [
+    '<div class="clock"><span>模拟时钟 t =</span><b id="i-clock">1.000</b><span>s</span></div>',
+    '<ol class="tl">',
+    '  <li id="tl1"><span class="ts">1.0 s</span><span>收到电量 99 → 写入缓存</span></li>',
+    '  <li id="tl2"><span class="ts">1.15 s</span><span>command 调用 <code>get_robot_status</code></span></li>',
+    '  <li id="tl3"><span class="ts">1.15 s+</span><span>服务端读缓存，<b>不重新测量</b></span></li>',
+    '  <li id="tl4"><span class="ts">1.15 s+</span><span>返回 valid / battery_level / age</span></li>',
+    '</ol>',
+    '<div class="srv">',
+    '  <div class="srv-h">GetRobotStatus.Response</div>',
+    '  <div class="kv"><span>valid</span><b id="s-valid" class="muted">—</b></div>',
+    '  <div class="kv"><span>battery_level</span><b id="s-batt" class="muted">—</b></div>',
+    '  <div class="kv"><span>battery_age_s</span><b id="s-age" class="muted">—</b></div>',
+    '  <div class="kv"><span>pose_age_s</span><b id="s-page" class="muted">—</b></div>',
+    '  <div class="kv"><span>has_task</span><b id="s-task" class="muted">—</b></div>',
+    '  <div class="kv"><span>message</span><b id="s-msg" class="muted">—</b></div>',
+    '</div>'
+  ].join('');
+
+  const tplAction = () => [
+    '<div class="map-wrap"><canvas id="map"></canvas></div>',
+    '<ul class="evlog" id="evlog"></ul>',
+    '<div class="map-actions"><button class="btn small" id="btnCancel">发送取消请求</button><span class="hint" id="mapHint">等待目标…</span></div>'
+  ].join('');
+
+  const tplChecks = () => [
+    '<ol class="checks">',
+    '  <li id="ck1"><div class="h"><i>1</i>类型层</div><p><code>std_msgs/Int32</code> 只约束整数：150 通过了类型检查，但超出 0..100，被<b>业务代码</b>丢弃。</p></li>',
+    '  <li id="ck2"><div class="h"><i>2</i>通信层</div><p>消息确实到了：但 <code>frame_id="odom"</code> ≠ <code>map</code>，回调直接 <code>return</code>。</p></li>',
+    '  <li id="ck3"><div class="h"><i>3</i>时间层</div><p>时间戳年龄 0.9 s &gt; <code>state_timeout_s = 0.8</code>，视为过期状态。</p></li>',
+    '</ol>',
+    '<p class="verdict" id="verdict">类型正确 · 通信成功 · 业务正确 —— 三个独立判断</p>'
+  ].join('');
+
+  /* ================= 状态机 ================= */
+  const state = { chapter: 0, t: 0, playing: true, speed: 1 };
+  const fired = new Set();
+  let lastNarr = '';
+
+  function once(key, at) {
+    if (state.t >= at && !fired.has(key)) { fired.add(key); return true; }
+    return false;
+  }
+  function narrate(ch) {
+    let cur = ch.narration[0];
+    for (const n of ch.narration) if (state.t >= n.t) cur = n;
+    if (cur.html !== lastNarr) { lastNarr = cur.html; $('#chText').innerHTML = cur.html; }
+  }
+  function revealNode(id) { nodeEls[id].classList.add('in'); pulse(id); }
+  function on(el) { if (el) el.classList.add('on'); }
+
+  /* ================= 第 1 章：节点与 Topic ================= */
+  const CH1 = {
+    tab: '1 · 节点与 Topic',
+    title: '一条电量消息经过了什么',
+    code: 'publisher_ = create_publisher<std_msgs::msg::Int32>("battery_level", 10);',
+    dur: 16,
+    narration: [
+      { t: 0,   html: '四个节点各司其职，彼此只通过 <b>Topic / Service / Action</b> 说话。先看电量与位置这两条 Topic。' },
+      { t: 2.2, html: '<code>battery_node</code> 用 0.2 s 的定时器，<b>先发布、再递减</b>。这里把节奏放慢约 3 倍便于观看。' },
+      { t: 5.4, html: '<code>create_publisher(..., 10)</code> 里的 <b>10 是 Keep Last 队列深度，不是 10 Hz</b>；频率由定时器决定。' },
+      { t: 8.6, html: '<code>task_manager_node</code> 把收到的 <code>msg-&gt;data</code> 存进 <code>battery_</code>，并记下接收时刻。晚启动的订阅者不一定收到第一条。' },
+      { t: 11.2, html: '位置节点用同样的方式发布 <code>PointStamped</code>：<code>frame_id=map</code>、时间戳与 x/y/z 一起送。' },
+      { t: 13.6, html: '发布者不需要知道有几个订阅者；同一话题也可以有多个发布者，所以<b>数据来源</b>也要约定。' }
+    ],
+    enter() {
+      $('#inst').innerHTML = tplTopic();
+      this.r = { batt: $('#i-batt'), pose: $('#i-pose'), cb: $('#i-cb'), cp: $('#i-cp'), age: $('#i-age') };
+      resetScene();
+      applyFocus(1);
+      showReadouts(['battery', 'pose', 'task']);
+      setChip('battery', '—', false); setChip('pose', '—', false); setChip('task', 'idle', false);
+      this.arrivedAt = null;
+    },
+    update(t, dt) {
+      narrate(this);
+      if (once('n1', 0.15)) revealNode('battery');
+      if (once('n2', 0.55)) revealNode('task');
+      if (once('n3', 0.95)) revealNode('pose');
+      if (once('n4', 1.35)) revealNode('command');
+
+      if (once('p1', 2.2)) this.pub(100);
+      if (once('p2', 4.2)) this.pub(99);
+      if (once('p3', 6.2)) this.pub(98);
+      if (once('p4', 8.2)) this.pub(97);
+      if (once('q1', 10.2)) this.pubPose();
+      if (once('q2', 11.4)) this.pubPose();
+      if (once('q3', 12.6)) this.pubPose();
+
+      if (this.arrivedAt != null && this.r.age) {
+        this.r.age.textContent = (t - this.arrivedAt).toFixed(1) + ' s';
+      }
+    },
+    pub(v) {
+      pulse('battery');
+      setNodeVal('battery', 'data = ' + v);
+      setChip('battery', String(v), false);
+      spawn('battery', 'Int32 ' + v, 'topic', 1.15, () => {
+        this.arrivedAt = state.t;
+        pulse('task');
+        this.r.batt.textContent = String(v);
+        this.r.cb.textContent = String(v);
+        setNodeVal('task', 'battery_ = ' + v, 0);
+        setChip('battery', v + ' ✓', true);
+        setChip('task', '缓存 ' + v, false);
+      });
+    },
+    pubPose() {
+      pulse('pose');
+      setNodeVal('pose', 'map (0.00, 0.00)');
+      setChip('pose', 'map (0.00, 0.00)', false);
+      spawn('pose', 'PointStamped', 'topic', 1.1, () => {
+        pulse('task');
+        this.r.pose.textContent = '(0.00, 0.00)';
+        this.r.cp.textContent = 'map (0.00, 0.00)';
+        setNodeVal('task', 'pose_ = map (0, 0)', 1);
+      });
+    }
+  };
+
+  /* ================= 第 2 章：Service 缓存 ================= */
+  const CH2 = {
+    tab: '2 · Service 查询',
+    title: '查询到的是缓存，不是重新测量',
+    code: 'client_->async_send_request(request, [](auto future) { /* 稍后处理响应 */ });',
+    dur: 12.5,
+    narration: [
+      { t: 0,    html: '服务查询用的是缓存。假设 1.0 s 收到电量 99，此后一直没有新消息，1.15 s 时发起查询。' },
+      { t: 1.8,  html: '<code>async_send_request()</code> 立刻返回一个 <b>Future</b>（将来结果的占位对象），调用方不阻塞。' },
+      { t: 3.6,  html: '服务端回调里读的是缓存变量 <code>battery_</code>：不触发新测量，也不等待新消息。' },
+      { t: 5.2,  html: '响应带 <code>valid</code> 与 <code>age</code>。数据新不新鲜要看这两个字段，不能默认它是刚测的。' },
+      { t: 7.4,  html: '状态超过 <code>state_timeout_s = 0.8 s</code> 后，<code>valid</code> 变成 <code>false</code>：数据没变，是它变旧了。' },
+      { t: 9.4,  html: '<code>Future</code> 不保存结果本身；回调要等执行器调度。不要在回调里忙等响应——执行器因此没机会处理它。' },
+      { t: 11.2, html: '<code>valid</code> 只说明状态新鲜；电量够不够、任务忙不忙，是另外两层的判断。' }
+    ],
+    enter() {
+      $('#inst').innerHTML = tplService();
+      this.r = {
+        clock: $('#i-clock'), tl1: $('#tl1'), tl2: $('#tl2'), tl3: $('#tl3'), tl4: $('#tl4'),
+        valid: $('#s-valid'), batt: $('#s-batt'), age: $('#s-age'), page: $('#s-page'),
+        task: $('#s-task'), msg: $('#s-msg')
+      };
+      this.revealed = false;
+      resetScene();
+      NODES.forEach(n => nodeEls[n.id].classList.add('in'));
+      applyFocus(2);
+      showReadouts(['battery', 'task']);
+      setChip('battery', '99（缓存）', false);
+      setChip('task', 'idle', false);
+      setNodeVal('battery', 'data = 99');
+      setNodeVal('task', 'battery_ = 99', 0);
+      setNodeVal('task', 'pose_ = map (0,0)', 1);
+    },
+    update(t, dt) {
+      narrate(this);
+      const clock = 1 + Math.max(0, t - 1.4) * 0.15;
+      if (this.r.clock) this.r.clock.textContent = clock.toFixed(3);
+
+      if (once('tl1', 0.5)) on(this.r.tl1);
+      if (once('tl2', 2.2)) {
+        on(this.r.tl2);
+        pulse('command');
+        spawn('srvReq', 'req', 'service', 0.9, () => {
+          pulse('task');
+          on(this.r.tl3);
+          this.fill(clock, 0.12);
+        });
+      }
+      if (once('back', 3.4)) {
+        spawn('srvRes', 'res', 'service', 0.9, () => {
+          pulse('command');
+          on(this.r.tl4);
+          setChip('task', 'valid=true', true);
+        });
+      }
+      if (once('age0', 5.0)) this.fill(clock, Math.max(0.12, clock - 1));
+      if (this.revealed) {
+        const age = Math.max(0.12, clock - 1);
+        const fresh = age <= 0.8;
+        this.r.age.textContent = age.toFixed(2) + ' s';
+        this.r.page.textContent = age.toFixed(2) + ' s';
+        this.r.valid.textContent = fresh ? 'true' : 'false';
+        this.r.valid.className = fresh ? 'true' : 'false';
+        setChip('battery', 'age ' + age.toFixed(2) + ' s', fresh);
+        setChip('task', fresh ? 'valid=true' : 'state stale', fresh);
+      }
+    },
+    fill(clock, age) {
+      this.revealed = true;
+      this.r.valid.textContent = 'true';
+      this.r.valid.className = 'true';
+      this.r.batt.textContent = '99';
+      this.r.age.textContent = age.toFixed(2) + ' s';
+      this.r.page.textContent = age.toFixed(2) + ' s';
+      this.r.task.textContent = 'false';
+      this.r.msg.textContent = 'state available';
+      this.r.msg.className = '';
+    }
+  };
+
+  /* ================= 第 3 章：Action 闭环 ================= */
+  const CH3 = {
+    tab: '3 · Action 闭环',
+    title: '反馈只是进度，成功由服务端判定',
+    code: 'factor = std::min(2.0, max_speed / remaining);   // 比例控制 + 限速',
+    dur: 13.5,
+    narration: [
+      { t: 0,    html: '客户端与服务端都用相对名 <code>navigation</code>，完整名 <code>/lesson1/navigation</code>。目标：map 平面 (1.0, 0.5) m。' },
+      { t: 1.5,  html: '目标被接受，只代表服务端愿意处理，<b>机器人可能还没动</b>。' },
+      { t: 3.0,  html: '反馈每条只是进度：还剩 0.6 m 也不代表成功，它只是「当前测量距离」。' },
+      { t: 4.6,  html: '距离 ≤ <code>arrival_tolerance = 0.03 m</code> 时，服务端发布零速度并返回 <code>SUCCEEDED</code>。' },
+      { t: 6.6,  html: '取消也不是单方面停止：请求要被服务端接受，它停下执行并报告 <code>CANCELED</code>。' },
+      { t: 8.6,  html: '默认初始距离 √(1² + 0.5²) ≈ 1.118 m；成功不要求坐标严格相等。' },
+      { t: 10.6, html: '<code>Point</code> 没有姿态：名字叫 <code>robot_pose</code> 也不会凭空多出朝向。' }
+    ],
+    enter() {
+      $('#inst').innerHTML = tplAction();
+      this.r = { log: $('#evlog'), hint: $('#mapHint'), cancel: $('#btnCancel') };
+      this.cv = $('#map'); this.ctx = null; this.w = 0; this.h = 0;
+      this.m = { x: 0, y: 0, vx: 0, vy: 0, phase: 'wait', dist: Math.hypot(1, 0.5), trail: [], cmdAcc: 0, fbAcc: 0, poseAcc: 0, lastLog: 0 };
+      this.r.cancel.addEventListener('click', () => this.cancel());
+      resetScene();
+      NODES.forEach(n => nodeEls[n.id].classList.add('in'));
+      applyFocus(3);
+      showReadouts(['pose', 'task', 'dist']);
+      setChip('pose', 'map (0.00, 0.00)', false); setChip('task', 'idle', false); setChip('dist', '1.118 m', false);
+      setNodeVal('pose', 'map (0.00, 0.00)');
+      this.r.hint.textContent = '等待目标…';
+      requestAnimationFrame(() => this.fit());
+    },
+    fit() {
+      const cv = this.cv;
+      if (!cv) return;
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      const rect = cv.getBoundingClientRect();
+      if (rect.width < 20) return;
+      cv.width = Math.round(rect.width * dpr);
+      cv.height = Math.round(rect.height * dpr);
+      this.ctx = cv.getContext('2d');
+      this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      this.w = rect.width; this.h = rect.height;
+    },
+    update(t, dt) {
+      narrate(this);
+      if (once('goal', 0.6)) {
+        pulse('command');
+        this.log('cmd', '→ Goal {target_x: 1.0, target_y: 0.5}');
+        spawn('goal', 'Goal', 'action', 0.85, () => this.accept());
+      }
+      if (this.m.phase === 'moving') this.step(dt);
+      this.draw();
+    },
+    accept() {
+      if (this.m.phase !== 'wait') return;
+      this.m.phase = 'moving';
+      pulse('task');
+      this.log('task', '✓ goal accepted');
+      this.r.hint.textContent = '执行中 · 50 ms 控制周期';
+      this.m.lastLog = state.t;
+    },
+    step(dt) {
+      const m = this.m, tx = 1.0, ty = 0.5;
+      let rem = Math.hypot(tx - m.x, ty - m.y);
+      if (rem <= 0.03) { this.finish('arrived'); return; }
+
+      const factor = Math.min(2.0, 0.5 / rem);
+      m.vx = factor * (tx - m.x);
+      m.vy = factor * (ty - m.y);
+      m.x += m.vx * dt;
+      m.y += m.vy * dt;
+      rem = Math.hypot(tx - m.x, ty - m.y);
+      m.dist = rem;
+
+      const last = m.trail[m.trail.length - 1];
+      if (!last || Math.hypot(m.x - last.x, m.y - last.y) > 0.012) m.trail.push({ x: m.x, y: m.y });
+
+      m.cmdAcc += dt; m.fbAcc += dt; m.poseAcc += dt;
+      if (m.cmdAcc >= 0.4) { m.cmdAcc = 0; pulse('task'); spawn('cmd', '', 'topic', 0.5); }
+      if (m.poseAcc >= 0.55) {
+        m.poseAcc = 0; pulse('pose');
+        spawn('pose', '', 'topic', 0.55);
+      }
+      if (m.fbAcc >= 0.55) { m.fbAcc = 0; spawn('fb', 'd ' + rem.toFixed(2) + ' m', 'action', 0.55); }
+      if (state.t - m.lastLog > 0.55) {
+        m.lastLog = state.t;
+        this.log('fb', '↺ feedback d=' + rem.toFixed(3) + ' m');
+      }
+      const pos = 'map (' + m.x.toFixed(2) + ', ' + m.y.toFixed(2) + ')';
+      setChip('pose', pos, false);
+      setChip('dist', rem.toFixed(3) + ' m', rem <= 0.03);
+      setNodeVal('pose', pos);
+    },
+    finish(kind) {
+      const m = this.m;
+      if (m.phase !== 'moving' && m.phase !== 'canceling') return;
+      m.phase = kind;
+      m.vx = 0; m.vy = 0;
+      const label = kind === 'arrived' ? 'SUCCEEDED' : 'CANCELED';
+      this.r.hint.textContent = kind === 'arrived' ? '已到达 · 零速度' : '已取消 · 零速度';
+      if (this.r.cancel) this.r.cancel.disabled = true;
+      setChip('task', kind === 'arrived' ? 'SUCCEEDED' : 'CANCELED', true);
+      this.log('task', '✓ ' + (kind === 'arrived' ? 'succeed' : 'canceled') + '(result) · 发布零速度');
+      spawn('fb', label, 'action', 0.8, () => {
+        this.log('res', '■ result ' + label + '  success=' + (kind === 'arrived') + '  d=' + m.dist.toFixed(3) + ' m');
+      });
+      pulse('command');
+    },
+    cancel() {
+      const m = this.m;
+      if (m.phase !== 'moving') { this.log('warn', '当前没有可取消的任务'); return; }
+      m.phase = 'canceling';
+      this.r.hint.textContent = '取消请求已发送…';
+      pulse('command');
+      this.log('cmd', '→ Cancel goal');
+      spawn('goal', 'Cancel', 'action', 0.55, () => {
+        this.log('task', '✓ cancel accepted');
+        this.finish('canceled');
+      });
+    },
+    log(kind, text) {
+      const li = document.createElement('li');
+      li.className = 'ev ' + kind;
+      li.innerHTML = '<span class="et">' + state.t.toFixed(1) + 's</span><span>' + text + '</span>';
+      this.r.log.prepend(li);
+      while (this.r.log.children.length > 5) this.r.log.lastElementChild.remove();
+    },
+    draw() {
+      const ctx = this.ctx;
+      if (!ctx) return;
+      const w = this.w, h = this.h, m = this.m;
+      ctx.clearRect(0, 0, w, h);
+      const padL = 34, padR = 12, padT = 12, padB = 24;
+      const s = Math.min((w - padL - padR) / 1.2, (h - padT - padB) / 0.66);
+      const ox = padL + 0.06 * s, oy = h - padB - 0.06 * s;
+      const X = x => ox + x * s, Y = y => oy - y * s;
+
+      ctx.lineWidth = 1;
+      for (let gx = 0; gx <= 1.2001; gx += 0.1) {
+        const x = X(gx);
+        ctx.strokeStyle = Math.abs(gx % 0.5) < 1e-6 ? 'rgba(255,255,255,.13)' : 'rgba(255,255,255,.045)';
+        ctx.beginPath(); ctx.moveTo(x, Y(0)); ctx.lineTo(x, Y(0.6)); ctx.stroke();
+      }
+      for (let gy = 0; gy <= 0.6001; gy += 0.1) {
+        const y = Y(gy);
+        ctx.strokeStyle = Math.abs(gy % 0.5) < 1e-6 ? 'rgba(255,255,255,.13)' : 'rgba(255,255,255,.045)';
+        ctx.beginPath(); ctx.moveTo(X(0), y); ctx.lineTo(X(1.14), y); ctx.stroke();
+      }
+
+      ctx.strokeStyle = 'rgba(140,170,210,.5)'; ctx.lineWidth = 1.2;
+      ctx.beginPath(); ctx.moveTo(X(0), Y(0)); ctx.lineTo(X(1.14), Y(0)); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(X(0), Y(0)); ctx.lineTo(X(0), Y(0.6)); ctx.stroke();
+
+      ctx.fillStyle = 'rgba(150,175,205,.65)';
+      ctx.font = '10px ui-monospace, Consolas, monospace';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+      ctx.fillText('0', X(0), Y(0) + 6);
+      ctx.fillText('0.5', X(0.5), Y(0) + 6);
+      ctx.fillText('1.0', X(1.0), Y(0) + 6);
+      ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+      ctx.fillText('0.5', X(0) - 6, Y(0.5));
+
+      const tx = X(1), ty = Y(0.5);
+      ctx.setLineDash([3, 3]);
+      ctx.strokeStyle = 'rgba(61,220,151,.65)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(tx, ty, Math.max(6, 0.03 * s), 0, Math.PI * 2); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.strokeStyle = '#3ddc97'; ctx.lineWidth = 1.4;
+      ctx.beginPath(); ctx.moveTo(tx - 7, ty); ctx.lineTo(tx + 7, ty); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(tx, ty - 7); ctx.lineTo(tx, ty + 7); ctx.stroke();
+      ctx.fillStyle = 'rgba(61,220,151,.8)'; ctx.font = '10px ui-monospace, Consolas, monospace';
+      ctx.textAlign = 'right'; ctx.textBaseline = 'bottom';
+      ctx.fillText('target (1.0, 0.5)', tx - 10, ty - 8);
+
+      if (m.trail.length > 1) {
+        ctx.strokeStyle = 'rgba(122,215,255,.55)'; ctx.lineWidth = 2;
+        ctx.beginPath();
+        m.trail.forEach((p, i) => { const px = X(p.x), py = Y(p.y); i ? ctx.lineTo(px, py) : ctx.moveTo(px, py); });
+        ctx.stroke();
+      }
+
+      const rx = X(m.x), ry = Y(m.y);
+      ctx.beginPath(); ctx.arc(rx, ry, 11, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(122,215,255,.12)'; ctx.fill();
+      ctx.beginPath(); ctx.arc(rx, ry, 5.5, 0, Math.PI * 2);
+      ctx.fillStyle = '#7ad7ff'; ctx.shadowColor = '#7ad7ff'; ctx.shadowBlur = 14; ctx.fill(); ctx.shadowBlur = 0;
+
+      const sp = Math.hypot(m.vx, m.vy);
+      if (sp > 0.01 && m.phase === 'moving') {
+        const k = 0.45 / 0.5;
+        const ex = rx + m.vx * k * s, ey = ry - m.vy * k * s;
+        ctx.strokeStyle = 'rgba(255,176,32,.9)'; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(rx, ry); ctx.lineTo(ex, ey); ctx.stroke();
+        const ang = Math.atan2(ey - ry, ex - rx);
+        ctx.beginPath();
+        ctx.moveTo(ex, ey);
+        ctx.lineTo(ex - 7 * Math.cos(ang - 0.4), ey - 7 * Math.sin(ang - 0.4));
+        ctx.lineTo(ex - 7 * Math.cos(ang + 0.4), ey - 7 * Math.sin(ang + 0.4));
+        ctx.closePath(); ctx.fillStyle = 'rgba(255,176,32,.9)'; ctx.fill();
+      }
+
+      ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+      ctx.font = '11px ui-monospace, Consolas, monospace';
+      ctx.fillStyle = 'rgba(120,145,180,.7)';
+      ctx.fillText('frame: map · z = 0', 12, 10);
+      ctx.fillStyle = 'rgba(200,220,245,.9)';
+      ctx.fillText('d = ' + m.dist.toFixed(3) + ' m', 12, 28);
+      ctx.fillStyle = 'rgba(255,176,32,.9)';
+      ctx.fillText('|v| = ' + sp.toFixed(2) + ' m/s', 12, 44);
+      ctx.fillStyle = 'rgba(140,165,200,.8)';
+      ctx.fillText(m.phase === 'wait' ? 'state: waiting goal' : 'state: ' + m.phase, 12, 60);
+    }
+  };
+
+  /* ================= 第 4 章：三层判断 ================= */
+  const CH4 = {
+    tab: '4 · 三层判断',
+    title: '类型、通信、业务：三个独立判断',
+    code: 'if (msg->data < 0 || msg->data > 100) return;   // 类型之外还要检查业务范围',
+    dur: 11.5,
+    narration: [
+      { t: 0,   html: '同一条消息，可能在三个不同的层面被拒绝。源码里的检查顺序也大致如此。' },
+      { t: 1.4, html: '① <b>类型层</b>：<code>Int32</code> 只保证它是整数，不保证它在合理范围。' },
+      { t: 3.4, html: '② <b>通信层</b>：消息确实收到了，但 <code>frame_id</code> 不是约定的 <code>map</code>，只能丢弃。' },
+      { t: 5.6, html: '③ <b>时间层</b>：时间戳太旧，即使数值好看，也不能当当前状态使用。' },
+      { t: 8.2, html: '所以：类型正确 ≠ 通信成功 ≠ 业务正确。三层都要各自判断。' }
+    ],
+    enter() {
+      $('#inst').innerHTML = tplChecks();
+      this.verdict = $('#verdict');
+      resetScene();
+      NODES.forEach(n => nodeEls[n.id].classList.add('in'));
+      applyFocus(4);
+      showReadouts([]);
+    },
+    update(t) {
+      narrate(this);
+      if (once('c1', 1.1)) on($('#ck1'));
+      if (once('c2', 3.1)) on($('#ck2'));
+      if (once('c3', 5.3)) on($('#ck3'));
+      if (once('v', 8.4)) on(this.verdict);
+    }
+  };
+
+  const CHAPTERS = [CH1, CH2, CH3, CH4];
+
+  /* ================= 引擎 ================= */
+  function switchChapter(i, seekT = 0) {
+    i = Math.max(0, Math.min(CHAPTERS.length - 1, i));
+    state.chapter = i;
+    state.t = 0;
+    fired.clear();
+    lastNarr = '';
+    clearPackets();
+    const ch = CHAPTERS[i];
+    $('#chTitle').textContent = ch.title;
+    $('#chCode').textContent = ch.code;
+    $$('.tab').forEach((b, k) => b.classList.toggle('active', k === i));
+    $('#chCount').textContent = (i + 1) + ' / ' + CHAPTERS.length;
+    ch.enter();
+    ch.update(0, 0);
+    if (seekT > 0) fastForward(ch, seekT);
+    state.t = Math.min(seekT, ch.dur);
+    ch.update(state.t, 0);
+  }
+
+  function fastForward(ch, target) {
+    let t = 0;
+    const step = 1 / 60;
+    while (t < target) {
+      t = Math.min(target, t + step);
+      state.t = t;
+      ch.update(t, step);
+      updatePackets(step);
+    }
+  }
+
+  function buildTabs() {
+    const tabs = $('#tabs');
+    tabs.innerHTML = '';
+    CHAPTERS.forEach((ch, i) => {
+      const b = document.createElement('button');
+      b.className = 'tab';
+      b.textContent = ch.tab;
+      b.addEventListener('click', () => switchChapter(i));
+      tabs.appendChild(b);
+    });
+  }
+
+  let last = performance.now();
+  function loop(now) {
+    const raw = Math.min(0.09, (now - last) / 1000);
+    last = now;
+    const dt = state.playing ? raw * state.speed : 0;
+    const ch = CHAPTERS[state.chapter];
+
+    if (state.playing) {
+      state.t += dt;
+      if (state.t >= ch.dur) {
+        state.t = ch.dur;
+        if (state.chapter < CHAPTERS.length - 1) {
+          switchChapter(state.chapter + 1);
+        } else {
+          state.playing = false;
+          setPlayLabel();
+        }
+      }
+    }
+    CHAPTERS[state.chapter].update(state.t, dt);
+    updatePackets(dt);
+    $('#bar').style.width = Math.min(100, (state.t / CHAPTERS[state.chapter].dur) * 100) + '%';
+    requestAnimationFrame(loop);
+  }
+
+  function setPlayLabel() {
+    $('#btnPlay').textContent = state.playing ? '暂停' : '播放';
+  }
+
+  /* ================= 控件 ================= */
+  function boot() {
+    buildGraph();
+    buildTabs();
+
+    $('#btnPlay').addEventListener('click', () => {
+      if (!state.playing && state.t >= CHAPTERS[state.chapter].dur) state.t = 0;
+      state.playing = !state.playing;
+      last = performance.now();
+      setPlayLabel();
+    });
+    $('#btnRestart').addEventListener('click', () => {
+      switchChapter(state.chapter);
+      state.playing = true;
+      last = performance.now();
+      setPlayLabel();
+    });
+    const speeds = [1, 1.5, 2, 0.5];
+    $('#btnSpeed').addEventListener('click', () => {
+      const k = (speeds.indexOf(state.speed) + 1) % speeds.length;
+      state.speed = speeds[k];
+      $('#btnSpeed').textContent = state.speed + '×';
+    });
+
+    document.addEventListener('keydown', ev => {
+      if (ev.target && /INPUT|TEXTAREA/.test(ev.target.tagName)) return;
+      if (ev.code === 'Space') { ev.preventDefault(); $('#btnPlay').click(); }
+      else if (ev.key === 'ArrowRight') switchChapter(state.chapter + 1);
+      else if (ev.key === 'ArrowLeft') switchChapter(state.chapter - 1);
+      else if (ev.key === 'r' || ev.key === 'R') $('#btnRestart').click();
+    });
+
+    window.addEventListener('resize', () => {
+      const ch = CHAPTERS[state.chapter];
+      if (ch.fit) ch.fit();
+    });
+
+    const q = new URLSearchParams(location.search);
+    let start = 0;
+    if (q.has('ch')) start = Math.max(0, Math.min(CHAPTERS.length - 1, (parseInt(q.get('ch'), 10) || 1) - 1));
+    const seek = q.has('t') ? Math.max(0, parseFloat(q.get('t')) || 0) : 0;
+    if (q.get('paused') === '1') {
+      state.playing = false;
+      setPlayLabel();
+    }
+    switchChapter(start, seek);
+    requestAnimationFrame(loop);
+    window.__ros2anim = state;   // 便于外部调试/录制
+
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      state.playing = false;
+      setPlayLabel();
+    }
+  }
+
+  boot();
+})();
+</script>
+</body>
+</html>
