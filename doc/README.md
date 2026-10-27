@@ -1,6 +1,6 @@
 # 文档索引
 
-本文行数：60行，预期阅读时长：3分钟
+本文行数：60行，预期阅读时长：4分钟
 
 按主题和问题查找笔记。概念与例子在各章 README 中，较长推导、源码拆解和运行方法由对应章节链接。
 
@@ -11,7 +11,7 @@
 | 工程基础 | [六个单元](../src/foundations/engineering/README.md) | 路径、Git、构建与调试 |
 | 空间数学 | [十章目录](../src/foundations/spatial_math/README.md) | [刚体变换](../src/foundations/spatial_math/examples/rigid_transforms/README.md) |
 | ROS 2 | [五章目录](../src/ros2/README.md) | [通信接口](../src/ros2/examples/communication/README.md)、[组件](../src/ros2/examples/composition/README.md) |
-| 模型与仿真 | [七章目录](../src/simulation/README.md) | [MuJoCo](../src/simulation/mujoco/README.md) |
+| 模型与仿真 | [MuJoCo 十二章](../src/simulation/README.md) | [模型与程序](../src/simulation/mujoco/README.md)、[机械臂综合例子](../src/simulation/12_arm_walkthrough/README.md) |
 | 运动学 | [八章目录](../src/kinematics/README.md) | [模型对齐](../src/kinematics/examples/model_alignment/README.md) |
 | 动力学与控制 | [章节目录](../src/control/README.md) | 单关节、多关节、积分与反馈控制 |
 | 感知与估计 | [六章目录](../src/perception/README.md) | [相机与 AprilTag](../src/perception/examples/camera_and_tags/README.md) |

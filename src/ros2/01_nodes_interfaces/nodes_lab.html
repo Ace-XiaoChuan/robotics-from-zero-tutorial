@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f4f2ed" />
+    <meta
+      name="description"
+      content="用可暂停、可拖动的 Three.js 通信图，理解 ROS 2 的节点、Topic、Service 与 Action。"
+    />
+    <title>ROS 2 通信实验台 · 节点与接口</title>
+    <link rel="stylesheet" href="assets/nodes-lab.css" />
+    <script defer src="assets/nodes-lab-model.js"></script>
+    <script defer src="assets/nodes-lab-scene.js"></script>
+    <script defer src="assets/nodes-lab.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../README.md" aria-label="返回 ROS 2 学习目录"
+        ><span class="brand-mark" aria-hidden="true">✳</span
+        ><b>ROBOTICS <span>/</span> FIELD NOTES</b></a
+      >
+      <div class="header-meta">
+        <span class="status-dot"></span>交互学习笔记<span class="header-divider"
+          >/</span
+        >ROS 2 HUMBLE
+      </div>
+      <a class="text-link" href="README.md"
+        >阅读本节笔记 <span aria-hidden="true">↗</span></a
+      >
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">ROS 2 ESSENTIALS <span>—</span> LESSON 01</p>
+          <h1 id="page-title">看见节点之间的<span>每一次通信。</span></h1>
+          <p class="intro-copy">
+            把节点拆开，把消息放慢。观察一条数据怎样变成状态，一次请求怎样变成结果。
+          </p>
+        </div>
+        <div class="intro-index" aria-hidden="true">
+          <span>01</span><small>NODES &amp;<br />INTERFACES</small>
+        </div>
+      </section>
+
+      <nav class="chapters" aria-label="演示章节">
+        <button class="chapter active" data-chapter="nodes" aria-current="step">
+          <span>00</span><b>认识节点</b><small>各司其职</small>
+        </button>
+        <button class="chapter" data-chapter="topic">
+          <span>01</span><b>Topic</b><small>持续更新</small>
+        </button>
+        <button class="chapter" data-chapter="service">
+          <span>02</span><b>Service</b><small>一问一答</small>
+        </button>
+        <button class="chapter" data-chapter="action">
+          <span>03</span><b>Action</b><small>执行任务</small>
+        </button>
+        <button class="chapter" data-chapter="contracts">
+          <span>04</span><b>数据约定</b><small>收到 ≠ 可用</small>
+        </button>
+      </nav>
+
+      <div class="workspace">
+        <section class="visual" aria-label="通信可视化">
+          <div class="stage" id="stage">
+            <div class="stage-top">
+              <div>
+                <span class="live-dot"></span><b>ROS GRAPH</b
+                ><span class="namespace">/lesson1</span>
+              </div>
+              <span class="renderer-badge" id="renderer-status"
+                >正在准备画面</span
+              >
+            </div>
+            <canvas
+              id="scene"
+              aria-label="四个节点的通信图；可通过下方节点按钮查看职责"
+            ></canvas>
+            <div class="node-labels" id="node-labels"></div>
+            <div
+              class="packet-labels"
+              id="packet-labels"
+              aria-hidden="true"
+            ></div>
+            <div class="edge-legend">
+              <span><i class="topic-color"></i>Topic</span
+              ><span><i class="service-color"></i>Service</span
+              ><span><i class="action-color"></i>Action</span>
+            </div>
+            <div class="stage-tools">
+              <button
+                id="camera-reset"
+                title="恢复初始视角"
+                aria-label="恢复初始视角"
+              >
+                ↺</button
+              ><button
+                id="camera-top"
+                title="切换俯视 / 立体视角"
+                aria-label="切换俯视或立体视角"
+                aria-pressed="false"
+              >
+                ⊞
+              </button>
+            </div>
+            <div class="node-detail" id="node-detail">
+              <span class="detail-dot"></span>
+              <div>
+                <b id="detail-title">四个节点，一张通信图</b>
+                <p id="detail-copy">
+                  点击节点，查看它负责什么。拖动画面可调整视角。
+                </p>
+              </div>
+              <button id="detail-close" aria-label="关闭节点说明" hidden>
+                ×
+              </button>
+            </div>
+            <div class="map-inset" id="map-inset" hidden>
+              <div><b>map</b><span>教学模型位置 · m</span></div>
+              <canvas
+                id="motion-map"
+                aria-label="map 坐标系中教学模型的二维位置与目标"
+              ></canvas>
+              <p>圆点表示位置，不表示朝向</p>
+            </div>
+          </div>
+
+          <div class="transport">
+            <button class="play-button" id="play" aria-label="暂停演示">
+              <span id="play-icon" aria-hidden="true">Ⅱ</span>
+            </button>
+            <button
+              class="replay-button"
+              id="replay"
+              aria-label="从头重播本章"
+              title="从头重播"
+            >
+              ↺
+            </button>
+            <div class="scrubber">
+              <div class="scrubber-meta">
+                <span id="timeline-label">认识四个节点</span
+                ><span id="time-label">00:00 / 00:12</span>
+              </div>
+              <input
+                id="timeline"
+                type="range"
+                min="0"
+                max="12"
+                step="0.01"
+                value="0"
+                aria-label="演示进度"
+              />
+            </div>
+            <label class="speed-label"
+              ><span class="sr-only">播放速度</span
+              ><select id="speed">
+                <option value="0.5">0.5×</option>
+                <option value="1" selected>1×</option>
+                <option value="2">2×</option>
+              </select></label
+            >
+          </div>
+          <div class="visual-caption">
+            <span
+              ><span class="caption-square"></span>教学示意 ·
+              消息传输耗时与空间布局经过可视化处理</span
+            ><span id="view-hint">拖动旋转 · 滚轮缩放</span>
+          </div>
+        </section>
+
+        <aside class="lesson-panel" aria-label="当前过程与消息内容">
+          <div class="panel-kicker">
+            <span id="panel-number">00 / 04</span
+            ><span id="panel-kind">NODE</span>
+          </div>
+          <h2 id="lesson-title">一个机器人，<br />四个节点。</h2>
+          <p class="lesson-description" id="lesson-description"></p>
+          <ol class="steps" id="steps" aria-label="通信步骤"></ol>
+          <section class="inspector" aria-label="实时观察">
+            <div class="inspector-heading">
+              <span id="inspector-title">NODE INSPECTOR</span
+              ><span class="status-pill" id="inspector-status">观察中</span>
+            </div>
+            <div id="inspector-body"></div>
+          </section>
+          <div class="experiment-controls" id="experiment-controls"></div>
+          <div class="takeaway">
+            <span aria-hidden="true">↳</span>
+            <p id="takeaway"></p>
+          </div>
+          <button class="next-lesson" id="next-chapter">
+            接下来：持续更新的 Topic <span aria-hidden="true">→</span>
+          </button>
+          <p
+            class="sr-only"
+            id="announcement"
+            role="status"
+            aria-live="polite"
+          ></p>
+        </aside>
+      </div>
+
+      <details class="source-notes">
+        <summary>
+          <span><span class="code-symbol">&lt;/&gt;</span>把画面对应到代码</span
+          ><span class="summary-hint"
+            >接口、源码与本地打开方式 <span aria-hidden="true">＋</span></span
+          >
+        </summary>
+        <div class="source-content">
+          <div>
+            <h3>同一个名字，两种信息</h3>
+            <p>
+              <code>/lesson1/navigation</code> 是 Action 的完整名称；<code
+                >robot_interfaces/action/Navigation</code
+              >
+              是它的类型。相对名 <code>navigation</code> 在本例命名空间下展开。
+            </p>
+            <p>
+              画面中的节点是功能单位；一个进程可以包含多个节点。Workspace
+              组织包，Package 声明源码与依赖，Executable 启动后成为进程。
+            </p>
+          </div>
+          <div>
+            <h3>接口定义决定字段</h3>
+            <p>
+              <code>.msg</code>：消息字段；<code>.srv</code>：请求
+              <code>---</code> 响应；<code>.action</code>：目标
+              <code>---</code> 结果 <code>---</code> 反馈。构建工具据此生成 C++
+              / Python 类型。
+            </p>
+            <p>
+              <a
+                href="../examples/communication/robot_interfaces/action/Navigation.action"
+                >Navigation.action ↗</a
+              >
+              ·
+              <a
+                href="../examples/communication/robot_interfaces/srv/GetRobotStatus.srv"
+                >GetRobotStatus.srv ↗</a
+              >
+            </p>
+            <p>
+              图中的 Action 连线表示逻辑交互；ROS 2 的 Action
+              底层使用服务和话题实现。
+            </p>
+          </div>
+          <div>
+            <h3>继续查阅</h3>
+            <p>
+              <a href="../examples/communication/README.md"
+                >本仓库通信案例与源码 ↗</a
+              ><br /><a
+                href="https://raw.githubusercontent.com/ros2/ros2_documentation/humble/source/Concepts/Basic/About-Interfaces.rst"
+                target="_blank"
+                rel="noreferrer"
+                >ROS 2 Humble · Interfaces ↗</a
+              ><br /><a
+                href="https://raw.githubusercontent.com/ros2/ros2_documentation/humble/source/Concepts/Basic/About-Actions.rst"
+                target="_blank"
+                rel="noreferrer"
+                >ROS 2 Humble · Actions ↗</a
+              >
+            </p>
+            <p>
+              直接用浏览器打开此 HTML。3D 通过 CDN 加载 Three.js 0.180.0；离线或
+              WebGL 不可用时自动使用 Canvas 画面，交互仍可使用。
+            </p>
+          </div>
+        </div>
+      </details>
+      <footer class="site-footer">
+        <span
+          >ROBOTICS FROM ZERO
+          <span class="footer-dot">·</span> 理解原理，也看见过程。</span
+        ><a href="README.md">阅读本节笔记 ↗</a
+        ><span>01 — NODES &amp; INTERFACES</span>
+      </footer>
+      <noscript
+        ><p>
+          请启用 JavaScript 观看交互演示；也可直接阅读
+          <a href="README.md">本节笔记</a>。
+        </p></noscript
+      >
+    </main>
+  </body>
+</html>

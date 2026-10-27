@@ -1,6 +1,6 @@
 # 第六章验证记录
 
-本文行数：94行，预期阅读时长：6分钟
+本文行数：94行，预期阅读时长：7分钟
 
 **本记录是 2026-09-26 在本机完成的单关节 MuJoCo 数值仿真与解析检查。** 正文中的曲线由实际步进数据生成，双杆末端误差则只做静态公式核对。模型为无接触的理想单杆。
 
@@ -14,7 +14,7 @@
 | [tracking.svg](results/tracking.svg) · [windup.svg](results/windup.svg) | 从运行中的实际轨迹生成的静态图 |
 | [第四章单杆模型](../04_forward_inverse_dynamics/single_rod.xml) | 复用同一模型，不复制 XML |
 
-运行环境：Python 3.10.12、MuJoCo 3.8.1、NumPy 2.2.6；Matplotlib 3.10.9 仅用于绘图。MuJoCo 与 NumPy 沿用[固定依赖](../../simulation/mujoco/requirements.txt)。运行脚本使用相对源码位置寻找 XML，不依赖当前工作目录，也不连接硬件。
+运行环境：Python 3.10.12、MuJoCo 3.8.1、NumPy 2.2.6；Matplotlib 3.10.9 仅用于绘图。MuJoCo 与 NumPy 沿用[固定依赖](../../simulation/mujoco/requirements-3.8.1.txt)。运行脚本使用相对源码位置寻找 XML，不依赖当前工作目录，也不连接硬件。
 
 ## 固定配置与记录时序
 

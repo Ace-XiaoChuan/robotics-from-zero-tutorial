@@ -4,7 +4,7 @@
 
 **MoveIt 配置把“机器人是什么、允许怎样运动、用哪个算法求解、把结果发给谁”连接起来。文件中的关节名、规划组、坐标系和接口必须相互对应，文件齐全不代表系统已经能运行。**
 
-解释模型、规划组、末端、IK、关节限制和控制器配置之间的关系，以仓库的 Panda 文件为例。URDF 建模基础见[机器人模型](../../simulation/01_robot_models/README.md)，运动请求与返回值归[第三章](../03_move_group_interface/README.md)，运行中的场景管理归[第四章](../04_planning_scene/README.md)。
+解释模型、规划组、末端、IK、关节限制和控制器配置之间的关系，以仓库的 Panda 文件为例。URDF 建模基础见[机器人模型](../../simulation/02_scene_objects/README.md)，运动请求与返回值归[第三章](../03_move_group_interface/README.md)，运行中的场景管理归[第四章](../04_planning_scene/README.md)。
 
 ## 速记要点
 

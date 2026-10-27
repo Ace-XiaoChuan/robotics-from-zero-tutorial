@@ -52,6 +52,6 @@
 | 末端误差与控制 | [位姿误差笔记](../kinematics/examples/model_alignment/lie_group_lie_algebra_notes.md) · [末端控制源码](../kinematics/examples/model_alignment/control_ee_with_pinocchio.py) |
 | 外加关节力旧探索 | [旧脚本](../simulation/mujoco/legacy/run_sim.py) · [限制说明](../simulation/mujoco/materials.md) |
 
-直接设置 `qpos`、执行器 `ctrl` 与 `qfrc_applied` 分别用于状态设置、执行器输入和外加广义力。接口说明见[控制输入](../simulation/04_control_inputs/README.md)，单杆仿真结果见[第六章](06_control_constraints/verification.md)。
+直接设置 `qpos`、执行器 `ctrl` 与 `qfrc_applied` 分别用于状态设置、执行器输入和外加广义力。接口说明见[控制输入](../simulation/06_actuation/README.md)，单杆仿真结果见[第六章](06_control_constraints/verification.md)。
 
 [学习路线 S5](../../doc/learning-roadmap.md#s5) · [总目录](../README.md)

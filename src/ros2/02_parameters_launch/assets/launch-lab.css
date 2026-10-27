@@ -1,0 +1,372 @@
+/* 通用版式复用上一节；这里仅定义本节的 SVG 舞台与配置控件。 */
+.stage {
+  height: 570px;
+  background: radial-gradient(
+    ellipse at 40% 45%,
+    #25403f 0%,
+    #152b30 52%,
+    #102126 100%
+  );
+}
+.stage-top {
+  top: 20px;
+}
+.stage-legend {
+  position: absolute;
+  top: 53px;
+  left: 24px;
+  display: flex;
+  gap: 18px;
+  font-size: 9px;
+  color: #8fa9a0;
+  z-index: 2;
+  pointer-events: none;
+}
+.stage-legend span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.stage-legend i {
+  width: 5px;
+  height: 5px;
+  background: #eab57d;
+  border-radius: 50%;
+}
+.stage-legend span:nth-child(2) i {
+  background: #9ec5a2;
+}
+.stage-legend span:nth-child(3) i {
+  background: #cf846e;
+}
+#diagram {
+  position: absolute;
+  left: 0;
+  top: 75px;
+  width: 100%;
+  height: calc(100% - 150px);
+  overflow: visible;
+}
+#diagram text {
+  font-family: var(--sans);
+  fill: #d2dfce;
+  font-size: 13px;
+}
+#diagram .mono {
+  font-family: var(--mono);
+  font-size: 13px;
+}
+#diagram .sub {
+  fill: #8ea99d;
+  font-size: 13px;
+}
+#diagram .tiny {
+  fill: #8ba297;
+  font-size: 11px;
+}
+#diagram .kicker {
+  fill: #97af9a;
+  font: 10px var(--mono);
+  letter-spacing: 1px;
+}
+#diagram .card-title {
+  font-size: 17px;
+  font-weight: 500;
+}
+#diagram .orange {
+  fill: #efb980;
+}
+#diagram .green {
+  fill: #b8d4ad;
+}
+#diagram .blue {
+  fill: #98c8df;
+}
+#diagram .bad {
+  fill: #e59c84;
+}
+#diagram .wire {
+  fill: none;
+  stroke: #648b7c;
+  stroke-width: 1.2;
+  marker-end: url(#arrow);
+}
+#diagram .muted-wire {
+  stroke-dasharray: 4 5;
+  opacity: 0.45;
+}
+#diagram .entity {
+  cursor: pointer;
+  outline: none;
+}
+#diagram .entity:hover > .card-bg,
+#diagram .entity:focus-visible > .card-bg {
+  stroke: #e9c28b;
+  stroke-width: 2;
+}
+#diagram .entity:focus-visible {
+  outline: 1px solid #e9c28b;
+  outline-offset: 4px;
+}
+.figure-caption {
+  position: absolute;
+  bottom: 20px;
+  left: 24px;
+  right: 24px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  min-height: 36px;
+}
+.figure-caption b {
+  font-size: 11px;
+  font-weight: 500;
+  color: #cbd9c8;
+}
+.figure-caption p {
+  font-size: 10px;
+  color: #83a195;
+  line-height: 1.75;
+  margin-top: 4px;
+  max-width: 650px;
+}
+.figure-caption button {
+  margin-left: auto;
+  width: 24px;
+  flex: none;
+  background: #35534d;
+  color: #bdd0c4;
+  border-radius: 3px;
+  font-size: 16px;
+}
+.launch-control {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 10px;
+  color: #6c7f62;
+  margin-bottom: 2px;
+}
+.launch-control select {
+  max-width: 195px;
+  min-width: 100px;
+  padding: 5px 7px;
+  border: 1px solid #cdd6c1;
+  border-radius: 3px;
+  color: #425d43;
+  font: 10px var(--mono);
+  background: #f3f4ed;
+}
+.launch-control input[type="checkbox"] {
+  accent-color: #6e8f58;
+}
+.launch-control input:focus-visible {
+  outline-offset: 3px;
+}
+.control-note {
+  font-size: 9px;
+  color: #88947d;
+  line-height: 1.75;
+  margin: 1px 0 3px;
+}
+.code-block {
+  font: 10px/1.8 var(--mono);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  margin: 0;
+  color: #54704e;
+}
+.code-block .code-highlight {
+  color: #ad6c45;
+}
+.lesson-description {
+  min-height: 0;
+}
+.workspace {
+  gap: 28px;
+}
+.steps {
+  margin-bottom: 15px;
+}
+.steps li {
+  padding: 6px 0;
+}
+.inspector {
+  padding: 12px 13px;
+}
+.inspector .tiny-note {
+  margin-top: 7px;
+}
+.experiment-controls {
+  gap: 6px;
+  margin-top: 10px;
+}
+.takeaway {
+  margin-top: 13px;
+}
+.next-lesson {
+  margin-top: 10px;
+}
+.status-pill {
+  white-space: nowrap;
+}
+.mini-event {
+  padding: 4px 0;
+  border-bottom: 1px solid #dce1d1;
+  font: 9px var(--mono);
+  color: #788a68;
+  display: flex;
+  gap: 10px;
+}
+.mini-event:last-child {
+  border: 0;
+}
+.mini-event b {
+  color: #4c6848;
+  font-weight: 500;
+}
+@media (min-width: 1450px) {
+  .stage {
+    height: 620px;
+  }
+  .workspace {
+    gap: 40px;
+  }
+  .launch-control {
+    font-size: 11px;
+  }
+  .kv {
+    font-size: 10px;
+  }
+}
+@media (max-width: 1080px) {
+  .stage {
+    height: 575px;
+  }
+  .stage-legend {
+    left: 18px;
+    gap: 12px;
+  }
+  .stage-top {
+    left: 18px;
+    right: 18px;
+  }
+  .namespace {
+    font-size: 9px;
+  }
+  .launch-control select {
+    max-width: 169px;
+  }
+  .figure-caption {
+    left: 18px;
+    right: 18px;
+  }
+}
+@media (max-width: 800px) {
+  .stage {
+    height: 530px;
+  }
+  .lesson-panel {
+    display: flex;
+  }
+  .lesson-description {
+    font-size: 12px;
+  }
+  .steps {
+    margin-bottom: 16px;
+  }
+  .inspector {
+    width: 100%;
+    padding: 15px;
+  }
+  .launch-control {
+    font-size: 12px;
+  }
+  .launch-control select {
+    font-size: 11px;
+    max-width: 230px;
+  }
+  .experiment-controls {
+    margin-top: 12px;
+  }
+  .takeaway {
+    margin-top: 17px;
+  }
+  .kv {
+    font-size: 11px;
+  }
+  .code-block {
+    font-size: 11px;
+  }
+  .control-note {
+    font-size: 10px;
+  }
+}
+@media (max-width: 500px) {
+  .stage {
+    height: 635px;
+  }
+  .stage-top {
+    left: 14px;
+    right: 14px;
+    top: 17px;
+  }
+  .stage-top b {
+    font-size: 8px;
+    letter-spacing: 0.7px;
+  }
+  .namespace {
+    font-size: 8px;
+    padding-left: 6px;
+  }
+  .renderer-badge {
+    font-size: 7px;
+  }
+  .stage-legend {
+    top: 45px;
+    left: 14px;
+    gap: 12px;
+    font-size: 8px;
+  }
+  #diagram {
+    top: 73px;
+    height: calc(100% - 165px);
+  }
+  .figure-caption {
+    left: 14px;
+    right: 14px;
+    bottom: 17px;
+    min-height: 50px;
+  }
+  .figure-caption b {
+    font-size: 10px;
+  }
+  .figure-caption p {
+    font-size: 9px;
+    max-width: 285px;
+  }
+  .launch-control select {
+    max-width: 205px;
+  }
+  .scrubber-meta {
+    align-items: center;
+  }
+  .visual-caption > span:last-child {
+    display: none;
+  }
+  .chapter b {
+    font-size: 9px;
+  }
+  .chapter {
+    padding-left: 1px;
+    padding-right: 1px;
+  }
+  h1 {
+    font-size: 25px;
+  }
+  .intro-copy {
+    max-width: 310px;
+  }
+}

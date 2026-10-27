@@ -1,10 +1,10 @@
-# 1：导读：代码怎样让仿真机械臂与真机运动
+# 从代码到仿真与真机：轨迹执行与控制链
 
 本文行数：190行，预期阅读时长：10分钟
 
 **控制机械臂的基本流程是：给出目标 → 生成运动指令 → 执行器产生力 → 关节运动 → 读取实际状态，再继续调整。仿真用物理引擎计算运动，真机用电机完成运动；上层可以使用相同接口。**
 
-本章先建立完整印象，再进入模型、状态与控制输入等章节。下文数值是教学示意，控制链说明来自仓库源码与配置。
+本专题解释带时间的轨迹、规划与执行管理、轨迹控制和底层驱动的关系。下文数值是教学示意，控制链说明来自仓库源码与配置；MuJoCo 入门从[一次仿真怎样发生](../01_simulation_overview/README.md)开始。
 
 ## 1. 速记要点
 
@@ -80,7 +80,7 @@ time_from_start:
 
 ## 4. 写入 MuJoCo 目标后，机械臂为什么会动
 
-[关节轨迹跟踪示例](../mujoco/examples/state_and_control/joint_space_trajectory_tracking_demo.py)中的核心语句是：
+[关节轨迹跟踪示例](examples/state_and_control/joint_space_trajectory_tracking_demo.py)中的核心语句是：
 
 ```python
 self.data.ctrl[:7] = self.q_des
@@ -102,7 +102,7 @@ $$
 
 **结果与解释：** 连续重复“给目标 → 算力 → 积分更新状态”，形成运动；viewer 把状态画出来。[末端控制示例](../../kinematics/examples/model_alignment/control_ee_with_pinocchio.py)中可以看到读取当前关节角、求解 IK、写入 `ctrl`、调用 `mj_step`、更新画面的顺序。该脚本在缺少足够执行器时还有直接写 `qpos` 的兜底分支，需要另行区分。
 
-`ctrl` 的含义由 actuator 配置决定：位置型接收位置目标，速度型接收速度目标，motor 的输入还要经过传动映射才能得到关节力矩。单位传动比等条件不满足时，不能直接把 `ctrl` 数值当作关节角或关节力矩。细节见[控制输入](../04_control_inputs/README.md)。
+`ctrl` 的含义由 actuator 配置决定：位置型接收位置目标，速度型接收速度目标，motor 的输入还要经过传动映射才能得到关节力矩。单位传动比等条件不满足时，不能直接把 `ctrl` 数值当作关节角或关节力矩。细节见[控制输入](../06_actuation/README.md)。
 
 ## 5. 画面动了，是否就验证了控制
 
@@ -187,4 +187,4 @@ move_group_interface.execute(plan);  // 请求 MoveIt 执行已有规划
 
 因此，**MoveIt 上层依赖的是兼容的执行接口，具体由谁实现接口可以不同。** 仿真和真机使用同一个 `JointTrajectoryController` 是常见方案，不是 MoveIt 的强制要求；其他执行适配方式还可能使用不同接口。单独运行 MuJoCo Python 脚本也不会自动接上这条 ROS 链路。
 
-[返回仿真目录](../README.md) · [下一章：机器人模型](../01_robot_models/README.md)
+[返回仿真目录](../README.md) · [对象与空间关系](../02_scene_objects/README.md)

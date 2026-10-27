@@ -70,9 +70,9 @@ Topic 传递连续数据，Service 处理请求与回应，Action 表达带反�
 
 ## S3. 机器人模型与仿真
 
-先看控制流和带时间的关节轨迹，再查机器人结构、模型加载、状态索引、控制输入、步进、显示与重置。`qpos` 是位置状态，`ctrl` 是执行器输入；仿真通过时间步计算输入造成的运动。
+先建立“场景 → 状态 → 输入 → 步进 → 观测”的整体认识，再查对象与坐标、MJCF 组织、model/data、状态维度和执行器。随后按需要阅读物理参数、接触摩擦、相机与传感器、重置记录和排错。`qpos` 是构型状态，`ctrl` 是执行器输入；仿真通过时间步计算输入造成的运动。
 
-[七章目录](../src/simulation/README.md)提供这些概念，[MuJoCo 实现](../src/simulation/mujoco/README.md)提供小模型、依赖和数值例子。PID 和跟踪误差在 S5 展开。
+[十二章目录](../src/simulation/README.md)从单摆、接触方块走到自包含的[两关节机械臂综合例子](../src/simulation/12_arm_walkthrough/README.md)。[MuJoCo 实现](../src/simulation/mujoco/README.md)提供模型、固定依赖和正常/异常对照；带时间的轨迹与 MoveIt/真机关系见[控制链专题](../src/simulation/mujoco/control_flow_reference.md)。动力学推导和控制器设计在 S5 展开。
 
 <a id="s4"></a>
 

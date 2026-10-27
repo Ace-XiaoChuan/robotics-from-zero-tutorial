@@ -17,7 +17,7 @@
 | [工程基础](src/foundations/engineering/README.md) | 路径、Git、数值数据、构建与调试 |
 | [空间数学](src/foundations/spatial_math/README.md) | 向量、旋转、坐标变换、位姿误差与数值求解 |
 | [ROS 2](src/ros2/README.md) | 节点通信、参数、launch、TF 与时间 |
-| [模型与仿真](src/simulation/README.md) | 机器人模型、MuJoCo 状态、控制输入与步进 |
+| [模型与仿真](src/simulation/README.md) | MuJoCo 十二章：场景、状态、执行器、接触、观测与排错 |
 | [运动学](src/kinematics/README.md) | 正逆运动学、Jacobian、奇异性与工作空间 |
 | [动力学与控制](src/control/README.md) | 力矩、关节耦合、动力学计算、轨迹与反馈控制 |
 | [感知与估计](src/perception/README.md) | 相机标定、目标位姿、测量误差、滤波与时间对齐 |

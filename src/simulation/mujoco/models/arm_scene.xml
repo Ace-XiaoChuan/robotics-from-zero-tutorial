@@ -1,0 +1,16 @@
+<mujoco model="tutorial_planar_arm_scene">
+  <compiler angle="radian"/>
+  <option timestep="0.002" gravity="0 0 -9.81" integrator="implicitfast"/>
+  <default>
+    <default class="arm">
+      <joint type="hinge" axis="0 0 1" damping="0.1" armature="0.01" limited="true"/>
+      <geom type="capsule" size="0.025" contype="0" conaffinity="0" rgba="0.2 0.55 0.65 1"/>
+    </default>
+  </default>
+  <include file="planar_arm.xml"/>
+  <worldbody>
+    <geom name="floor" type="plane" size="1 1 0.1" rgba="0.92 0.91 0.87 1"/>
+    <light pos="0 -1 2" dir="0 0 -1"/>
+    <camera name="overview" pos="0.35 -1.2 1.2" xyaxes="1 0 0 0 0.6 0.8"/>
+  </worldbody>
+</mujoco>

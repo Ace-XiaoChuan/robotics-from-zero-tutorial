@@ -420,7 +420,7 @@ Torque actuator 更接近直接力矩控制。
 
 需要重点理解：
 
-* 对于转动关节的 motor，只有单位传动比等条件满足时，`data.ctrl` 的数值才直接对应关节力矩 N·m；其他传动配置见[控制输入](../../../04_control_inputs/README.md)。
+* 对于转动关节的 motor，只有单位传动比等条件满足时，`data.ctrl` 的数值才直接对应关节力矩 N·m；其他传动配置见[控制输入](../../../06_actuation/README.md)。
 * 控制器需要自己根据误差计算力矩。
 * 相比 position actuator，torque actuator 更灵活，但也更容易不稳定。
 

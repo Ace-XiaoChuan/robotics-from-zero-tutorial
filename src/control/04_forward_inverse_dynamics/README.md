@@ -249,7 +249,7 @@ qfrc_inverse 所需合计： 3.623 N·m
 
 仍需要 `3.623 N·m` 时，应给 `ctrl=1.8115`，而不是继续把 `3.623` 直接复制进去。本章脚本也核对了这个传动变化。
 
-更一般地，`qfrc_inverse` 长度对应自由度数量 `nv`，`ctrl` 长度对应执行器数量 `nu`，两者可能不同。位置执行器还把 `ctrl` 解释为目标位置，不能把 N·m 塞进位置目标数组。相关接口含义可查[仿真控制输入](../../simulation/04_control_inputs/README.md)。
+更一般地，`qfrc_inverse` 长度对应自由度数量 `nv`，`ctrl` 长度对应执行器数量 `nu`，两者可能不同。位置执行器还把 `ctrl` 解释为目标位置，不能把 N·m 塞进位置目标数组。相关接口含义可查[仿真控制输入](../../simulation/06_actuation/README.md)。
 
 如果某些自由度没有执行器，逆动力学可能算出那些方向也需要力，却没有输入可以实现；多个执行器共同驱动时也需要分配。因此，“有逆动力学结果”不等于“所有加速度都能由当前执行器实现”。
 
@@ -303,7 +303,7 @@ python3 src/control/04_forward_inverse_dynamics/check_examples.py
 ~/mujoco-env/bin/python src/control/04_forward_inverse_dynamics/check_examples.py --mujoco
 ```
 
-依赖版本沿用 [MuJoCo 固定依赖](../../simulation/mujoco/requirements.txt)。官方 stable 文档可能更新，本章 API 行为以 2026-09-26 在已有 Python 3.10.12 / MuJoCo 3.8.1 环境下的实际核对为准。
+依赖版本沿用 [MuJoCo 固定依赖](../../simulation/mujoco/requirements-3.8.1.txt)。官方 stable 文档可能更新，本章 API 行为以 2026-09-26 在已有 Python 3.10.12 / MuJoCo 3.8.1 环境下的实际核对为准。
 
 检查包括单杆和两连杆的正逆一致性、状态与负载不匹配、外力分配、无时间推进、被动阻尼、执行器限幅以及 `gear=2` 的映射。所有 MuJoCo 核对无窗口、无接触、不调用 `mj_step`；未进行轨迹积分、闭环控制或真机验证。6 项解析检查与 5 项实际 API 检查共 11 项全部通过，输入输出数值及检查结果见配套脚本。
 

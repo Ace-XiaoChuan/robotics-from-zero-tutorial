@@ -9,7 +9,7 @@
 | [工程基础](foundations/engineering/README.md) | 路径、Git、Python 数值、C++ 构建、调试与复现 | 六个单元中的小型程序 |
 | [空间数学](foundations/spatial_math/README.md) | 向量、旋转、变换、误差、最小二乘与优化 | [刚体变换](foundations/spatial_math/examples/rigid_transforms/README.md)、数值检查 |
 | [ROS 2](ros2/README.md) | 接口、参数、QoS、TF 与记录 | [通信案例](ros2/examples/communication/README.md)、[组件案例](ros2/examples/composition/README.md) |
-| [模型与仿真](simulation/README.md) | 控制流、机器人模型、MuJoCo 状态与步进 | [模型与脚本](simulation/mujoco/README.md)、[状态与控制案例](simulation/mujoco/examples/state_and_control/README.md) |
+| [模型与仿真](simulation/README.md) | MuJoCo 十二章：场景、状态、执行器、物理参数、接触、观测与排错 | [模型与脚本](simulation/mujoco/README.md)、[两关节机械臂](simulation/12_arm_walkthrough/README.md)、[状态与控制案例](simulation/mujoco/examples/state_and_control/README.md) |
 | [运动学](kinematics/README.md) | FK、DH、模型对齐、Jacobian、IK、奇异性、冗余与工作空间 | [模型对齐案例](kinematics/examples/model_alignment/README.md)、平面机械臂数值检查 |
 | [动力学与控制](control/README.md) | 力矩、单关节与多关节动力学、积分、轨迹与控制 | 各章的小型模型、检查脚本和结果 |
 | [感知与估计](perception/README.md) | 成像标定、位姿、误差传播、Kalman 与时间对齐 | [相机与 AprilTag](perception/examples/camera_and_tags/README.md)、数值检查 |
@@ -27,7 +27,7 @@ src/
 ├── README.md          # 主题导航与案例编号索引
 ├── foundations/       # engineering、spatial_math
 ├── ros2/              # 五章笔记与通信、组件案例
-├── simulation/        # 七章笔记；mujoco/ 保存模型和实现
+├── simulation/        # MuJoCo 十二章；mujoco/ 保存模型和实现
 ├── kinematics/        # 八章笔记与模型对齐案例
 ├── control/           # 动力学、积分与控制
 ├── perception/        # 六章笔记与相机、AprilTag 案例

@@ -1,0 +1,156 @@
+{
+  "python": "3.10.12",
+  "mujoco": "3.13.0",
+  "numpy": "2.2.6",
+  "checks": 8,
+  "passed": true,
+  "results": {
+    "arm_rollout": {
+      "python": "3.10.12",
+      "mujoco": "3.13.0",
+      "numpy": "2.2.6",
+      "recorded_steps": 1500,
+      "completed": true,
+      "time_s": 2.999999999999891,
+      "joint_order": [
+        "shoulder",
+        "elbow"
+      ],
+      "final_command_rad": [
+        0.5,
+        -0.8
+      ],
+      "final_q_rad": [
+        0.49999871609690527,
+        -0.7999951728088628
+      ],
+      "final_qvel_rad_s": [
+        6.744877257296337e-06,
+        -2.4308338170145497e-05
+      ],
+      "final_goal_error_rad": [
+        1.2839030947287e-06,
+        -4.827191137257714e-06
+      ],
+      "final_tip_world_m": [
+        0.6376345318400799,
+        0.10311471826099854,
+        0.3
+      ],
+      "target_tip_world_m": [
+        0.6376339714938308,
+        0.10311415344327933,
+        0.3
+      ],
+      "peak_tracking_error_rad": [
+        0.16104668063810107,
+        0.25036639100825137
+      ],
+      "max_fk_error_m": 2.220446049250313e-16
+    },
+    "arm_torque_limited": {
+      "python": "3.10.12",
+      "mujoco": "3.13.0",
+      "numpy": "2.2.6",
+      "recorded_steps": 1500,
+      "completed": true,
+      "time_s": 2.999999999999891,
+      "joint_order": [
+        "shoulder",
+        "elbow"
+      ],
+      "final_command_rad": [
+        0.5,
+        -0.8
+      ],
+      "final_q_rad": [
+        0.16795768113805562,
+        -0.3018521483018678
+      ],
+      "final_qvel_rad_s": [
+        0.07956318525186229,
+        -0.10408704750995924
+      ],
+      "final_goal_error_rad": [
+        0.33204231886194435,
+        -0.49814785169813225
+      ],
+      "final_tip_world_m": [
+        0.6916861500935851,
+        0.026819221201677117,
+        0.3
+      ],
+      "target_tip_world_m": [
+        0.6376339714938308,
+        0.10311415344327933,
+        0.3
+      ],
+      "peak_tracking_error_rad": [
+        0.46866398491633976,
+        0.7172258030185017
+      ],
+      "max_fk_error_m": 2.220446049250313e-16
+    },
+    "repeat_max_abs_difference": 0.0,
+    "supported_box": {
+      "rest_center_z_m": 0.04997326605065451,
+      "rest_contacts": 4,
+      "rest_normal_force_N": 1.9619999996461324,
+      "slide_distance_m": 0.08440842109236915,
+      "final_vx_m_s": -2.088861316729437e-07
+    },
+    "collision_disabled_box": {
+      "rest_center_z_m": -4.854809999999996,
+      "rest_contacts": 0,
+      "rest_normal_force_N": 0.0,
+      "slide_distance_m": 0.5000000000000003,
+      "final_vx_m_s": 1.0
+    },
+    "frictionless_box": {
+      "rest_center_z_m": 0.049892244581575616,
+      "rest_contacts": 4,
+      "rest_normal_force_N": 1.9620000046158423,
+      "slide_distance_m": 0.5000000000000003,
+      "final_vx_m_s": 1.0
+    },
+    "frictional_box": {
+      "rest_center_z_m": 0.04997326605065451,
+      "rest_contacts": 4,
+      "rest_normal_force_N": 1.9619999996461324,
+      "slide_distance_m": 0.08440842109236915,
+      "final_vx_m_s": -2.088861316729437e-07
+    },
+    "arm_geometry": {
+      "zero_tip_world_m": [
+        0.7,
+        0.0,
+        0.3
+      ],
+      "goal_tip_world_m": [
+        0.6376339714938308,
+        0.10311415344327936,
+        0.3
+      ]
+    },
+    "physical_parameters": {
+      "mass_kg": [
+        1,
+        2
+      ],
+      "zero_gravity_motor_qacc_rad_s2": [
+        2.3150136775710446,
+        1.1575068387855223
+      ],
+      "gravity_only_qacc_rad_s2": [
+        -13.609862779249104,
+        -13.609862779249104
+      ]
+    },
+    "actuation": {
+      "gear2_raw_ctrl": 3,
+      "clamped_actuator_force": 2,
+      "gear2_joint_torque_Nm": 4,
+      "arm_servo_clamped_torque_Nm": 8
+    }
+  }
+}

@@ -1,0 +1,15 @@
+<mujoco model="tutorial_contact_box">
+  <compiler angle="radian"/>
+  <option timestep="0.002" gravity="0 0 -9.81" integrator="implicitfast"/>
+  <default>
+    <geom friction="0.6 0.005 0.0001" condim="3"/>
+  </default>
+  <worldbody>
+    <geom name="floor" type="plane" size="2 2 0.1" rgba="0.92 0.91 0.87 1"/>
+    <body name="box" pos="0 0 0.06">
+      <freejoint name="box_free"/>
+      <geom name="box_geom" type="box" size="0.05 0.04 0.05" mass="0.2" rgba="0.2 0.55 0.65 1"/>
+      <site name="box_center" size="0.01"/>
+    </body>
+  </worldbody>
+</mujoco>

@@ -20,6 +20,7 @@ venv/
 env/
 
 # MuJoCo / CV script outputs
+MUJOCO_LOG.TXT
 debug_output.png
 *.npy
 *.npz
